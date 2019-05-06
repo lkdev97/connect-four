@@ -1,5 +1,10 @@
+import io.javalin.Javalin;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Javalin server = Javalin.create();
+        server.enableStaticFiles("/public");
+
+        server.start(80);
     }
 }
