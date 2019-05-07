@@ -1,10 +1,15 @@
+import api.ApiClientHandler;
 import io.javalin.Javalin;
 
 public class App {
+    private static ApiClientHandler apiClientHandler;
+
+
     public static void main(String[] args) {
         Javalin server = Javalin.create();
         server.enableStaticFiles("/public");
 
+        apiClientHandler = new ApiClientHandler(server);
         server.start(80);
         
         Game g1 = new Game("1111", "2222");
