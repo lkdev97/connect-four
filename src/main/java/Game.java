@@ -42,7 +42,7 @@ public class Game{
     void printField(){
         //gibt das Feld im 4Gewinnt-Style auf der Console aus
         for(int i = 0; i<8; i++){
-            System.out.println(field[0][i]+"\t"+field[1][i]+"\t"+field[2][i]+"\t"+field[3][i]+"\t"+field[4][i]+"\t"+field[5][i]+"\t"+"\t"+field[6][i]+"\t"+field[7][i]);
+            System.out.println(field[0][i]+"\t"+field[1][i]+"\t"+field[2][i]+"\t"+field[3][i]+"\t"+field[4][i]+"\t"+field[5][i]+"\t"+field[6][i]+"\t"+field[7][i]);
         }
     }
 }
