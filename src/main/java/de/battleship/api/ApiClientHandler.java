@@ -1,9 +1,11 @@
-package api;
+package de.battleship.api;
 
-import api.packets.InJoinGame;
-import api.packets.OutError;
-import api.packets.OutMessage;
-import api.packets.Packet;
+import de.battleship.App;
+import de.battleship.Game;
+import de.battleship.api.packets.InJoinGame;
+import de.battleship.api.packets.OutError;
+import de.battleship.api.packets.OutMessage;
+import de.battleship.api.packets.Packet;
 import io.javalin.Context;
 import io.javalin.Javalin;
 
@@ -29,7 +31,8 @@ public class ApiClientHandler {
      * Wird aufgerufen, wenn der Client ein neues Spiel erstellen möchte.
      */
     private void handleCreateGame(Context ctx) {
-        this.sendPacket(ctx, new OutMessage("Game created."));
+        String gameId = App.getGameManager().createNewGame();
+        this.sendPacket(ctx, new OutMessage("Game created. Your Game ID: " + gameId));
     }
 
     /**
@@ -38,7 +41,10 @@ public class ApiClientHandler {
     private void handleJoinGame(Context ctx) {
         try {
             InJoinGame in = ctx.bodyAsClass(InJoinGame.class);
-            this.sendPacket(ctx, new OutMessage("Game with ID " + in.gameId + " joined successfully."));
+            Game game = App.getGameManager().getGameById(in.gameId);
+            String message = (game != null) ? ("Game with ID " + in.gameId + " joined successfully.") : "Game not found.";
+
+            this.sendPacket(ctx, new OutMessage(message));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }

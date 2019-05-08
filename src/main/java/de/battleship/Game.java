@@ -1,3 +1,5 @@
+package de.battleship;
+
 public class Game{
 
     static String[][] field = new String[8][8];

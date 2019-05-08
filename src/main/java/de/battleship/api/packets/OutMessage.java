@@ -1,4 +1,4 @@
-package api.packets;
+package de.battleship.api.packets;
 
 public class OutMessage extends Packet {
     public String message;

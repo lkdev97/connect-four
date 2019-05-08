@@ -1,8 +1,12 @@
-import api.ApiClientHandler;
+package de.battleship;
+
+import de.battleship.api.ApiClientHandler;
 import io.javalin.Javalin;
 
 public class App {
     private static ApiClientHandler apiClientHandler;
+
+    private static GameManager gameManager;
 
 
     public static void main(String[] args) {
@@ -11,7 +15,9 @@ public class App {
 
         apiClientHandler = new ApiClientHandler(server);
         server.start(80);
-        
+
+        gameManager = new GameManager();
+
         Game g1 = new Game("1111", "2222");
         g1.put(0);
         g1.put(0);
@@ -21,6 +27,11 @@ public class App {
         g1.put(7);
         g1.put(7);
         g1.printField();
-        
+
+    }
+    
+
+    public static GameManager getGameManager() {
+        return gameManager;
     }
 }

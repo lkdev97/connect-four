@@ -1,3 +1,5 @@
+package de.battleship;
+
 public class Player {
 
     String name;

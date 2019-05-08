@@ -1,4 +1,4 @@
-package api.packets;
+package de.battleship.api.packets;
 
 public class OutError extends Packet {
     public String error;
