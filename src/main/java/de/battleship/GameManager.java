@@ -2,28 +2,54 @@ package de.battleship;
 
 import java.util.HashMap;
 
+/**
+ * Verwaltet alle aktiven Spiele.
+ */
 public class GameManager {
+    /**
+     * Speichert alle aktiven Spiele mit ihrer ID als Key.
+     */
     private HashMap<String, Game> activeGames;
 
 
+    /**
+     * Erstellt ein neues GameManager Objekt.
+     */
     public GameManager() {
         this.activeGames = new HashMap<>();
     }
 
 
+    /**
+     * Erstellt ein neues Spiel und gibt die Spiel-ID zurück.
+     */
     public String createNewGame() {
         String gameId = this.generateNewId();
-        this.activeGames.put(gameId, new Game("User1", "User2"));
+        this.activeGames.put(gameId, new Game("Player1", "Player2"));
+        System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
 
         return gameId;
     }
 
+    /**
+     * Gibt ein Spiel mit einer gegebenen ID zurück.
+     */
     public Game getGameById(String id) {
         return this.activeGames.getOrDefault(id, null);
     }
 
+    /**
+     * Löscht das angegebene Spiel aus der Liste der aktiven Spiele.
+     */
+    public void removeGame(Game game) {
+        this.activeGames.values().remove(game);
+        System.out.println("Removed a game, total amount now: " + this.activeGames.size());
+    }
 
 
+    /**
+     * Generiert eine neue Spiel-ID.
+     */
     private String generateNewId() {
         StringBuilder id = new StringBuilder();
 
