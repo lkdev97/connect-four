@@ -35,8 +35,8 @@ public class WebApiHandler {
 
         this.server.post("/create", this::handleCreateGame);
         this.server.post("/join", this::handleJoinGame);
-        this.server.post("/games", this::handlePublicGamesList);
-        this.server.sse("/games", client -> {
+        this.server.post("/gamelist", this::handlePublicGamesList);
+        this.server.sse("/gamelist", client -> {
             client.onClose(() -> this.gamesListEventClients.remove(client));
             this.gamesListEventClients.add(client);
         });

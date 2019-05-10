@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Verbindet sich mit dem Server und hält per SSE (server-sent events) die Spieleliste aktuell.
     function connectToGameListEvents() {
-        let lobbyBrowserEvents = new EventSource('/games');
+        let lobbyBrowserEvents = new EventSource('/gamelist');
         // Bei einem Fehler soll der EventSource client nach 15 Sekunden vesuchen, sich neu verbinden.
         // Da es sein kann, dass in diesen 15 Sekunden neue Spiele verpasst wurden, wird zusätzlich eine Anfrage zum Aktualisieren der Liste geschickt.
         lobbyBrowserEvents.addEventListener('error', () => {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Aktualisiert die gesamte Spieleliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
     function fetchGameList() {
-        sendToServer('/games', {})
+        sendToServer('/gamelist', {})
             .then((response) => {
                 if (response && response.games) {
                     // alle vorhandenen Einträge löschen
