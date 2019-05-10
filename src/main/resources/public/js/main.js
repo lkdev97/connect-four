@@ -41,7 +41,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sendToServer('/games', {})
             .then((response) => {
-                console.log(response);
+                if (response.games) {
+                    for (let game of response.games) {
+                        let rowElement = document.createElement('tr');
+                        let idTextElement = document.createElement('td');
+                        idTextElement.innerText = game;
+                        let playerNumTextElement = document.createElement('td');
+                        playerNumTextElement.innerText = '0';
+                        let joinTextElement = document.createElement('td');
+                        let joinLinkElement = document.createElement('span');
+                        joinLinkElement.className = 'link';
+                        joinLinkElement.innerText = '>> Beitreten';
+                        joinLinkElement.addEventListener('click', () => joinGame(game));
+                        joinTextElement.appendChild(joinLinkElement);
+
+                        rowElement.appendChild(idTextElement);
+                        rowElement.appendChild(playerNumTextElement);
+                        rowElement.appendChild(joinTextElement);
+
+                        lobbyBrowser.appendChild(rowElement);
+                    }
+                }
             });
     }
 

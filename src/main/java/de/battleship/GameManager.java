@@ -1,4 +1,4 @@
-package de.battleship;
+﻿package de.battleship;
 
 import java.util.HashMap;
 import java.util.Collection;
@@ -59,7 +59,7 @@ public class GameManager {
 
 
     public Collection<String> getPublicGames() {
-        return this.activeGames.keySet();
+        return this.publicGames.keySet();
     }
 
 
