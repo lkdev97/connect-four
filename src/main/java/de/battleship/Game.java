@@ -1,8 +1,11 @@
 package de.battleship;
 
+import java.util.ArrayList;
+
 public class Game {
 
-    String[][] field = new String[8][8];
+    int[][] field = new int[8][8];
+    ArrayList<Integer> history = new ArrayList<>();
 
     Player p1;
     Player p2;
@@ -10,32 +13,47 @@ public class Game {
     Game(String player1, String player2){
         p1 = new Player(player1);
         p2 = new Player(player2);
+        p1.id = 1;
+        p2.id = 2;
         p1.turn = true;            //Spieler 1 beginnt (möglicherweise random)
         p2.turn = false;
     }
 
-    public boolean put(int i) {
-        if(p1.turn){                    //wenn p1 dran ist, macht p1 seinen Zug. Wenn der Zug gültig war werden die Turns getauscht und true zurückgegeben
-            if(p1.makeTurn(i)){
-                p1.turn=false;
-                p2.turn=true;
-                return true;
+    public boolean makeTurn(int spalte) {
+        if (p1.turn) {
+            p1.turn = false;
+            p2.turn = true;
+            for (int i = this.field[spalte].length - 1; i >= 0; i--) {
+                if (this.field[spalte][i] == 0) {
+                    this.field[spalte][i] = this.p1.id;
+                    return this.p1.hasWon();    //put gibt nur true zurück wenn einer der Spieler gewonnen hat
+                }
             }
-            return false;               //war der Zug ungülting wird false zurückgegeben
+            this.p1.turn = true;                //falls Zug nicht gültig werden die Turns nicht getauscht (bzw wieder getauscht)
+            this.p2.turn = false;
+            return false;
         }
+
         else{
-            if(p2.makeTurn(i)){        //wenn p1 nicht am zug ist, wird das ganze mit p2 gemacht
-                p2.turn=false;
-                p1.turn=true;
-                return true;
+            this.p2.turn = false;
+            this.p1.turn = true;
+            for (int i = this.field[spalte].length - 1; i >= 0; i--) {
+                if (this.field[spalte][i] == 0) {
+                    this.field[spalte][i] = this.p2.id;
+                    return this.p2.hasWon();
+                }
             }
+            this.p2.turn = true;
+            this.p1.turn = false;
             return false;
         }
     }
 
+
     public void newGame() {
-        //this = new Fourwin();
+        new Game(this.p1.name, this.p2.name);
     }
+
 
     public void printField(){
         //gibt das Feld im 4Gewinnt-Style auf der Console aus

@@ -19,13 +19,20 @@ public class App {
         gameManager = new GameManager();
 
         Game g1 = new Game("1111", "2222");
-        g1.put(0);
-        g1.put(0);
-        g1.put(6);
-        g1.put(7);
-        g1.put(7);
-        g1.put(7);
-        g1.put(7);
+        g1.makeTurn(0);
+        g1.makeTurn(0);
+        g1.makeTurn(6);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(7);
+        g1.makeTurn(5);
+        g1.makeTurn(5);
         g1.printField();
 
     }
