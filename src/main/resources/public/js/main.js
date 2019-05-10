@@ -42,6 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+    // Trennt die Verbindung mit dem aktuellen Spiel.
+    function disconnectFromGame() {
+        if (gameConnection && gameConnection.readyState < WebSocket.CLOSING /* CONNECTING || OPEN */) {
+            console.log('Verbindung mit Spiel getrennt.');
+            gameConnection.close();
+        }
+    }
 
 
     // Verbindet sich mit dem Server und hält per SSE (server-sent events) die Spieleliste aktuell.
