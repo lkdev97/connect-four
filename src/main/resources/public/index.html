@@ -1,17 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>4 gewinnt</title>
-    <link rel="stylesheet" href="css/main.css" />
-    <script src="js/main.js"></script>
+    <meta charset="utf-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Vier Gewinnt!</title>
+    <!-- This will be the index.html later!-->
+	<style>
+        header {
+            border-bottom: 1px solid black;
+        }
+
+        .header--box {
+			background: #6ed3cf;
+			min-height: 60px;
+            text-align: center;
+		}
+
+        .board {
+            width: 432.9px;
+            height: 401px;
+            border: 1px solid black;
+            background: blue;
+        }
+        .board button {
+            border: 1px solid;
+            border-radius: 50% !important;
+            background: white;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            border: 4px solid blue;
+            background: blue;
+            display: inline-grid;
+        }
+
+        .red-ball {
+            background: red;
+        }
+
+        .yellow-ball {
+            background: yellow;
+        }
+
+        .is--hidden {
+            display: none;
+        }
+    </style>
 </head>
-
-<body>
-    <h1>Hi</h1>
+<body onload="loadBoardContent()">
+	<header>
+		<div class="container header--box">
+			<h1>Vier gewinnt!</h1>
+		</div>
+	</header>
+    <div class="container">
+        <div class="d-flex p-2 justify-content-center">
+            <button type="button" class="btn btn-success">New Game!</button>
+        </div>
+        <div class="d-flex p-2 justify-content-center">
+            <div class="board" id="board">
+                <div id="box" class="box">
+                    <button type="button" onclick="sendRow(this)" class="btn btn-light"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
+
+<script type="text/javascript">
+	var http = new XMLHttpRequest();
+
+    function sendRequestGET(path = '', query = '') {
+        http.open('GET', path + '?' + query);
+        http.send();
+    }
+
+    //this is just a dummy
+    function loadBoardContent() {
+        /*for(var i = 2; i < 65; i++) {
+            var box = document.getElementById("box");
+            var cln = box.cloneNode(true);
+            document.getElementById("board").append(cln);
+            box.normalize();
+        }*/
+        var box = document.getElementById("box");
+        var html = "";
+        for(var i = 1; i < 65; i++) {
+            box.value = i;
+            console.log(box.value);
+            html += box.parentElement.innerHTML;
+        }
+        document.getElementById("board").innerHTML = html;
+    }
+
+    function sendRow(row) {
+        console.log(row);
+        console.log(row.value);
+    }
+</script>
+
+
+
