@@ -35,14 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tritt einem Spiel unter der angegebenen ID bei.
     function joinGame(gameId) {
         if (gameId) {
+            // vom alten Spiel trennen
+            disconnectFromGame();
+
             console.log(`Verbinde mit Spiel "${gameId}"...`);
+            // TODO: mit /game via websocket verbinden
             sendToServer('/join', { gameId }).then((response) => {
                 if (response && response.message)
                     alert(response.message);
             });
         }
     }
-    // Trennt die Verbindung mit dem aktuellen Spiel.
+    // Trennt die Verbindung mit dem aktuellen Spiel (falls verbunden).
     function disconnectFromGame() {
         if (gameConnection && gameConnection.readyState < WebSocket.CLOSING /* CONNECTING || OPEN */) {
             console.log('Verbindung mit Spiel getrennt.');
