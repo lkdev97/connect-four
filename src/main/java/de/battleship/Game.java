@@ -21,37 +21,39 @@ public class Game {
         p2.turn = !p1.turn;
     }
 
-    public boolean makeTurn(int spalte) {
+    public boolean makeTurn(int column) {
         if (p1.turn) {
-            p1.turn = false;
-            p2.turn = true;
-            for (int i = this.field[spalte].length - 1; i >= 0; i--) {
-                if (this.field[spalte][i] == 0) {
-                    this.field[spalte][i] = this.p1.id;
-                    return this.p1.hasWon();    //put gibt nur true zurück wenn einer der Spieler gewonnen hat
+            for (int i = field[column].length - 1; i >= 0; i--) {
+                if (field[column][i] == 0) {
+                    field[column][i] = p1.id;
+                    p1.turn = false;
+                    p2.turn = true;
+                    return hasWon(p1.id);    //put gibt nur true zurück wenn einer der Spieler gewonnen hat
                 }
             }
-            this.p1.turn = true;                //falls Zug nicht gültig werden die Turns nicht getauscht (bzw wieder getauscht)
-            this.p2.turn = false;
             return false;
         }
         else{
-            this.p2.turn = false;
-            this.p1.turn = true;
-            for (int i = this.field[spalte].length - 1; i >= 0; i--) {
-                if (this.field[spalte][i] == 0) {
-                    this.field[spalte][i] = this.p2.id;
-                    return this.p2.hasWon();
+            for (int i = field[column].length - 1; i >= 0; i--) {
+                if (field[column][i] == 0) {
+                    field[column][i] = p2.id;
+                    p2.turn = false;
+                    p1.turn = true;
+                    return hasWon(p2.id);
                 }
             }
-            this.p2.turn = true;
-            this.p1.turn = false;
+            p2.turn = true;
+            p1.turn = false;
             return false;
         }
     }
 
+    boolean hasWon(int id){
+        return false;
+    }
+
     public void newGame() {
-        new Game(this.p1.name, this.p2.name);
+        new Game(p1.name, p2.name);
     }
 
     public void printField(){
