@@ -2,6 +2,7 @@ package de.battleship.api;
 
 import de.battleship.App;
 import de.battleship.Game;
+import de.battleship.api.packets.InCreateGame;
 import de.battleship.api.packets.InJoinGame;
 import de.battleship.api.packets.OutError;
 import de.battleship.api.packets.OutMessage;
@@ -31,8 +32,13 @@ public class ApiClientHandler {
      * Wird aufgerufen, wenn der Client ein neues Spiel erstellen möchte.
      */
     private void handleCreateGame(Context ctx) {
-        String gameId = App.getGameManager().createNewGame();
-        this.sendPacket(ctx, new OutMessage("Game created. Your Game ID: " + gameId));
+        try {
+            InCreateGame in = ctx.bodyAsClass(InCreateGame.class);
+            String gameId = App.getGameManager().createNewGame(in.isPublic);
+            this.sendPacket(ctx, new OutMessage((in.isPublic ? "Public" : "Private") + " game created. Your Game ID: " + gameId));
+        } catch (Exception ex) {
+            this.sendError(ctx, "Invalid request.");
+        }
     }
 
     /**
