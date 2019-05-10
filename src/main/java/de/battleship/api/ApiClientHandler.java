@@ -35,7 +35,7 @@ public class ApiClientHandler {
         try {
             InCreateGame in = ctx.bodyAsClass(InCreateGame.class);
             String gameId = App.getGameManager().createNewGame(in.isPublic);
-            this.sendPacket(ctx, new OutMessage("Game created. Your Game ID: " + gameId));
+            this.sendPacket(ctx, new OutMessage((in.isPublic ? "Public" : "Private") + " game created. Your Game ID: " + gameId));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
