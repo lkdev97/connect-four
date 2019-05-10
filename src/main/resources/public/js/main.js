@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
+    // Fordert an, dass ein neues Spiel erstellt werden soll.
     function createNewGame() {
         console.log('Creating new game...');
         sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(response.message);
         });
     }
+    // Tritt einem Spiel unter der angegebenen ID bei.
     function joinGame(gameId) {
         if (gameId) {
             console.log(`Joining game with id "${gameId}"...`);
@@ -36,16 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // Verbindet sich mit dem Server und hält per SSE (server-sent events) die Spieleliste aktuell.
     function connectToGameListEvents() {
         let lobbyBrowserEvents = new EventSource('/games');
-        // bei einem Fehler soll sich der EventSource client nach 3 Sekunden vesuchen, sich neu verbinden
+        // bei einem Fehler soll der EventSource client nach 3 Sekunden vesuchen, sich neu verbinden
         lobbyBrowserEvents.addEventListener('error', () => setTimeout(connectToGameListEvents, 3000));
 
         // Events, die vom Server gesendet werden (addgame & rmgame)
         lobbyBrowserEvents.addEventListener('addgame', (event) => addGameToBrowser(event.data));
         lobbyBrowserEvents.addEventListener('rmgame', (event) => removeGameFromBrowser(event.data));
     }
-
+    // Aktualisiert die gesamte Spieleliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
     function fetchGameList() {
         // alle vorhandenen Einträge löschen
         while (lobbyBrowser.firstChild)
@@ -59,15 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
     }
+    // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
     function addGameToBrowser(gameId) {
         if (!lobbyBrowser.querySelector(`#entry-${gameId}`)) {
+            // erstellt die Tabellenreihe
             let rowElement = document.createElement('tr');
             rowElement.id = gameId;
 
+            // erstellt den ID-Text
             let idTextElement = document.createElement('td');
             idTextElement.innerText = gameId;
+            // erstellt den Spielerzahl-Text
             let playerNumTextElement = document.createElement('td');
-            playerNumTextElement.innerText = '0';
+            playerNumTextElement.innerText = '0 / 2';
+            // erstellt den Link, mit dem man sich zum Spiel verbinden kann
             let joinTextElement = document.createElement('td');
             let joinLinkElement = document.createElement('span');
             joinLinkElement.className = 'link';
@@ -75,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             joinLinkElement.addEventListener('click', () => joinGame(gameId));
             joinTextElement.appendChild(joinLinkElement);
 
+            // fügt die einzelnen Elemente in die Tabellenreihe ein
             rowElement.appendChild(idTextElement);
             rowElement.appendChild(playerNumTextElement);
             rowElement.appendChild(joinTextElement);
@@ -82,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lobbyBrowser.insertBefore(rowElement, lobbyBrowser.firstChild);
         }
     }
+    // Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
     function removeGameFromBrowser(gameId) {
         let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
         if (row)
@@ -89,6 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // Sendet Daten an den Server.
+    // Gibt ein Promise zurück, das "erfüllt" wird, wenn die Anfrage erfolgreich gestellt wurde und die Antwort
+    // ein gültiges JSON-Objekt ist.
     function sendToServer(target, data = {}) {
         return fetch(target, { body: JSON.stringify(data), method: "POST" }).then(response => response.json()).catch(console.error);
     }
