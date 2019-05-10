@@ -1,6 +1,7 @@
 package de.battleship;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
 
@@ -11,12 +12,13 @@ public class Game {
     Player p2;
 
     Game(String player1, String player2){
+        Random r = new Random();
         p1 = new Player(player1);
         p2 = new Player(player2);
         p1.id = 1;
         p2.id = 2;
-        p1.turn = true;            //Spieler 1 beginnt (möglicherweise random)
-        p2.turn = false;
+        p1.turn = r.nextBoolean();            //Spieler, wecher beginnt wird zufällig ausgewählt
+        p2.turn = !p1.turn;
     }
 
     public boolean makeTurn(int spalte) {
