@@ -18,6 +18,8 @@ public class App {
 
         gameManager = new GameManager();
 
+        //Game test
+
         Game g1 = new Game("1111", "2222");
         g1.makeTurn(0);
         g1.makeTurn(0);
