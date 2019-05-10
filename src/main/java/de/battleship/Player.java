@@ -10,10 +10,6 @@ public class Player {
         this.name=name; //habe mir überlegt, dass man in der HTML-Datei, die Spieler Namen eingeben lassen könnte und es wird angezeigt welcher Spieler dran ist
     }
 
-    boolean hasWon(){
-        return false;
-    }
-
     public void undo() {
 
     }
