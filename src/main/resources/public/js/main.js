@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
     function addGameToBrowser(gameId) {
-        console.log(gameId);
         if (!lobbyBrowser.querySelector(`#entry-${gameId}`)) {
             let rowElement = document.createElement('tr');
             rowElement.id = gameId;
@@ -80,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function removeGameFromBrowser(gameId) {
-        console.log(gameId);
         let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
         if (row)
             row.remove();
