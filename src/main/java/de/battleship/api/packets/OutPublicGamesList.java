@@ -1,9 +1,12 @@
 package de.battleship.api.packets;
 
-class OutPublicGamesList extends Packet {
-    
+import java.util.Collection;
 
-    public OutPublicGamesList() {
+public class OutPublicGamesList extends Packet {
+    public Collection<String> games;
 
+
+    public OutPublicGamesList(Collection<String> publicGames) {
+        this.games = publicGames;
     }
 }

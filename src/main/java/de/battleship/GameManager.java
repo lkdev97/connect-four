@@ -1,6 +1,7 @@
 package de.battleship;
 
 import java.util.HashMap;
+import java.util.Collection;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +13,9 @@ public class GameManager {
      */
     private HashMap<String, Game> activeGames;
     /**
-     * Speichert alle öffentlichen Spiele.
+     * Speichert alle öffentlichen Spiele mit ihrer ID als Key.
      */
-    private ArrayList<Game> publicGames;
+    private HashMap<String, Game> publicGames;
 
 
     /**
@@ -22,7 +23,7 @@ public class GameManager {
      */
     public GameManager() {
         this.activeGames = new HashMap<>();
-        this.publicGames = new ArrayList<Game>();
+        this.publicGames = new HashMap<>();
     }
 
 
@@ -35,7 +36,7 @@ public class GameManager {
         System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
 
         if (isPublic)
-            this.publicGames.add(game);
+            this.publicGames.put(gameId, game);
 
         return gameId;
     }
@@ -52,7 +53,13 @@ public class GameManager {
      */
     public void removeGame(Game game) {
         this.activeGames.values().remove(game);
+        this.publicGames.values().remove(game);
         System.out.println("Removed a game, total amount now: " + this.activeGames.size());
+    }
+
+
+    public Collection<String> getPublicGames() {
+        return this.activeGames.keySet();
     }
 
 

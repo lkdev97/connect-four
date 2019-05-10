@@ -6,6 +6,7 @@ import de.battleship.api.packets.InCreateGame;
 import de.battleship.api.packets.InJoinGame;
 import de.battleship.api.packets.OutError;
 import de.battleship.api.packets.OutMessage;
+import de.battleship.api.packets.OutPublicGamesList;
 import de.battleship.api.packets.Packet;
 import io.javalin.Context;
 import io.javalin.Javalin;
@@ -25,6 +26,7 @@ public class ApiClientHandler {
 
         this.server.post("/create", this::handleCreateGame);
         this.server.post("/join", this::handleJoinGame);
+        this.server.post("/games", this::handlePublicGamesList);
     }
 
 
@@ -48,12 +50,17 @@ public class ApiClientHandler {
         try {
             InJoinGame in = ctx.bodyAsClass(InJoinGame.class);
             Game game = App.getGameManager().getGameById(in.gameId);
-            String message = (game != null) ? ("Game with ID " + in.gameId + " joined successfully.") : "Game not found.";
+            String message = (game != null) ? ("Game with ID " + in.gameId + " joined successfully.")
+                    : "Game not found.";
 
             this.sendPacket(ctx, new OutMessage(message));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
+    }
+
+    private void handlePublicGamesList(Context ctx) {
+        this.sendPacket(ctx, new OutPublicGamesList(App.getGameManager().getPublicGames()));
     }
     
     

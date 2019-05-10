@@ -3,12 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let createGameIsPublicBox = document.getElementById('create-game-public-box');
     let joinGameButton = document.getElementById('join-game-button');
     let joinGameId = document.getElementById('join-game-code');
+    let lobbyBrowser = document.getElementById('lobby-browser');
 
 
-    if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId) {
+    if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
+        lobbyBrowser = lobbyBrowser.querySelector('tbody');
         console.log('All UI elements registered.');
+
+        fetchGameList();
     }
 
 
@@ -28,6 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(response.message);
             });
         }
+    }
+
+
+    function fetchGameList() {
+        while (lobbyBrowser.firstChild)
+            lobbyBrowser.firstChild.remove();
+
+        sendToServer('/games', {})
+            .then((response) => {
+                console.log(response);
+            });
     }
 
 
