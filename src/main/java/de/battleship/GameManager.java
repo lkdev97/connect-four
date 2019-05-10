@@ -1,8 +1,7 @@
-﻿package de.battleship;
+package de.battleship;
 
 import java.util.HashMap;
 import java.util.Collection;
-import java.util.ArrayList;
 
 /**
  * Verwaltet alle aktiven Spiele.
