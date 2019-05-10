@@ -35,7 +35,6 @@ public class Game {
             this.p2.turn = false;
             return false;
         }
-
         else{
             this.p2.turn = false;
             this.p1.turn = true;
@@ -51,11 +50,9 @@ public class Game {
         }
     }
 
-
     public void newGame() {
         new Game(this.p1.name, this.p2.name);
     }
-
 
     public void printField(){
         //gibt das Feld im 4Gewinnt-Style auf der Console aus
@@ -63,6 +60,7 @@ public class Game {
             System.out.println(field[0][i]+"\t"+field[1][i]+"\t"+field[2][i]+"\t"+field[3][i]+"\t"+field[4][i]+"\t"+field[5][i]+"\t"+field[6][i]+"\t"+field[7][i]);
         }
     }
+
     @Override
     public String toString(){
         return "string";

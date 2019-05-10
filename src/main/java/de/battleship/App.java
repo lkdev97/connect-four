@@ -36,7 +36,6 @@ public class App {
         g1.printField();
 
     }
-    
 
     public static GameManager getGameManager() {
         return gameManager;
