@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createNewGame() {
         console.log('Creating new game...');
         sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
-            if (response.message)
+            if (response && response.message)
                 alert(response.message);
         });
     }
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameId) {
             console.log(`Joining game with id "${gameId}"...`);
             sendToServer('/join', { gameId }).then((response) => {
-                if (response.message)
+                if (response && response.message)
                     alert(response.message);
             });
         }
@@ -55,13 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Aktualisiert die gesamte Spieleliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
     function fetchGameList() {
-        // alle vorhandenen Einträge löschen
-        while (lobbyBrowser.firstChild)
-            lobbyBrowser.firstChild.remove();
-
         sendToServer('/games', {})
             .then((response) => {
-                if (response.games) {
+                if (response && response.games) {
+                    // alle vorhandenen Einträge löschen
+                    while (lobbyBrowser.firstChild)
+                        lobbyBrowser.firstChild.remove();
+
+                    // neue Einträge einfügen
                     for (let gameId of response.games)
                         addGameToBrowser(gameId);
                 }
