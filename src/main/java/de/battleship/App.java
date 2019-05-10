@@ -31,6 +31,9 @@ public class App {
     }
     
 
+    public static ApiClientHandler getClientHandler() {
+        return apiClientHandler;
+    }
     public static GameManager getGameManager() {
         return gameManager;
     }

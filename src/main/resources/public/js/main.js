@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let joinGameId = document.getElementById('join-game-code');
     let lobbyBrowser = document.getElementById('lobby-browser');
 
+    let lobbyBrowserEvents = new EventSource('/games');
+
 
     if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('All UI elements registered.');
 
         fetchGameList();
+        setupGameListEvents();
     }
 
 
@@ -35,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    function setupGameListEvents() {
+        lobbyBrowserEvents.addEventListener('addgame', (event) => addGameToBrowser(event.data));
+        lobbyBrowserEvents.addEventListener('rmgame', (event) => removeGameFromBrowser(event.data));
+    }
+
     function fetchGameList() {
         while (lobbyBrowser.firstChild)
             lobbyBrowser.firstChild.remove();
@@ -42,27 +50,40 @@ document.addEventListener('DOMContentLoaded', () => {
         sendToServer('/games', {})
             .then((response) => {
                 if (response.games) {
-                    for (let game of response.games) {
-                        let rowElement = document.createElement('tr');
-                        let idTextElement = document.createElement('td');
-                        idTextElement.innerText = game;
-                        let playerNumTextElement = document.createElement('td');
-                        playerNumTextElement.innerText = '0';
-                        let joinTextElement = document.createElement('td');
-                        let joinLinkElement = document.createElement('span');
-                        joinLinkElement.className = 'link';
-                        joinLinkElement.innerText = '>> Beitreten';
-                        joinLinkElement.addEventListener('click', () => joinGame(game));
-                        joinTextElement.appendChild(joinLinkElement);
-
-                        rowElement.appendChild(idTextElement);
-                        rowElement.appendChild(playerNumTextElement);
-                        rowElement.appendChild(joinTextElement);
-
-                        lobbyBrowser.appendChild(rowElement);
-                    }
+                    for (let gameId of response.games)
+                        addGameToBrowser(gameId);
                 }
             });
+    }
+    function addGameToBrowser(gameId) {
+        console.log(gameId);
+        if (!lobbyBrowser.querySelector(`#entry-${gameId}`)) {
+            let rowElement = document.createElement('tr');
+            rowElement.id = gameId;
+
+            let idTextElement = document.createElement('td');
+            idTextElement.innerText = gameId;
+            let playerNumTextElement = document.createElement('td');
+            playerNumTextElement.innerText = '0';
+            let joinTextElement = document.createElement('td');
+            let joinLinkElement = document.createElement('span');
+            joinLinkElement.className = 'link';
+            joinLinkElement.innerText = '>> Beitreten';
+            joinLinkElement.addEventListener('click', () => joinGame(gameId));
+            joinTextElement.appendChild(joinLinkElement);
+
+            rowElement.appendChild(idTextElement);
+            rowElement.appendChild(playerNumTextElement);
+            rowElement.appendChild(joinTextElement);
+
+            lobbyBrowser.insertBefore(rowElement, lobbyBrowser.firstChild);
+        }
+    }
+    function removeGameFromBrowser(gameId) {
+        console.log(gameId);
+        let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
+        if (row)
+            row.remove();
     }
 
 

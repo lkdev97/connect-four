@@ -1,6 +1,7 @@
 package de.battleship;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Collection;
 
 /**
@@ -34,8 +35,10 @@ public class GameManager {
         Game game = this.activeGames.put(gameId, new Game("Player1", "Player2"));
         System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
 
-        if (isPublic)
+        if (isPublic) {
             this.publicGames.put(gameId, game);
+            App.getClientHandler().broadcastNewPublicGame(gameId);
+        }
 
         return gameId;
     }
@@ -51,9 +54,20 @@ public class GameManager {
      * Löscht das angegebene Spiel aus der Liste der aktiven Spiele.
      */
     public void removeGame(Game game) {
-        this.activeGames.values().remove(game);
         this.publicGames.values().remove(game);
-        System.out.println("Removed a game, total amount now: " + this.activeGames.size());
+
+        String key = null;
+        for (Entry<String, Game> entry : this.activeGames.entrySet()) {
+            if (entry.getValue() == game) {
+                key = entry.getKey();
+                App.getClientHandler().broadcastRemovePublicGame(key);
+                System.out.println("Removed a game, total amount now: " + this.activeGames.size());
+                break;
+            }
+        }
+
+        if (key != null)
+            this.activeGames.remove(key);
     }
 
 
