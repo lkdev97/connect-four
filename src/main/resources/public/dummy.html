@@ -18,6 +18,8 @@
                 Erstelle ein neues Spiel.<br />
                 <br />
                 <br />
+                <input id="create-game-public-box" type="checkbox" /> &Ouml;ffentliches Spiel (unten im Spielbrowser
+                einsehbar)<br />
                 <span id="create-game-button" class="link">&gt;&gt; Erstellen</span>
             </div>
             <div class="join-game-container">
@@ -30,6 +32,23 @@
                 <br />
                 <span id="join-game-button" class="link">&gt;&gt; Spiel beitreten</span>
             </div>
+        </div>
+        <div class="browse-lobbies-wrapper">
+            <h2>&Ouml;ffentliche Spiele</h2>
+            <table class="game-browser-table">
+                <thead>
+                    <tr>
+                        <td>Spiel-ID</td>
+                        <td>Spieler</td>
+                        <td>Beitreten</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>HFS2K</td>
+                    <td>1</td>
+                    <td><span class="link" onclick="joinGame('HFS2K')">&gt;&gt; Beitreten</span></td>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

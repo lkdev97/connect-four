@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     let createGameButton = document.getElementById('create-game-button');
+    let createGameIsPublicBox = document.getElementById('create-game-public-box');
     let joinGameButton = document.getElementById('join-game-button');
     let joinGameId = document.getElementById('join-game-code');
 
 
-    if (createGameButton && joinGameButton && joinGameId) {
+    if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
         console.log('All UI elements registered.');
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createNewGame() {
         console.log('Creating new game...');
-        sendToServer('/create', {}).then((response) => {
+        sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
             if (response.message)
                 alert(response.message);
         });
