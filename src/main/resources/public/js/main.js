@@ -3,12 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let createGameIsPublicBox = document.getElementById('create-game-public-box');
     let joinGameButton = document.getElementById('join-game-button');
     let joinGameId = document.getElementById('join-game-code');
+    let lobbyBrowser = document.getElementById('lobby-browser');
 
 
-    if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId) {
+    if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
+        lobbyBrowser = lobbyBrowser.querySelector('tbody');
         console.log('All UI elements registered.');
+
+        fetchGameList();
     }
 
 
@@ -28,6 +32,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(response.message);
             });
         }
+    }
+
+
+    function fetchGameList() {
+        while (lobbyBrowser.firstChild)
+            lobbyBrowser.firstChild.remove();
+
+        sendToServer('/games', {})
+            .then((response) => {
+                if (response.games) {
+                    for (let game of response.games) {
+                        let rowElement = document.createElement('tr');
+                        let idTextElement = document.createElement('td');
+                        idTextElement.innerText = game;
+                        let playerNumTextElement = document.createElement('td');
+                        playerNumTextElement.innerText = '0';
+                        let joinTextElement = document.createElement('td');
+                        let joinLinkElement = document.createElement('span');
+                        joinLinkElement.className = 'link';
+                        joinLinkElement.innerText = '>> Beitreten';
+                        joinLinkElement.addEventListener('click', () => joinGame(game));
+                        joinTextElement.appendChild(joinLinkElement);
+
+                        rowElement.appendChild(idTextElement);
+                        rowElement.appendChild(playerNumTextElement);
+                        rowElement.appendChild(joinTextElement);
+
+                        lobbyBrowser.appendChild(rowElement);
+                    }
+                }
+            });
     }
 
 
