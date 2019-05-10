@@ -1,5 +1,7 @@
 package de.battleship.api;
 
+import java.util.ArrayList;
+
 import de.battleship.App;
 import de.battleship.Game;
 import de.battleship.api.packets.InCreateGame;
@@ -10,6 +12,7 @@ import de.battleship.api.packets.OutPublicGamesList;
 import de.battleship.api.packets.Packet;
 import io.javalin.Context;
 import io.javalin.Javalin;
+import io.javalin.serversentevent.SseClient;
 
 /**
  * Bearbeitet Anfragen per Web-API.
@@ -20,14 +23,35 @@ public class ApiClientHandler {
      */
     private Javalin server;
 
+    /**
+     * Eine Liste, die alle SseClients speichert, welche die Games-Browser Events abhören.
+     */
+    private ArrayList<SseClient> gamesListEventClients;
+
 
     public ApiClientHandler(Javalin server) {
         this.server = server;
+        this.gamesListEventClients = new ArrayList<SseClient>();
 
         this.server.post("/create", this::handleCreateGame);
         this.server.post("/join", this::handleJoinGame);
         this.server.post("/games", this::handlePublicGamesList);
+        this.server.sse("/games", client -> {
+            client.onClose(() -> this.gamesListEventClients.remove(client));
+            this.gamesListEventClients.add(client);
+        });
     }
+
+
+    public void broadcastNewPublicGame(String gameId) {
+        for (int i = this.gamesListEventClients.size() -1; i >= 0; i--)
+            this.gamesListEventClients.get(i).sendEvent("addgame", gameId);
+    }
+    public void broadcastRemovePublicGame(String gameId) {
+        for (int i = this.gamesListEventClients.size() -1; i >= 0; i--)
+            this.gamesListEventClients.get(i).sendEvent("rmgame", gameId);
+    }
+
 
 
     /**
