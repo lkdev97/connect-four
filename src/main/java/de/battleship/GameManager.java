@@ -86,7 +86,7 @@ public class GameManager {
         {
             id.setLength(0);
             for (int i = 0; i < 6; i++) {
-                if (Math.random() > 0.65) // häufiger Buchstaben als Zahlen
+                if (Math.random() > 0.4) // häufiger Buchstaben als Zahlen
                     id.append((char)(int)(Math.random() * 26 + 65)); // A-Z
                 else
                     id.append((char)(int)(Math.random() * 9 + 48)); // 0-9

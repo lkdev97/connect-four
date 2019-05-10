@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createNewGame() {
         console.log('Creating new game...');
         sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
-            if (response.message)
+            if (response && response.message)
                 alert(response.message);
         });
     }
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameId) {
             console.log(`Joining game with id "${gameId}"...`);
             sendToServer('/join', { gameId }).then((response) => {
-                if (response.message)
+                if (response && response.message)
                     alert(response.message);
             });
         }
@@ -40,8 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verbindet sich mit dem Server und hält per SSE (server-sent events) die Spieleliste aktuell.
     function connectToGameListEvents() {
         let lobbyBrowserEvents = new EventSource('/games');
-        // bei einem Fehler soll der EventSource client nach 3 Sekunden vesuchen, sich neu verbinden
-        lobbyBrowserEvents.addEventListener('error', () => setTimeout(connectToGameListEvents, 3000));
+        // Bei einem Fehler soll der EventSource client nach 15 Sekunden vesuchen, sich neu verbinden.
+        // Da es sein kann, dass in diesen 15 Sekunden neue Spiele verpasst wurden, wird zusätzlich eine Anfrage zum Aktualisieren der Liste geschickt.
+        lobbyBrowserEvents.addEventListener('error', () => {
+            // aktuellen client schließen
+            lobbyBrowserEvents.close();
+
+            setTimeout(() => {
+                fetchGameList();
+                connectToGameListEvents();
+            }, 15000);
+        });
 
         // Events, die vom Server gesendet werden (addgame & rmgame)
         lobbyBrowserEvents.addEventListener('addgame', (event) => addGameToBrowser(event.data));
@@ -49,13 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Aktualisiert die gesamte Spieleliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
     function fetchGameList() {
-        // alle vorhandenen Einträge löschen
-        while (lobbyBrowser.firstChild)
-            lobbyBrowser.firstChild.remove();
-
         sendToServer('/games', {})
             .then((response) => {
-                if (response.games) {
+                if (response && response.games) {
+                    // alle vorhandenen Einträge löschen
+                    while (lobbyBrowser.firstChild)
+                        lobbyBrowser.firstChild.remove();
+
+                    // neue Einträge einfügen
                     for (let gameId of response.games)
                         addGameToBrowser(gameId);
                 }
