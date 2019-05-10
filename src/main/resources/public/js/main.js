@@ -40,8 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verbindet sich mit dem Server und hält per SSE (server-sent events) die Spieleliste aktuell.
     function connectToGameListEvents() {
         let lobbyBrowserEvents = new EventSource('/games');
-        // bei einem Fehler soll der EventSource client nach 3 Sekunden vesuchen, sich neu verbinden
-        lobbyBrowserEvents.addEventListener('error', () => setTimeout(connectToGameListEvents, 3000));
+        // Bei einem Fehler soll der EventSource client nach 15 Sekunden vesuchen, sich neu verbinden.
+        // Da es sein kann, dass in diesen 15 Sekunden neue Spiele verpasst wurden, wird zusätzlich eine Anfrage zum Aktualisieren der Liste geschickt.
+        lobbyBrowserEvents.addEventListener('error', () => {
+            setTimeout(() => {
+                fetchGameList();
+                connectToGameListEvents();
+            }, 15000);
+        });
 
         // Events, die vom Server gesendet werden (addgame & rmgame)
         lobbyBrowserEvents.addEventListener('addgame', (event) => addGameToBrowser(event.data));
