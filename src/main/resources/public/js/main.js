@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let joinGameId = document.getElementById('join-game-code');
     let lobbyBrowser = document.getElementById('lobby-browser');
 
-    let lobbyBrowserEvents = new EventSource('/games');
-
 
     if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
@@ -15,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('All UI elements registered.');
 
         fetchGameList();
-        setupGameListEvents();
+        connectToGameListEvents();
     }
 
 
@@ -38,12 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function setupGameListEvents() {
+    function connectToGameListEvents() {
+        let lobbyBrowserEvents = new EventSource('/games');
+        // bei einem Fehler soll sich der EventSource client nach 3 Sekunden vesuchen, sich neu verbinden
+        lobbyBrowserEvents.addEventListener('error', () => setTimeout(connectToGameListEvents, 3000));
+
+        // Events, die vom Server gesendet werden (addgame & rmgame)
         lobbyBrowserEvents.addEventListener('addgame', (event) => addGameToBrowser(event.data));
         lobbyBrowserEvents.addEventListener('rmgame', (event) => removeGameFromBrowser(event.data));
     }
 
     function fetchGameList() {
+        // alle vorhandenen Einträge löschen
         while (lobbyBrowser.firstChild)
             lobbyBrowser.firstChild.remove();
 
