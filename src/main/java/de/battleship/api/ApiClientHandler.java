@@ -73,7 +73,7 @@ public class ApiClientHandler {
     private void handleJoinGame(Context ctx) {
         try {
             InJoinGame in = ctx.bodyAsClass(InJoinGame.class);
-            Game game = App.getGameManager().getGameById(in.gameId);
+            Game game = App.getGameManager().getGameById(in.gameId.replace(" ", ""));
             String message = (game != null) ? ("Game with ID " + in.gameId + " joined successfully.")
                     : "Game not found.";
 
