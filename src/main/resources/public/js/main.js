@@ -1,3 +1,4 @@
+// Startpunkt
 document.addEventListener('DOMContentLoaded', () => {
     let createGameButton = document.getElementById('create-game-button');
     let createGameIsPublicBox = document.getElementById('create-game-public-box');
