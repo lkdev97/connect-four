@@ -37,7 +37,7 @@ public class GameManager {
 
         if (isPublic) {
             this.publicGames.put(gameId, game);
-            App.getClientHandler().broadcastNewPublicGame(gameId);
+            App.getWebApiHandler().broadcastNewPublicGame(gameId);
         }
 
         return gameId;
@@ -60,7 +60,7 @@ public class GameManager {
         for (Entry<String, Game> entry : this.activeGames.entrySet()) {
             if (entry.getValue() == game) {
                 key = entry.getKey();
-                App.getClientHandler().broadcastRemovePublicGame(key);
+                App.getWebApiHandler().broadcastRemovePublicGame(key);
                 System.out.println("Removed a game, total amount now: " + this.activeGames.size());
                 break;
             }
