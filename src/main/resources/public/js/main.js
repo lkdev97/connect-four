@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bei einem Fehler soll der EventSource client nach 15 Sekunden vesuchen, sich neu verbinden.
         // Da es sein kann, dass in diesen 15 Sekunden neue Spiele verpasst wurden, wird zusätzlich eine Anfrage zum Aktualisieren der Liste geschickt.
         lobbyBrowserEvents.addEventListener('error', () => {
+            // aktuellen client schließen
+            lobbyBrowserEvents.close();
+
             setTimeout(() => {
                 fetchGameList();
                 connectToGameListEvents();
