@@ -1,26 +1,32 @@
 // Startpunkt
 document.addEventListener('DOMContentLoaded', () => {
+    // Referenzen auf alle wichtigen/funktionalen HTML UI Elemente
     let createGameButton = document.getElementById('create-game-button');
     let createGameIsPublicBox = document.getElementById('create-game-public-box');
     let joinGameButton = document.getElementById('join-game-button');
     let joinGameId = document.getElementById('join-game-code');
     let lobbyBrowser = document.getElementById('lobby-browser');
 
+    // Speichert später den WebSocket zum Verbinden mit dem Spiel (TODO)
+    let gameConnection = null;
 
+    // Falls alle UI Elemente gefunden wurden
     if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
         lobbyBrowser = lobbyBrowser.querySelector('tbody');
-        console.log('All UI elements registered.');
+        console.log('Alle UI Elemente gefunden und registriert.');
 
         fetchGameList();
         connectToGameListEvents();
     }
+    else
+        console.error('Manche UI Elemente fehlen.');
 
 
     // Fordert an, dass ein neues Spiel erstellt werden soll.
     function createNewGame() {
-        console.log('Creating new game...');
+        console.log('Erstelle ein neues Spiel...');
         sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
             if (response && response.message)
                 alert(response.message);
@@ -29,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tritt einem Spiel unter der angegebenen ID bei.
     function joinGame(gameId) {
         if (gameId) {
-            console.log(`Joining game with id "${gameId}"...`);
+            console.log(`Verbinde mit Spiel "${gameId}"...`);
             sendToServer('/join', { gameId }).then((response) => {
                 if (response && response.message)
                     alert(response.message);
