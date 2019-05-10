@@ -1,6 +1,7 @@
 package de.battleship;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Verwaltet alle aktiven Spiele.
@@ -10,6 +11,10 @@ public class GameManager {
      * Speichert alle aktiven Spiele mit ihrer ID als Key.
      */
     private HashMap<String, Game> activeGames;
+    /**
+     * Speichert alle öffentlichen Spiele.
+     */
+    private ArrayList<Game> publicGames;
 
 
     /**
@@ -17,16 +22,20 @@ public class GameManager {
      */
     public GameManager() {
         this.activeGames = new HashMap<>();
+        this.publicGames = new ArrayList<Game>();
     }
 
 
     /**
      * Erstellt ein neues Spiel und gibt die Spiel-ID zurück.
      */
-    public String createNewGame() {
+    public String createNewGame(boolean isPublic) {
         String gameId = this.generateNewId();
-        this.activeGames.put(gameId, new Game("Player1", "Player2"));
+        Game game = this.activeGames.put(gameId, new Game("Player1", "Player2"));
         System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
+
+        if (isPublic)
+            this.publicGames.add(game);
 
         return gameId;
     }
