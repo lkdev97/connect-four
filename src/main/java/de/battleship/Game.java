@@ -20,27 +20,27 @@ public class Game {
     }
 
     public boolean makeTurn(int column) {
-        if (p1.turn) {
-            for (int i = field[column].length - 1; i >= 0; i--) {
-                if (field[column][i] == 0) {
-                    field[column][i] = p1.id;
-                    p1.turn = false;
-                    p2.turn = true;
-                    return checkWin(p1.id); // true, wenn p1 gewonnen hat
+        if (!checkWin(3)) {
+            if (p1.turn) {
+                for (int i = field[column].length - 1; i >= 0; i--) {
+                    if (field[column][i] == 0) {
+                        field[column][i] = p1.id;
+                        p1.turn = false;
+                        p2.turn = true;
+                        return checkWin(p1.id); // true, wenn p1 gewonnen hat
+                    }
                 }
-            }
-        } else {
-            for (int i = field[column].length - 1; i >= 0; i--) {
-                if (field[column][i] == 0) {
-                    field[column][i] = p2.id;
-                    p2.turn = false;
-                    p1.turn = true;
-                    return checkWin(p2.id);// true, wenn p2 gewonnen hat
+            } else {
+                for (int i = field[column].length - 1; i >= 0; i--) {
+                    if (field[column][i] == 0) {
+                        field[column][i] = p2.id;
+                        p2.turn = false;
+                        p1.turn = true;
+                        return checkWin(p2.id);// true, wenn p2 gewonnen hat
+                    }
                 }
             }
         }
-        p2.turn = true;
-        p1.turn = false;
         return false;
     }
 
@@ -50,6 +50,8 @@ public class Game {
         for (int j = 0; j < field.length - 3; j++) {
             for (int i = 0; i < field.length; i++) {
                 if (field[i][j] == id && field[i][j + 1] == id && field[i][j + 2] == id && field[i][j + 3] == id) {
+                    field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = 3; // Im field wird die Reihe
+                                                                                           // mit "3" markiert
                     return true;
                 }
             }
@@ -59,6 +61,8 @@ public class Game {
         for (int i = 0; i < field.length - 3; i++) {
             for (int j = 0; j < this.field.length; j++) {
                 if (field[i][j] == id && field[i + 1][j] == id && field[i + 2][j] == id && field[i + 3][j] == id) {
+                    field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = 3;// Im field wird die Reihe mit
+                                                                                          // "3" markiert
                     return true;
                 }
             }
@@ -68,8 +72,13 @@ public class Game {
         for (int i = 3; i < field.length; i++) {
             for (int j = 0; j < field.length - 3; j++) {
                 if (field[i][j] == id && field[i - 1][j + 1] == id && field[i - 2][j + 2] == id
-                        && field[i - 3][j + 3] == id)
+                        && field[i - 3][j + 3] == id) {
+
+                    field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = 3;// Im field wird
+                                                                                                      // die Reihe mit
+                                                                                                      // "3" markiert
                     return true;
+                }
             }
         }
 
@@ -77,8 +86,13 @@ public class Game {
         for (int i = 3; i < field.length; i++) {
             for (int j = 3; j < field.length; j++) {
                 if (field[i][j] == id && field[i - 1][j - 1] == id && field[i - 2][j - 2] == id
-                        && field[i - 3][j - 3] == id)
+                        && field[i - 3][j - 3] == id) {
+
+                    field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = 3;// Im field wird
+                                                                                                      // die Reihe mit
+                                                                                                      // "3" markiert
                     return true;
+                }
             }
         }
 
@@ -94,7 +108,7 @@ public class Game {
         }
         p1.turn = r.nextBoolean();
         p2.turn = !p1.turn;
-        
+
     }
 
     public void printField() {
