@@ -7,6 +7,14 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    main {
+        java {
+            exclude 'de/battleship/GameTest.java'
+       }
+   }
+}
+
 dependencies {
     compile 'io.javalin:javalin:2.8.0'
     compile 'org.slf4j:slf4j-simple:1.7.26'

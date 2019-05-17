@@ -39,7 +39,7 @@ public class Game {
                         field[column][i] = p1.id;
                         p1.turn = false;
                         p2.turn = true;
-                        return checkWin(p1.id); // true, wenn p1 gewonnen hat
+                        return true; // true, wenn p1 gewonnen hat
                     }
                 }
             } else {
@@ -48,7 +48,7 @@ public class Game {
                         field[column][i] = p2.id;
                         p2.turn = false;
                         p1.turn = true;
-                        return checkWin(p2.id);// true, wenn p2 gewonnen hat
+                        return true;// true, wenn p2 gewonnen hat
                     }
                 }
             }
