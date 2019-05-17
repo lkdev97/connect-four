@@ -8,7 +8,6 @@ public class App {
 
     private static GameManager gameManager;
 
-
     public static void main(String[] args) {
         Javalin server = Javalin.create();
         server.enableStaticFiles("/public");
@@ -19,12 +18,12 @@ public class App {
 
         gameManager = new GameManager();
 
-        //Game test
+        // Game test
 
         server.get("/getTurn", ctx -> {
-            //Testing
-            System.out.println(ctx.queryParam("row"));
-            System.out.println(ctx.queryParam("player"));
+            // Testing
+            System.out.println("Row: " + ctx.queryParam("row"));
+            System.out.println("Player: " + ctx.queryParam("player"));
         });
 
     }
@@ -32,6 +31,7 @@ public class App {
     public static WebApiHandler getWebApiHandler() {
         return webApiHandler;
     }
+
     public static GameManager getGameManager() {
         return gameManager;
     }
