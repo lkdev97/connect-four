@@ -105,6 +105,10 @@ html, body, .main-wrapper {
     background: yellow !important;
 }
 
+.green-ball {
+    background: green !important;
+}
+
 .is--hidden {
     display: none !important;
 }
