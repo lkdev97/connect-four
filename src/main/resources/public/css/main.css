@@ -106,7 +106,7 @@ html, body, .main-wrapper {
 }
 
 .is--hidden {
-    display: none;
+    display: none !important;
 }
 #game-url, .context-box {
     text-align: center;
