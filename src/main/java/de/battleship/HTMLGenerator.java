@@ -1,6 +1,6 @@
 package de.battleship;
 
-public final class HTMLGenerator {
+public class HTMLGenerator {
     public static String generateBoard(int[][] content) {
         StringBuilder boardString = new StringBuilder();
         
