@@ -130,14 +130,7 @@ function removeGameFromBrowser(gameId) {
         row.remove();
 }
 
-// Setzt die Zelle mit der angegebenen ID auf den angegebenen Wert.
-// 0 = leer, 1 = Spieler 1, 2 = Spieler 2
-function setCell(cellId, value) {
+// Setzt den HTML Inhalt für das Spielfeld.
+function setBoardContent(htmlContent) {
 
-}
-
-// Setzt das Feld auf die angegebenen Werte.
-function setBoardContent(content) {
-    for (cell in content)
-        setCell(cell, content[cell]);
 }

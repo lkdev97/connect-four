@@ -133,7 +133,6 @@ public class Game {
 
     @Override
     public String toString() {
-        printField();
-        return "Game";
+        return HTMLGenerator.generateBoard(field);
     }
 }
