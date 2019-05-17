@@ -12,6 +12,7 @@ public class App {
     public static void main(String[] args) {
         Javalin server = Javalin.create();
         server.enableStaticFiles("/public");
+        server.enableCaseSensitiveUrls();
 
         webApiHandler = new WebApiHandler(server);
         server.start(80);
@@ -20,22 +21,11 @@ public class App {
 
         //Game test
 
-        Game g1 = new Game("1111", "2222");
-        g1.makeTurn(0);
-        g1.makeTurn(0);
-        g1.makeTurn(6);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(7);
-        g1.makeTurn(5);
-        g1.makeTurn(5);
-        g1.printField();
+        server.get("/getTurn", ctx -> {
+            //Testing
+            System.out.println(ctx.queryParam("row"));
+            System.out.println(ctx.queryParam("player"));
+        });
 
     }
 
