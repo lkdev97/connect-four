@@ -12,6 +12,6 @@ public final class HTMLGenerator {
 
 
     private static String generateCellElement(int playerId) {
-        return "<div class=\"box" + (playerId == 2 ? " red-ball" : playerId == 1 ? " yellow-ball" : "") + "\"></div>";
+        return "<div class=\"box" + (playerId == 2 ? " red-ball" : playerId == 1 ? " yellow-ball" : playerId == 3 ? " green-ball" : "") + "\"></div>";
     }
 }
