@@ -1,3 +1,11 @@
+// Referenzen auf alle wichtigen/funktionalen HTML UI Elemente
+let createGameButton;
+let createGameIsPublicBox;
+let joinGameButton;
+let joinGameId;
+let lobbyBrowser;
+
+
 var http = new XMLHttpRequest();
 var player1 = true; //fängt an
 var player2 = false;
@@ -57,6 +65,11 @@ function sendRow(row) {
     }
 }
 
+
+function initUI() {
+
+}
+
 /**
  * Sobald man einem bestehenden Spiel beitritt oder eins erstellt wird das Spielfeld angezeigt
  * 
@@ -70,4 +83,12 @@ function showBoard(el) {
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + player + "!";
     //sendRequestGET('playerName', player);
     document.getElementById("new-game").classList.remove('is--hidden');
+}
+// Lädt Referenzen auf UI Elemente neu.
+function updateUIReferences() {
+    createGameButton = document.getElementById('create-game-button');
+    createGameIsPublicBox = document.getElementById('create-game-public-box');
+    joinGameButton = document.getElementById('join-game-button');
+    joinGameId = document.getElementById('join-game-code');
+    lobbyBrowser = document.getElementById('lobby-browser');
 }

@@ -1,22 +1,6 @@
-// Referenzen auf alle wichtigen/funktionalen HTML UI Elemente
-let createGameButton;
-let createGameIsPublicBox;
-let joinGameButton;
-let joinGameId;
-let lobbyBrowser;
-
 // Speichert später den WebSocket zum Verbinden mit dem Spiel (TODO)
 let gameConnection = null;
 
-
-// Lädt Referenzen auf UI Elemente neu.
-function updateUIReferences() {
-    createGameButton = document.getElementById('create-game-button');
-    createGameIsPublicBox = document.getElementById('create-game-public-box');
-    joinGameButton = document.getElementById('join-game-button');
-    joinGameId = document.getElementById('join-game-code');
-    lobbyBrowser = document.getElementById('lobby-browser');
-}
 
 // Fordert an, dass ein neues Spiel erstellt werden soll.
 function createNewGame() {
