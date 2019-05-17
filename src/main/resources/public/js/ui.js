@@ -94,6 +94,42 @@ function updateUIReferences() {
     lobbyBrowser = document.getElementById('lobby-browser');
 }
 
+// Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
+function addGameToBrowser(gameId) {
+    if (!lobbyBrowser.querySelector(`#entry-${gameId}`)) {
+        // erstellt die Tabellenreihe
+        let rowElement = document.createElement('tr');
+        rowElement.id = gameId;
+
+        // erstellt den ID-Text
+        let idTextElement = document.createElement('td');
+        idTextElement.innerText = gameId;
+        // erstellt den Spielerzahl-Text
+        let playerNumTextElement = document.createElement('td');
+        playerNumTextElement.innerText = '0 / 2';
+        // erstellt den Link, mit dem man sich zum Spiel verbinden kann
+        let joinTextElement = document.createElement('td');
+        let joinLinkElement = document.createElement('span');
+        joinLinkElement.className = 'link';
+        joinLinkElement.innerText = '>> Beitreten';
+        joinLinkElement.addEventListener('click', () => joinGame(gameId));
+        joinTextElement.appendChild(joinLinkElement);
+
+        // fügt die einzelnen Elemente in die Tabellenreihe ein
+        rowElement.appendChild(idTextElement);
+        rowElement.appendChild(playerNumTextElement);
+        rowElement.appendChild(joinTextElement);
+
+        lobbyBrowser.insertBefore(rowElement, lobbyBrowser.firstChild);
+    }
+}
+// Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
+function removeGameFromBrowser(gameId) {
+    let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
+    if (row)
+        row.remove();
+}
+
 // Setzt die Zelle mit der angegebenen ID auf den angegebenen Wert.
 // 0 = leer, 1 = Spieler 1, 2 = Spieler 2
 function setCell(cellId, value) {
