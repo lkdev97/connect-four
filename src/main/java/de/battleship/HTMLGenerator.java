@@ -8,7 +8,7 @@ public final class HTMLGenerator {
             boardString.append("<div class=\"board-row\">\n");
             for (int x = 0; x < content[y].length; x++)
                 boardString.append(generateCellElement(content[x][y]));
-            boardString.append("\n");
+            boardString.append("</div>\n");
         }
 
         return boardString.toString();
