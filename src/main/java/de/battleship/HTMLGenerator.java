@@ -3,9 +3,13 @@ package de.battleship;
 public final class HTMLGenerator {
     public static String generateBoard(int[][] content) {
         StringBuilder boardString = new StringBuilder();
-        for (int y = 0; y < content.length; y++)
+        
+        for (int y = 0; y < content.length; y++) {
+            boardString.append("<div class=\"board-row\">\n");
             for (int x = 0; x < content[y].length; x++)
                 boardString.append(generateCellElement(content[x][y]));
+            boardString.append("\n");
+        }
 
         return boardString.toString();
     }
