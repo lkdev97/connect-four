@@ -6,9 +6,9 @@ public class Game {
 
     private int[][] field = new int[8][8];
 
-    Player p1;
-    Player p2;
-    Random r = new Random();
+    private Player p1;
+    private Player p2;
+    private Random r = new Random();
 
     Game(String player1, String player2) {
         p1 = new Player(player1);
@@ -21,6 +21,14 @@ public class Game {
 
     public int[][] getField() {
         return field;
+    }
+
+    public Player getP1(){
+        return p1;
+    }
+
+    public Player getP2(){
+        return p2;
     }
 
     public boolean makeTurn(int column) {
