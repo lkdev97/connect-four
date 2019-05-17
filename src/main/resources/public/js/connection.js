@@ -67,6 +67,9 @@ function fetchGameList() {
             }
         });
 }
+
+
+// TODO: ------- move to ui.js -------
 // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
 function addGameToBrowser(gameId) {
     if (!lobbyBrowser.querySelector(`#entry-${gameId}`)) {
@@ -102,6 +105,7 @@ function removeGameFromBrowser(gameId) {
     if (row)
         row.remove();
 }
+// -------
 
 
 // Sendet Daten an den Server.
