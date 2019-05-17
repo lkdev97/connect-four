@@ -67,7 +67,8 @@ function sendRow(row) {
 
 
 function initUI() {
-
+    loadBoardContent();
+    updateUIReferences();
 }
 
 /**
