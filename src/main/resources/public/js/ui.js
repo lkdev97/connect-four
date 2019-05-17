@@ -93,3 +93,15 @@ function updateUIReferences() {
     joinGameId = document.getElementById('join-game-code');
     lobbyBrowser = document.getElementById('lobby-browser');
 }
+
+// Setzt die Zelle mit der angegebenen ID auf den angegebenen Wert.
+// 0 = leer, 1 = Spieler 1, 2 = Spieler 2
+function setCell(cellId, value) {
+
+}
+
+// Setzt das Feld auf die angegebenen Werte.
+function setBoardContent(content) {
+    for (cell in content)
+        setCell(cell, content[cell]);
+}
