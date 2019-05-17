@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Game {
 
-    int[][] field = new int[8][8];
+    private int[][] field = new int[8][8];
 
     Player p1;
     Player p2;
@@ -17,6 +17,10 @@ public class Game {
         p2.id = 2;
         p1.turn = r.nextBoolean(); // Spieler, welcher beginnt wird zufällig ausgewählt
         p2.turn = !p1.turn;
+    }
+
+    public int[][] getField() {
+        return field;
     }
 
     public boolean makeTurn(int column) {
