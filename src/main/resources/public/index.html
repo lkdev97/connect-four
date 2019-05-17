@@ -15,6 +15,7 @@
 <body onload="initUI()">
     <header>
         <div class="container header--box">
+
             <h1>Vier gewinnt!</h1>
         </div>
     </header>
@@ -25,9 +26,11 @@
                 Erstelle ein neues Spiel.<br />
                 <br />
                 <br />
-                <input id="create-game-public-box" type="checkbox" /> &Ouml;ffentliches Spiel (unten im Spielbrowser
-                einsehbar)<br />
-                <span id="create-game-button" onclick="showBoard(this)" class="link">&gt;&gt; Erstellen</span>
+                <input id="create-game-public-box" type="checkbox" /> <label
+                    for="create-game-public-box">&Ouml;ffentliches
+                    Spiel (unten im Spielbrowser
+                    einsehbar)</label><br />
+                <span id="create-game-button" class="link">&gt;&gt; Erstellen</span>
             </div>
             <div class="join-game-container">
                 <h2>Einem Spiel beitreten</h2>
@@ -42,18 +45,15 @@
         </div>
         <div class="browse-lobbies-wrapper">
             <h2>&Ouml;ffentliche Spiele</h2>
-            <table class="game-browser-table">
+            <table id="lobby-browser" class="game-browser-table">
                 <thead>
                     <tr>
                         <td>Spiel-ID</td>
                         <td>Spieler</td>
-                        <td></td>
+                        <td>&nbsp;</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <td>HFS2K</td>
-                    <td>1</td>
-                    <td><span class="link" onclick="joinGame('HFS2K')">&gt;&gt; Beitreten</span></td>
                 </tbody>
             </table>
         </div>
