@@ -136,3 +136,9 @@ html, body, .main-wrapper {
     border-radius: 50%;
     display: inline-block;
 }
+
+.browse-lobbies-wrapper {
+    bottom: 4%; 
+    position: fixed;
+    width: 70%;
+}
