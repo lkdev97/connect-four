@@ -118,3 +118,21 @@ html, body, .main-wrapper {
 #game-url, .context-box {
     text-align: center;
 }
+
+.main-header::before {
+    content: "";
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.main-header::after {
+    content: "";
+    height: 25px;
+    width: 25px;
+    background-color: yellow;
+    border-radius: 50%;
+    display: inline-block;
+}
