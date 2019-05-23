@@ -126,11 +126,7 @@ public class Game {
 
     public void newGame() {
 
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field.length; j++) {
-                field[i][j] = 0;
-            }
-        }
+        field = new int[8][8];
         p1.turn = r.nextBoolean();
         p2.turn = !p1.turn;
         turn = p1.turn ? 1 : 2;
