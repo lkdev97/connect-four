@@ -2,6 +2,9 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
+    background: #ff512f; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #ff512f, #f09819); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #ff512f, #f09819); 
 }
 
 .wrapper {
@@ -68,7 +71,7 @@ html, body, .main-wrapper {
 }
 
 .header--box {
-    background: #6ed3cf;
+   /* background: #6ed3cf; */
     min-height: 60px;
     text-align: center;
     border-radius: 25px;
