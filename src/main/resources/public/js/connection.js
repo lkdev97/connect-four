@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
-        lobbyBrowser = lobbyBrowser.querySelector('tbody');
         console.log('Alle UI Elemente gefunden und registriert.');
 
         fetchGameList();
