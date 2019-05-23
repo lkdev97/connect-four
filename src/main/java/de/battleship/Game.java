@@ -28,10 +28,9 @@ public class Game {
         }
     }
 
+
     public int[][] getField() {
         return field;
-    }
-
     public Player getP1(){
         return p1;
     }
