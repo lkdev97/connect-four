@@ -28,18 +28,12 @@ public class App {
             Game g = gameManager.getGameById(gameId);
 
             if (g != null) {
-
                 if (player == g.getTurn()) {
-
                     g.makeTurn(row);
-                    gameManager.getGameById(gameId).setField(g.getField());
-
-                    if (g.checkWin()) {
-                        ctx.result(g.toString());
-                    }
-
                     ctx.result(g.toString());
                 }
+                else
+                    ctx.result("Current turn: " + g.getTurn());
             }
         });
 
