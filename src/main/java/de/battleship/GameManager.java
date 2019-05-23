@@ -47,7 +47,7 @@ public class GameManager {
      * Gibt ein Spiel mit einer gegebenen ID zurück.
      */
     public Game getGameById(String id) {
-        return this.activeGames.getOrDefault(id.toUpperCase(), null);
+        return (id != null) ? this.activeGames.getOrDefault(id.toUpperCase(), null) : null;
     }
 
     /**
