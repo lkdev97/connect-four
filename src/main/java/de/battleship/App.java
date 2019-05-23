@@ -17,13 +17,22 @@ public class App {
         server.start(80);
 
         gameManager = new GameManager();
+        Game testGame = new Game("A","B");
 
         // Game test
 
         server.get("/getTurn", ctx -> {
             // Testing
+            int row = Integer.parseInt(ctx.queryParam("row"));
+            if(testGame.makeTurn(row)){
+                //return toString()
+            }
             System.out.println("Row: " + ctx.queryParam("row"));
             System.out.println("Player: " + ctx.queryParam("player"));
+        });
+
+        server.get("/newgame", ctx -> {
+
         });
 
     }
