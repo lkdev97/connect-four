@@ -57,9 +57,7 @@ function fetchGameList() {
     sendToServer('/gamelist', {})
         .then((response) => {
             if (response && response.games) {
-                // alle vorhandenen Einträge löschen
-                while (lobbyBrowser.firstChild)
-                    lobbyBrowser.firstChild.remove();
+                clearGameBrowser();
 
                 // neue Einträge einfügen
                 for (let gameId of response.games)
