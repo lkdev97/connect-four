@@ -128,6 +128,14 @@ html, body, .main-wrapper {
     display: inline-block;
 }
 
+.main-header {
+    /*border: 1px solid black;
+    background: black; */
+    color: white;
+    display: inline-block;
+    border-radius: 5px;
+}
+
 .main-header::after {
     content: "";
     height: 25px;
