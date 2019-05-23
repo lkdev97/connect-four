@@ -1,3 +1,8 @@
+/*
+ * Beinhaltet alle Funktionen für die Kommunikation mit dem Server.
+ */
+
+
 // Speichert später den WebSocket zum Verbinden mit dem Spiel (TODO)
 let gameConnection = null;
 
@@ -75,21 +80,3 @@ function fetchGameList() {
 function sendToServer(target, data = {}) {
     return fetch(target, { body: JSON.stringify(data), method: "POST" }).then(response => response.json()).catch(console.error);
 }
-
-
-
-
-// Startpunkt
-document.addEventListener('DOMContentLoaded', () => {
-    // Falls alle UI Elemente gefunden wurden
-    if (updateUIReferences()) {
-        createGameButton.addEventListener('click', createNewGame);
-        joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
-        console.log('Alle UI Elemente gefunden und registriert.');
-
-        fetchGameList();
-        connectToGameListEvents();
-    }
-    else
-        console.error('Manche UI Elemente fehlen.');
-});

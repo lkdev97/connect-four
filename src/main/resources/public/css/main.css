@@ -150,5 +150,5 @@ html, body, .main-wrapper {
 
 .browse-lobbies-wrapper {
     max-height: 400px;
-    overflow: scroll;
+    overflow-y: auto;
 }
