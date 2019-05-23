@@ -91,7 +91,7 @@ function updateUIReferences() {
     createGameIsPublicBox = document.getElementById('create-game-public-box');
     joinGameButton = document.getElementById('join-game-button');
     joinGameId = document.getElementById('join-game-code');
-    lobbyBrowser = document.getElementById('lobby-browser');
+    lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
 }
 
 // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
@@ -125,6 +125,7 @@ function addGameToBrowser(gameId) {
 }
 // Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
 function removeGameFromBrowser(gameId) {
+    console.log(`Removing ${gameId}`);
     let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
     if (row)
         row.remove();
