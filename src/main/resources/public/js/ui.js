@@ -1,3 +1,8 @@
+/*
+ * Beinhaltet alle Funktionen für das UI.
+ */
+
+
 // Referenzen auf alle wichtigen/funktionalen HTML UI Elemente
 let createGameButton;
 let createGameIsPublicBox;

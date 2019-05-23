@@ -1,3 +1,8 @@
+/* 
+ * Beinhaltet den Startpunkt und sonstige wichtige Funktionen.
+ */
+
+
 // Startpunkt
 document.addEventListener('DOMContentLoaded', () => {
     // Falls alle UI Elemente gefunden wurden

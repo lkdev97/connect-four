@@ -1,3 +1,8 @@
+/*
+ * Beinhaltet alle Funktionen für die Kommunikation mit dem Server.
+ */
+
+
 // Speichert später den WebSocket zum Verbinden mit dem Spiel (TODO)
 let gameConnection = null;
 
