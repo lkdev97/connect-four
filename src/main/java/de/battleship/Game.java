@@ -37,6 +37,10 @@ public class Game {
         return p2;
     }
 
+    public void setField(int[][] field){
+        this.field=field;
+    }
+
     private void changeTurn() {
         p1.turn = !p1.turn;
         p2.turn = !p2.turn;

@@ -32,7 +32,7 @@ public class App {
                 if (player == g.getTurn()) {
 
                     g.makeTurn(row);
-                    gameManager.activeGames.put(gameId, g);
+                    gameManager.getGameById(gameId).setField(g.getField());
 
                     if (g.checkWin(player)) {
                         ctx.result(g.toString());
