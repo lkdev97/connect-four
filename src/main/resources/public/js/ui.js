@@ -130,6 +130,11 @@ function removeGameFromBrowser(gameId) {
     if (row)
         row.remove();
 }
+// Löscht alle Einträge aus der Spieleliste.
+function clearGameBrowser() {
+    while (lobbyBrowser.firstChild)
+        lobbyBrowser.firstChild.remove();
+}
 
 // Setzt den HTML Inhalt für das Spielfeld.
 function setBoardContent(htmlContent) {
