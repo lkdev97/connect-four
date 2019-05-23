@@ -11,7 +11,7 @@ public class GameManager {
     /**
      * Speichert alle aktiven Spiele mit ihrer ID als Key.
      */
-    private HashMap<String, Game> activeGames;
+    public HashMap<String, Game> activeGames;
     /**
      * Speichert alle öffentlichen Spiele mit ihrer ID als Key.
      */
