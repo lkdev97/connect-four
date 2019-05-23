@@ -57,9 +57,7 @@ function fetchGameList() {
     sendToServer('/gamelist', {})
         .then((response) => {
             if (response && response.games) {
-                // alle vorhandenen Einträge löschen
-                while (lobbyBrowser.firstChild)
-                    lobbyBrowser.firstChild.remove();
+                clearGameBrowser();
 
                 // neue Einträge einfügen
                 for (let gameId of response.games)
@@ -87,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
-        lobbyBrowser = lobbyBrowser.querySelector('tbody');
         console.log('Alle UI Elemente gefunden und registriert.');
 
         fetchGameList();

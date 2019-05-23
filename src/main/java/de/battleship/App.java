@@ -17,18 +17,25 @@ public class App {
         server.start(80);
 
         gameManager = new GameManager();
-        Game testGame = new Game("A","B");
+        Game testGame = new Game("A", "B");
 
         // Game test
 
         server.get("/getTurn", ctx -> {
             // Testing
             int row = Integer.parseInt(ctx.queryParam("row"));
-            if(testGame.makeTurn(row)){
-                //return toString()
+            int player = Integer.parseInt(ctx.queryParam("player"));
+
+            if (player == testGame.getTurn()) {
+
+                testGame.makeTurn(row);
+
+                if (testGame.checkWin(player)) {
+                    // return player has won
+                }
+
+                ctx.result(testGame.toString());
             }
-            System.out.println("Row: " + ctx.queryParam("row"));
-            System.out.println("Player: " + ctx.queryParam("player"));
         });
 
         server.get("/newgame", ctx -> {
