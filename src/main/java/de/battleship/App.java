@@ -28,13 +28,12 @@ public class App {
             Game g = gameManager.getGameById(gameId);
 
             if (g != null) {
-                if (player == g.getTurn()) {
+                if (player == g.getTurn())
                     g.makeTurn(row);
-                    ctx.result(g.toString());
-                }
-                else
-                    ctx.result("Current turn: " + g.getTurn());
-            }
+                    
+                ctx.result("Current turn: " + g.getTurn() + "\n" + g.toString());
+            } else
+                ctx.result("Game with id " + gameId + " does not exist.");
         });
 
         server.get("/newgame", ctx -> {
