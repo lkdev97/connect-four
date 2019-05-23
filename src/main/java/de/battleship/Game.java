@@ -19,6 +19,15 @@ public class Game {
         p2.turn = !p1.turn;
     }
 
+    public String getTurn(){
+        if(p1.turn){
+            return p1.name;
+        }
+        else{
+            return p2.name;
+        }
+    }
+
     public int[][] getField() {
         return field;
     }
