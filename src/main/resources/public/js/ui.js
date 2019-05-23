@@ -87,9 +87,7 @@ function showBoard() {
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
     document.getElementById('context-box').classList.add('is--hidden');
-    var player = prompt("Geben Sie ihren Namen an", "Player1");
-    document.getElementById("game-url").innerHTML = "Viel Erfolg " + player + "!";
-    //sendRequestGET('playerName', player);
+    document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
     document.getElementById("new-game").classList.remove('is--hidden');
 }
 

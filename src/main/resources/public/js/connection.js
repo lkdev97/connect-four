@@ -23,7 +23,7 @@ function joinGame(gameId) {
 
         console.log(`Verbinde mit Spiel "${gameId}"...`);
         // TODO: mit /game via websocket verbinden
-        sendToServer('/join', { gameId }).then((response) => {
+        sendToServer('/join', { gameId, playerName }).then((response) => {
             if (response && response.success)
                 showBoard();
             else

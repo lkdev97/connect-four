@@ -73,6 +73,7 @@ public class WebApiHandler {
         try {
             InJoinGame in = ctx.bodyAsClass(InJoinGame.class);
             String gameId = in.gameId.toUpperCase().replace(" ", "");
+            String playerName = in.playerName.replace(" ", "");
 
             Game game = App.getGameManager().getGameById(gameId);
             this.sendPacket(ctx, new OutJoinGame(game != null));
