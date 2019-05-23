@@ -33,6 +33,7 @@ http.onreadystatechange = function () {
 *        </div>
 */
 function loadBoardContent() {
+    console.log("c");
     var box = document.getElementById("box");
     var html = "";
     var row_counter = 1;
@@ -78,7 +79,7 @@ function initUI() {
  */
 function showBoard() {
     board.classList.add('is--hidden');
-    board.parentElement.parentElement.classList.add('is--hidden');
+    board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
     document.getElementById('context-box').classList.add('is--hidden');
     var player = prompt("Geben Sie ihren Namen an", "Player1");
