@@ -19,8 +19,10 @@ function joinGame(gameId) {
         console.log(`Verbinde mit Spiel "${gameId}"...`);
         // TODO: mit /game via websocket verbinden
         sendToServer('/join', { gameId }).then((response) => {
-            if (response && response.message)
-                alert(response.message);
+            if (response && response.success)
+                showBoard();
+            else
+                alert('Could not join game.');
         });
     }
 }
@@ -79,10 +81,8 @@ function sendToServer(target, data = {}) {
 
 // Startpunkt
 document.addEventListener('DOMContentLoaded', () => {
-    updateUIReferences();
-
     // Falls alle UI Elemente gefunden wurden
-    if (createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser) {
+    if (updateUIReferences()) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
         console.log('Alle UI Elemente gefunden und registriert.');

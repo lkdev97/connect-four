@@ -7,6 +7,7 @@ import de.battleship.Game;
 import de.battleship.api.packets.InCreateGame;
 import de.battleship.api.packets.InJoinGame;
 import de.battleship.api.packets.OutError;
+import de.battleship.api.packets.OutJoinGame;
 import de.battleship.api.packets.OutMessage;
 import de.battleship.api.packets.OutPublicGamesList;
 import de.battleship.api.packets.Packet;
@@ -28,7 +29,6 @@ public class WebApiHandler {
      */
     private ArrayList<SseClient> gamesListEventClients;
 
-
     public WebApiHandler(Javalin server) {
         this.server = server;
         this.gamesListEventClients = new ArrayList<SseClient>();
@@ -42,17 +42,15 @@ public class WebApiHandler {
         });
     }
 
-
     public void broadcastNewPublicGame(String gameId) {
-        for (int i = this.gamesListEventClients.size() -1; i >= 0; i--)
+        for (int i = this.gamesListEventClients.size() - 1; i >= 0; i--)
             this.gamesListEventClients.get(i).sendEvent("addgame", gameId);
     }
+
     public void broadcastRemovePublicGame(String gameId) {
-        for (int i = this.gamesListEventClients.size() -1; i >= 0; i--)
+        for (int i = this.gamesListEventClients.size() - 1; i >= 0; i--)
             this.gamesListEventClients.get(i).sendEvent("rmgame", gameId);
     }
-
-
 
     /**
      * Wird aufgerufen, wenn der Client ein neues Spiel erstellen möchte.
@@ -61,7 +59,8 @@ public class WebApiHandler {
         try {
             InCreateGame in = ctx.bodyAsClass(InCreateGame.class);
             String gameId = App.getGameManager().createNewGame(in.isPublic);
-            this.sendPacket(ctx, new OutMessage((in.isPublic ? "Public" : "Private") + " game created. Your Game ID: " + gameId));
+            this.sendPacket(ctx,
+                    new OutMessage((in.isPublic ? "Public" : "Private") + " game created. Your Game ID: " + gameId));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
@@ -76,10 +75,7 @@ public class WebApiHandler {
             String gameId = in.gameId.toUpperCase().replace(" ", "");
 
             Game game = App.getGameManager().getGameById(gameId);
-            String message = (game != null) ? ("Game with ID " + gameId + " joined successfully.")
-                    : "Game not found.";
-
-            this.sendPacket(ctx, new OutMessage(message));
+            this.sendPacket(ctx, new OutJoinGame(game != null));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
@@ -88,14 +84,14 @@ public class WebApiHandler {
     private void handlePublicGamesList(Context ctx) {
         this.sendPacket(ctx, new OutPublicGamesList(App.getGameManager().getPublicGames()));
     }
-    
-    
+
     /**
      * Sendet ein Packet an den Client.
      */
     private void sendPacket(Context ctx, Packet packet) {
         ctx.json(packet);
     }
+
     /**
      * Sendet ein Fehlerpacket an den Client.
      */

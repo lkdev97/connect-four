@@ -4,6 +4,7 @@ let createGameIsPublicBox;
 let joinGameButton;
 let joinGameId;
 let lobbyBrowser;
+let board;
 
 
 var http = new XMLHttpRequest();
@@ -75,9 +76,9 @@ function initUI() {
  * Sobald man einem bestehenden Spiel beitritt oder eins erstellt wird das Spielfeld angezeigt
  * 
  */
-function showBoard(el) {
-    el.classList.add('is--hidden');
-    el.parentElement.parentElement.classList.add('is--hidden');
+function showBoard() {
+    board.classList.add('is--hidden');
+    board.parentElement.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
     document.getElementById('context-box').classList.add('is--hidden');
     var player = prompt("Geben Sie ihren Namen an", "Player1");
@@ -85,6 +86,14 @@ function showBoard(el) {
     //sendRequestGET('playerName', player);
     document.getElementById("new-game").classList.remove('is--hidden');
 }
+
+// Setzt den HTML Inhalt für das Spielfeld.
+function setBoardContent(htmlContent) {
+
+}
+
+
+
 // Lädt Referenzen auf UI Elemente neu.
 function updateUIReferences() {
     createGameButton = document.getElementById('create-game-button');
@@ -92,6 +101,9 @@ function updateUIReferences() {
     joinGameButton = document.getElementById('join-game-button');
     joinGameId = document.getElementById('join-game-code');
     lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
+    board = document.getElementById('board');
+
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser && board;
 }
 
 // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
@@ -134,9 +146,4 @@ function removeGameFromBrowser(gameId) {
 function clearGameBrowser() {
     while (lobbyBrowser.firstChild)
         lobbyBrowser.firstChild.remove();
-}
-
-// Setzt den HTML Inhalt für das Spielfeld.
-function setBoardContent(htmlContent) {
-
 }
