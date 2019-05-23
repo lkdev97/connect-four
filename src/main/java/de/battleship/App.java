@@ -34,7 +34,7 @@ public class App {
                     g.makeTurn(row);
                     gameManager.getGameById(gameId).setField(g.getField());
 
-                    if (g.checkWin(player)) {
+                    if (g.checkWin()) {
                         ctx.result(g.toString());
                     }
 

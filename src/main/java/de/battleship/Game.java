@@ -6,23 +6,22 @@ public class Game {
 
     private int[][] field = new int[8][8];
 
-    private Player p1;
-    private Player p2;
+    private Player[] players;
     private Random r = new Random();
     private int turn = 0;
 
-    Game(String player1, String player2) {
-        p1 = new Player(player1);
-        p2 = new Player(player2);
-        p1.id = 1;
-        p2.id = 2;
-        p1.turn = r.nextBoolean(); // Spieler, welcher beginnt wird zufällig ausgewählt
-        p2.turn = !p1.turn;
-        turn = p1.turn ? 1 : 2;
+    Game(Player player1, Player player2) {
+        players = new Player[2];
+        players[0] = player1;
+        players[1] = player2;
+        turn = r.nextInt(players.length); // Spieler, welcher beginnt wird zufällig ausgewählt
     }
 
     public int getTurn() {
         return turn;
+    }
+    public Player getCurrentPlayer() {
+        return this.players[this.turn];
     }
 
     public int[][] getField() {
@@ -30,11 +29,11 @@ public class Game {
     }
 
     public Player getP1() {
-        return p1;
+        return this.players[0];
     }
 
     public Player getP2() {
-        return p2;
+        return this.players[1];
     }
 
     public void setField(int[][] field){
@@ -42,40 +41,31 @@ public class Game {
     }
 
     private void changeTurn() {
-        p1.turn = !p1.turn;
-        p2.turn = !p2.turn;
-        turn = p1.turn ? 1 : 2;
+        if (!checkWin()) {
+            this.turn++;
+            this.turn %= this.players.length;
+        }
     }
 
     public boolean makeTurn(int column) {
-        if (!checkWin(3)) {
-            if (p1.turn) {
-                for (int i = field[column].length - 1; i >= 0; i--) {
-                    if (field[column][i] == 0) {
-                        field[column][i] = p1.id;
-                        changeTurn();
-                        return true; // true, wenn p1 gewonnen hat
-                    }
-                }
-            } else {
-                for (int i = field[column].length - 1; i >= 0; i--) {
-                    if (field[column][i] == 0) {
-                        field[column][i] = p2.id;
-                        changeTurn();
-                        return true;// true, wenn p2 gewonnen hat
-                    }
+        if (!checkWin()) {
+            for (int i = field[column].length - 1; i >= 0; i--) {
+                if (field[column][i] == 0) {
+                    field[column][i] = turn + 1;
+                    changeTurn();
+                    return true; // true, wenn ein gültiger Zug gemacht wurde
                 }
             }
         }
         return false;
     }
 
-    boolean checkWin(int id) {
+    boolean checkWin() {
 
         // Prüft horizontal
         for (int j = 0; j < field.length - 3; j++) {
             for (int i = 0; i < field.length; i++) {
-                if (field[i][j] == id && field[i][j + 1] == id && field[i][j + 2] == id && field[i][j + 3] == id) {
+                if (field[i][j] == turn && field[i][j + 1] == turn && field[i][j + 2] == turn && field[i][j + 3] == turn) {
                     field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = 3; // Im field wird die Reihe
                                                                                            // mit "3" markiert
                     turn = 3;
@@ -87,7 +77,7 @@ public class Game {
         // Prüft vertikal
         for (int i = 0; i < field.length - 3; i++) {
             for (int j = 0; j < this.field.length; j++) {
-                if (field[i][j] == id && field[i + 1][j] == id && field[i + 2][j] == id && field[i + 3][j] == id) {
+                if (field[i][j] == turn && field[i + 1][j] == turn && field[i + 2][j] == turn && field[i + 3][j] == turn) {
                     field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = 3;// Im field wird die Reihe mit
                                                                                           // "3" markiert
                     turn = 3;
@@ -99,8 +89,8 @@ public class Game {
         // Prüft diagonal(↗)
         for (int i = 3; i < field.length; i++) {
             for (int j = 0; j < field.length - 3; j++) {
-                if (field[i][j] == id && field[i - 1][j + 1] == id && field[i - 2][j + 2] == id
-                        && field[i - 3][j + 3] == id) {
+                if (field[i][j] == turn && field[i - 1][j + 1] == turn && field[i - 2][j + 2] == turn
+                        && field[i - 3][j + 3] == turn) {
 
                     field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = 3;// Im field wird
                                                                                                       // die Reihe mit
@@ -114,8 +104,8 @@ public class Game {
         // Prüft diagonal(↘)
         for (int i = 3; i < field.length; i++) {
             for (int j = 3; j < field.length; j++) {
-                if (field[i][j] == id && field[i - 1][j - 1] == id && field[i - 2][j - 2] == id
-                        && field[i - 3][j - 3] == id) {
+                if (field[i][j] == turn && field[i - 1][j - 1] == turn && field[i - 2][j - 2] == turn
+                        && field[i - 3][j - 3] == turn) {
 
                     field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = 3;// Im field wird
                                                                                                       // die Reihe mit
@@ -129,12 +119,8 @@ public class Game {
     }
 
     public void newGame() {
-
         field = new int[8][8];
-        p1.turn = r.nextBoolean();
-        p2.turn = !p1.turn;
-        turn = p1.turn ? 1 : 2;
-
+        turn = r.nextInt(players.length); // Spieler, welcher beginnt wird zufällig ausgewählt
     }
 
     public void printField() {
