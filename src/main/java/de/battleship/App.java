@@ -34,7 +34,7 @@ public class App {
                     g.makeTurn(row);
 
                     if (g.checkWin(player)) {
-                        // return player has won
+                        ctx.result(g.toString());
                     }
 
                     ctx.result(g.toString());
