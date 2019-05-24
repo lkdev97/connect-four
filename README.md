@@ -10,7 +10,7 @@ Projektbeteiligte:
 
 * Aaron Bartsch
 * Leonie Kramer
-* Klara Langenberg
+* Felix Schopen
 * Marlon Drolsbach
 
 <Inhaltsverzeichnis>
