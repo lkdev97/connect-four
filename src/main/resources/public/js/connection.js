@@ -3,7 +3,7 @@
  */
 
 
-// Speichert später den WebSocket zum Verbinden mit dem Spiel (TODO)
+// Speichert den WebSocket zum Verbinden mit dem Spiel.
 let gameConnection = null;
 
 
@@ -26,13 +26,25 @@ function joinGame(gameId) {
         disconnectFromGame();
 
         console.log(`Verbinde mit Spiel "${gameId}"...`);
+        gameConnection = new WebSocket(`ws://${window.location.hostname}/${gameId}`);
+        gameConnection.addEventListener('open', () => showBoard(gameId));
+        gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
+        gameConnection.addEventListener('close', () => disconnectFromGame());
+        gameConnection.addEventListener('message', ev => {
+            let message = JSON.parse(ev.data);
+            console.log(message);
+
+            if (message && message.gameField)
+                setBoardContent(message.gameField);
+        });
+
         // TODO: mit /game via websocket verbinden
-        sendToServer('/join', { gameId, playerName }).then((response) => {
+        /*sendToServer('/join', { gameId, playerName }).then((response) => {
             if (response && response.success)
                 showBoard(gameId);
             else
                 alert('Konnte dem Spiel nicht beitreten.');
-        });
+        });*/
     }
 }
 // Trennt die Verbindung mit dem aktuellen Spiel (falls verbunden).
