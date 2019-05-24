@@ -120,7 +120,6 @@ function hideBoard() {
     document.getElementById("new-game").classList.add('is--hidden');
     document.getElementById("leave-lobby").classList.add('is--hidden');
     document.getElementById("url-box").classList.add('is--hidden');
-    console.log("test");
 }
 
 // Setzt den HTML Inhalt für das Spielfeld.
