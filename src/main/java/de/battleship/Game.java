@@ -20,6 +20,7 @@ public class Game {
     public int getTurn() {
         return turn + 1;
     }
+
     public Player getCurrentPlayer() {
         return this.players[this.turn];
     }
@@ -36,8 +37,8 @@ public class Game {
         return this.players[1];
     }
 
-    public void setField(int[][] field){
-        this.field=field;
+    public void setField(int[][] field) {
+        this.field = field;
     }
 
     private void changeTurn() {
@@ -66,10 +67,11 @@ public class Game {
         // Prüft horizontal
         for (int j = 0; j < field.length - 3; j++) {
             for (int i = 0; i < field.length; i++) {
-                if (field[i][j] == currentPlayer && field[i][j + 1] == currentPlayer && field[i][j + 2] == currentPlayer && field[i][j + 3] == currentPlayer) {
+                if (field[i][j] == currentPlayer && field[i][j + 1] == currentPlayer && field[i][j + 2] == currentPlayer
+                        && field[i][j + 3] == currentPlayer) {
                     field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = 3; // Im field wird die Reihe
                                                                                            // mit "3" markiert
-                    turn = 3;
+
                     return true;
                 }
             }
@@ -78,10 +80,11 @@ public class Game {
         // Prüft vertikal
         for (int i = 0; i < field.length - 3; i++) {
             for (int j = 0; j < this.field.length; j++) {
-                if (field[i][j] == currentPlayer && field[i + 1][j] == currentPlayer && field[i + 2][j] == currentPlayer && field[i + 3][j] == currentPlayer) {
+                if (field[i][j] == currentPlayer && field[i + 1][j] == currentPlayer && field[i + 2][j] == currentPlayer
+                        && field[i + 3][j] == currentPlayer) {
                     field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = 3;// Im field wird die Reihe mit
                                                                                           // "3" markiert
-                    turn = 3;
+
                     return true;
                 }
             }
@@ -90,13 +93,13 @@ public class Game {
         // Prüft diagonal(↗)
         for (int i = 3; i < field.length; i++) {
             for (int j = 0; j < field.length - 3; j++) {
-                if (field[i][j] == currentPlayer && field[i - 1][j + 1] == currentPlayer && field[i - 2][j + 2] == currentPlayer
-                        && field[i - 3][j + 3] == currentPlayer) {
+                if (field[i][j] == currentPlayer && field[i - 1][j + 1] == currentPlayer
+                        && field[i - 2][j + 2] == currentPlayer && field[i - 3][j + 3] == currentPlayer) {
 
                     field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = 3;// Im field wird
                                                                                                       // die Reihe mit
                                                                                                       // "3" markiert
-                    turn = 3;
+
                     return true;
                 }
             }
@@ -105,8 +108,8 @@ public class Game {
         // Prüft diagonal(↘)
         for (int i = 3; i < field.length; i++) {
             for (int j = 3; j < field.length; j++) {
-                if (field[i][j] == currentPlayer && field[i - 1][j - 1] == currentPlayer && field[i - 2][j - 2] == currentPlayer
-                        && field[i - 3][j - 3] == currentPlayer) {
+                if (field[i][j] == currentPlayer && field[i - 1][j - 1] == currentPlayer
+                        && field[i - 2][j - 2] == currentPlayer && field[i - 3][j - 3] == currentPlayer) {
 
                     field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = 3;// Im field wird
                                                                                                       // die Reihe mit

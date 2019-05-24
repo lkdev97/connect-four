@@ -102,6 +102,9 @@ function showBoard() {
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
 }
 
+/**
+ * Sobald man auf den Button "Leave Lobby" klickt, wird das Spielfeld ausgeblendet und man landet wieder auf der Startseite
+ */
 function hideBoard() {
     board.classList.remove('is--hidden');
     board.parentElement.classList.remove('is--hidden');
