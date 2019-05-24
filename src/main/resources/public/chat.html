@@ -9,7 +9,61 @@
     <style>
         .chat-container {
             max-width: 30%;
+            border: 1px solid #000000;
 
+            display: flex;
+            flex-flow: column nowrap;
+
+            padding: 5px;
+
+            font-family: sans-serif;
+        }
+
+        .chat-container>.messages-box {
+            width: 100%;
+
+            padding-bottom: 5px;
+            border-bottom: 1px solid #AAAAAA;
+        }
+
+        .chat-container>.control-box {
+            width: 100%;
+            flex: 1;
+
+            display: flex;
+            flex-flow: row nowrap;
+
+            padding-top: 5px;
+        }
+
+        .chat-container * .message {
+            display: block;
+            padding-top: 2px;
+            padding-bottom: 2px;
+
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        .chat-container * .message:last-child {
+            border-bottom: none;
+        }
+
+        .chat-container * .message>.user {
+            font-weight: bold;
+        }
+
+        .chat-container * .message>.content {
+            margin-left: 5px;
+        }
+
+        .chat-container * .input {
+            width: 100%;
+
+            margin-right: 5px;
+        }
+
+        .chat-container * .send {
+            flex: 1;
         }
     </style>
 </head>
@@ -18,10 +72,16 @@
     <div class="chat-container">
         <div class="messages-box">
             <div class="message">
-                <span class="user">Player123</span><span class="content">Hallo Welt</span>
-                <span class="user">Player321</span><span class="content">Incididunt nostrud veniam culpa excepteur ut id
+                <span class="user">Player123</span>&colon;<span class="content">Hallo Welt</span>
+            </div>
+            <div class="message">
+                <span class="user">Player321</span>&colon;<span class="content">Incididunt nostrud veniam culpa
+                    excepteur ut id
                     anim ex aute Lorem eiusmod cupidatat anim duis.</span>
-                <span class="user">Player123</span><span class="content">Cillum minim sunt occaecat sunt ullamco do
+            </div>
+            <div class="message">
+                <span class="user">Player123</span>&colon;<span class="content">Cillum minim sunt occaecat sunt ullamco
+                    do
                     consectetur veniam consequat Lorem proident in dolor. Adipisicing fugiat aliqua reprehenderit labore
                     proident incididunt.</span>
             </div>
