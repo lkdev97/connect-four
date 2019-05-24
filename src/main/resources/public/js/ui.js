@@ -40,7 +40,6 @@ http.onreadystatechange = function () {
 *        </div>
 */
 function loadBoardContent() {
-    console.log("c");
     var box = document.getElementById("box");
     var html = "";
     var row_counter = 1;
@@ -98,10 +97,11 @@ function showBoard(gameId) {
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
     document.getElementById("new-game").classList.remove('is--hidden');
     document.getElementById("leave-lobby").classList.remove('is--hidden');
+    document.getElementById("url-box").classList.remove('is--hidden');
 
     console.log(gameId);
 
-    document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
+    document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "! <br> Spiel-ID: " + gameId;
 }
 
 /**
@@ -116,6 +116,7 @@ function hideBoard() {
     document.getElementById("new-game").classList.add('is--hidden');
     document.getElementById("leave-lobby").classList.add('is--hidden');
     document.getElementById("url-box").classList.add('is--hidden');
+    console.log("test");
 }
 
 // Setzt den HTML Inhalt für das Spielfeld.
