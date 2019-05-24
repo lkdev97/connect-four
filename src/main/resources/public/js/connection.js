@@ -37,14 +37,6 @@ function joinGame(gameId) {
             if (message && message.gameField)
                 setBoardContent(message.gameField);
         });
-
-        // TODO: mit /game via websocket verbinden
-        /*sendToServer('/join', { gameId, playerName }).then((response) => {
-            if (response && response.success)
-                showBoard(gameId);
-            else
-                alert('Konnte dem Spiel nicht beitreten.');
-        });*/
     }
 }
 // Trennt die Verbindung mit dem aktuellen Spiel (falls verbunden).

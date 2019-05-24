@@ -3,12 +3,9 @@ package de.battleship.server;
 import java.util.ArrayList;
 
 import de.battleship.App;
-import de.battleship.Game;
 import de.battleship.server.packets.web.InCreateGame;
-import de.battleship.server.packets.web.InJoinGame;
 import de.battleship.server.packets.web.OutCreateGame;
 import de.battleship.server.packets.web.OutError;
-import de.battleship.server.packets.web.OutJoinGame;
 import de.battleship.server.packets.web.OutPublicGamesList;
 import de.battleship.server.packets.web.WebPacket;
 import io.javalin.Context;
@@ -34,7 +31,6 @@ public class WebHandler {
         this.gamesListEventClients = new ArrayList<SseClient>();
 
         this.server.post("/create", this::handleCreateGame);
-        this.server.post("/join", this::handleJoinGame);
         this.server.post("/gamelist", this::handlePublicGamesList);
         this.server.sse("/gamelist", client -> {
             client.onClose(() -> this.gamesListEventClients.remove(client));
@@ -59,22 +55,6 @@ public class WebHandler {
         try {
             InCreateGame in = ctx.bodyAsClass(InCreateGame.class);
             this.sendPacket(ctx, new OutCreateGame(App.getGameManager().createNewGame(in.isPublic)));
-        } catch (Exception ex) {
-            this.sendError(ctx, "Invalid request.");
-        }
-    }
-
-    /**
-     * Wird aufgerufen, wenn der Client einem Spiel per GameID beitreten möchte.
-     */
-    private void handleJoinGame(Context ctx) {
-        try {
-            InJoinGame in = ctx.bodyAsClass(InJoinGame.class);
-            String gameId = in.gameId.toUpperCase().replace(" ", "");
-            //String playerName = in.playerName.replace(" ", "");
-
-            Game game = App.getGameManager().getGameById(gameId);
-            this.sendPacket(ctx, new OutJoinGame(game != null));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
