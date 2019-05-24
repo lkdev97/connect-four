@@ -1,8 +1,19 @@
-## Team Battleship
-Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein 8x8 Feld für zwei Personen. Die Personen legen im
-Wechsel rot & gelbe Steine und der erste der vier Steine in Reihe bringt (senkrecht, waagerecht oder diagonal) hat gewonnen.
+# Projekt: Battleship (Fr/2, Kr)
 
-Hier der Inhalt zusammen gefasst:
+> Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein 8x8 Feld für zwei Personen. Die Personen legen im Wechsel rote & gelbe Steine und der erste der vier Steine in Reihe bringt (senkrecht, waagerecht oder diagonal) hat gewonnen.
+
+![Screenshot](Screenshot.png)
+
+Keywords: Websockets, Bootstrap, responsive Design, Server-Sent Events (SSE), MongoDB
+
+Projektbeteiligte:
+
+* Aaron Bartsch
+* Leonie Kramer
+* Klara Langenberg
+* Marlon Drolsbach
+
+<Inhaltsverzeichnis>
 
 - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
 - [Die Idee](#die-idee)
