@@ -8,8 +8,8 @@ Keywords: Websockets, Bootstrap, responsive Design, Server-Sent Events (SSE), Mo
 
 Projektbeteiligte:
 
-* Aaron Bartsch
-* Leonie Kramer
+* Lars Köhler
+* Alexander Pantelkin
 * Felix Schopen
 * Marlon Drolsbach
 
