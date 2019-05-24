@@ -23,10 +23,10 @@ public class App {
                 Game game = gameManager.getGameById(session.pathParam("game-id"));
                 if (game != null)
                     session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
-                else
+                else {
                     session.send("{\"error\":\"Game not found.\"}");
-
-                session.close(1, "Test disconnect by server.");
+                    session.close(1, "Test disconnect by server.");
+                }
             });
 
             ws.onClose((session, statusCode, reason) -> {
