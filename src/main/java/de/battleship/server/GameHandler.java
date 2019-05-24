@@ -16,29 +16,40 @@ public class GameHandler {
         this.server = server;
 
         this.server.ws("/:game-id", ws -> {
-            ws.onConnect(session -> {
-                Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
-
-                if (game == null) {
-                    this.sendErrorMessage(session, "Game not found.");
-                    session.close(1, "Disconnect by server.");
-                }
-            });
+            ws.onConnect(this::handleNewClient);
             ws.onMessage(this::handleClientMessage);
-            ws.onClose((session, statusCode, reason) -> {
-                // TODO: Remove player from lobby
-                System.out.println(
-                        "WebSocket closed for id " + session.pathParam("game-id") + ": (" + statusCode + ") " + reason);
-            });
+            ws.onClose(this::handleClientDisconnect);
         });
     }
 
 
+    /**
+     * Wird aufgerufen, wenn sich ein neuer Client mit dem Server verbindet.
+     */
+    private void handleNewClient(WsSession session) {
+        Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
+
+        if (game == null) {
+            this.sendErrorMessage(session, "Game not found.");
+            session.close(1, "Disconnect by server.");
+        }
+    }
+    /**
+     * Wird aufgerufen, wenn ein Client eine Nachricht an den Server sendet.
+     */
     private void handleClientMessage(WsSession session, String message) {
         Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
         System.out.println(session.pathParam("game-id") + " >> " + message);
 
         this.sendPacket(session, new OutGameField(game.toString()));
+    }
+    /**
+     * Wird aufgerufen, wenn ein Client die Verbindung trennt.
+     */
+    private void handleClientDisconnect(WsSession session, int statusCode, String reason) {
+        // TODO: Remove player from lobby
+        System.out.println(
+                "WebSocket closed for id " + session.pathParam("game-id") + ": (" + statusCode + ") " + reason);
     }
     
 
