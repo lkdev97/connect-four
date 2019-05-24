@@ -8,10 +8,10 @@ Keywords: Websockets, Bootstrap, responsive Design, Server-Sent Events (SSE), Mo
 
 Projektbeteiligte:
 
+* Marlon Drolsbach
 * Lars Köhler
 * Alexander Pantelkin
 * Felix Schopen
-* Marlon Drolsbach
 
 <Inhaltsverzeichnis>
 
