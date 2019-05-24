@@ -18,6 +18,10 @@ public class App {
 
         gameManager = new GameManager();
 
+        server.ws("/:game-id", ws -> {
+            
+        });
+
         // Game test
 
         server.get("/getTurn", ctx -> {
