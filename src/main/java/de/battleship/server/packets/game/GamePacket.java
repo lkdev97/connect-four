@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.javalin.json.JavalinJson;
-
 public abstract class GamePacket {
     public static HashMap<Integer, Class<? extends GamePacket>> registeredInPackets;
 
