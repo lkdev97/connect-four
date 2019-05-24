@@ -2,7 +2,13 @@
 /open HTMLGenerator.java
 /open Game.java
 
-Game g = new Game("Hans", "Peter");
+Player p1 = new Player("Hans");
+Player p2 = new Player("Peter");
+
+Game g = new Game(p1, p2);
+
+assert p1.getName().equals("Hans") : "P1 should be Hans";
+assert p2.getName().equals("Peter") : "P2 should be Peter";
 
 assert g.makeTurn(0) == true;
 assert checkWin(g.getP1().id) == false;

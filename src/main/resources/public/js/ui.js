@@ -87,7 +87,8 @@ function showBoard() {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
-    document.getElementById('context-box').classList.add('is--hidden');
+    document.getElementById('join-game-wrapper').classList.add('is--hidden');
+    document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
     document.getElementById("new-game").classList.remove('is--hidden');
 }
