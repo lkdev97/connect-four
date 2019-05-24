@@ -19,7 +19,19 @@ public class App {
         gameManager = new GameManager();
 
         server.ws("/:game-id", ws -> {
-            
+            ws.onConnect(session -> {
+                Game game = gameManager.getGameById(session.pathParam("game-id"));
+                if (game != null)
+                    session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
+                else
+                    session.send("{\"error\":\"Game not found.\"}");
+
+                session.close(1, "Test disconnecct by server.");
+            });
+
+            ws.onClose((session, statusCode, reason) -> {
+                System.out.println("WebSocket closed for id " + session.pathParam("game-id") + ": (" + statusCode + ") " + reason);
+            });
         });
 
         // Game test
