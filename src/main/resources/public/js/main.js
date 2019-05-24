@@ -9,7 +9,7 @@ let playerName;
 // Startpunkt
 document.addEventListener('DOMContentLoaded', () => {
     // Falls alle UI Elemente gefunden wurden
-    if (updateUIReferences()) {
+    if (initUI()) {
         createGameButton.addEventListener('click', createNewGame);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
         console.log('Alle UI Elemente gefunden und registriert.');
