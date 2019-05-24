@@ -1,6 +1,6 @@
-package de.battleship.api.packets;
+package de.battleship.server.packets.web;
 
-public class OutMessage extends Packet {
+public class OutMessage extends WebPacket {
     public String message;
 
     public OutMessage(String message) {

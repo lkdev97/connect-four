@@ -1,16 +1,16 @@
-package de.battleship.api;
+package de.battleship.server;
 
 import java.util.ArrayList;
 
 import de.battleship.App;
 import de.battleship.Game;
-import de.battleship.api.packets.InCreateGame;
-import de.battleship.api.packets.InJoinGame;
-import de.battleship.api.packets.OutError;
-import de.battleship.api.packets.OutJoinGame;
-import de.battleship.api.packets.OutMessage;
-import de.battleship.api.packets.OutPublicGamesList;
-import de.battleship.api.packets.Packet;
+import de.battleship.server.packets.web.InCreateGame;
+import de.battleship.server.packets.web.InJoinGame;
+import de.battleship.server.packets.web.OutError;
+import de.battleship.server.packets.web.OutJoinGame;
+import de.battleship.server.packets.web.OutMessage;
+import de.battleship.server.packets.web.OutPublicGamesList;
+import de.battleship.server.packets.web.WebPacket;
 import io.javalin.Context;
 import io.javalin.Javalin;
 import io.javalin.serversentevent.SseClient;
@@ -89,7 +89,7 @@ public class WebApiHandler {
     /**
      * Sendet ein Packet an den Client.
      */
-    private void sendPacket(Context ctx, Packet packet) {
+    private void sendPacket(Context ctx, WebPacket packet) {
         ctx.json(packet);
     }
 

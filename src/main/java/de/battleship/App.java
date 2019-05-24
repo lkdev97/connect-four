@@ -1,6 +1,6 @@
 package de.battleship;
 
-import de.battleship.api.WebApiHandler;
+import de.battleship.server.WebApiHandler;
 import io.javalin.Javalin;
 
 public class App {
