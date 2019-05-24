@@ -6,9 +6,9 @@ import de.battleship.App;
 import de.battleship.Game;
 import de.battleship.server.packets.web.InCreateGame;
 import de.battleship.server.packets.web.InJoinGame;
+import de.battleship.server.packets.web.OutCreateGame;
 import de.battleship.server.packets.web.OutError;
 import de.battleship.server.packets.web.OutJoinGame;
-import de.battleship.server.packets.web.OutMessage;
 import de.battleship.server.packets.web.OutPublicGamesList;
 import de.battleship.server.packets.web.WebPacket;
 import io.javalin.Context;
@@ -58,9 +58,7 @@ public class WebHandler {
     private void handleCreateGame(Context ctx) {
         try {
             InCreateGame in = ctx.bodyAsClass(InCreateGame.class);
-            String gameId = App.getGameManager().createNewGame(in.isPublic);
-            this.sendPacket(ctx,
-                    new OutMessage((in.isPublic ? "Public" : "Private") + " game created. Your Game ID: " + gameId));
+            this.sendPacket(ctx, new OutCreateGame(App.getGameManager().createNewGame(in.isPublic)));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
@@ -73,7 +71,7 @@ public class WebHandler {
         try {
             InJoinGame in = ctx.bodyAsClass(InJoinGame.class);
             String gameId = in.gameId.toUpperCase().replace(" ", "");
-            String playerName = in.playerName.replace(" ", "");
+            //String playerName = in.playerName.replace(" ", "");
 
             Game game = App.getGameManager().getGameById(gameId);
             this.sendPacket(ctx, new OutJoinGame(game != null));

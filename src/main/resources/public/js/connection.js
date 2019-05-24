@@ -11,8 +11,12 @@ let gameConnection = null;
 function createNewGame() {
     console.log('Erstelle ein neues Spiel...');
     sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
-        if (response && response.message)
-            alert(response.message);
+        if (response) {
+            if (response.gameId)
+                joinGame(response.gameId);
+            else
+                alert('Spiel konnte nicht erstellt werden.');
+        }
     });
 }
 // Tritt einem Spiel unter der angegebenen ID bei.
@@ -27,7 +31,7 @@ function joinGame(gameId) {
             if (response && response.success)
                 showBoard();
             else
-                alert('Could not join game.');
+                alert('Konnte dem Spiel nicht beitreten.');
         });
     }
 }
