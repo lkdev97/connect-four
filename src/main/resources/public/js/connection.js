@@ -32,10 +32,15 @@ function joinGame(gameId) {
         gameConnection.addEventListener('close', () => disconnectFromGame());
         gameConnection.addEventListener('message', ev => {
             let message = JSON.parse(ev.data);
-            console.log(message);
 
-            if (message && message.gameField)
-                setBoardContent(message.gameField);
+            if (message) {
+                if (message.gameField)
+                    setBoardContent(message.gameField);
+                else if (message.error)
+                    alert(`Fehler: ${message.error}`);
+                else
+                    console.log(message);
+            }
         });
     }
 }
