@@ -30,7 +30,7 @@ public class App {
             if (g != null) {
                 if (player == g.getTurn())
                     g.makeTurn(row);
-                    
+
                 ctx.result("Current turn: " + g.getTurn() + "\n" + g.toString());
             } else
                 ctx.result("Game with id " + gameId + " does not exist.");
@@ -43,6 +43,8 @@ public class App {
             if (g != null) {
                 g.newGame();
                 ctx.result(g.toString());
+            } else {
+                ctx.result("New game id: " + gameManager.createNewGame(false));
             }
         });
 
