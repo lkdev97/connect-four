@@ -37,7 +37,7 @@ function joinGame(gameId) {
 }
 // Trennt die Verbindung mit dem aktuellen Spiel (falls verbunden).
 function disconnectFromGame() {
-    if (gameConnection && gameConnection.readyState < WebSocket.CLOSING /* CONNECTING || OPEN */) {
+    if (isConnectedToGame()) {
         console.log('Verbindung mit Spiel getrennt.');
         gameConnection.close();
     }
@@ -75,6 +75,11 @@ function fetchGameList() {
                     addGameToBrowser(gameId);
             }
         });
+}
+
+// Gibt einen boolean zurück, der aussagt, ob es eine Verbindung zum Spiel gibt.
+function isConnectedToGame() {
+    return gameConnection && gameConnection.readyState < WebSocket.CLOSING /* CONNECTING || OPEN */;
 }
 
 
