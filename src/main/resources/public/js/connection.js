@@ -40,8 +40,8 @@ function disconnectFromGame() {
     if (isConnectedToGame()) {
         console.log('Verbindung mit Spiel getrennt.');
         gameConnection.close();
-        hideBoard();
     }
+    hideBoard();
 }
 
 
