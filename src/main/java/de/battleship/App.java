@@ -27,7 +27,7 @@ public class App {
 
                 if (game == null) {
                     session.send(new OutError("Game not found.").toString());
-                    session.close(1, "Test disconnect by server.");
+                    session.close(1, "Disconnect by server.");
                 }
             });
 
