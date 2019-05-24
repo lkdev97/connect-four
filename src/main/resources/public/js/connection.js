@@ -95,9 +95,23 @@ function isConnectedToGame() {
 }
 
 
+// Sendet einen Spielzug an den Server.
+// Der Spielzug besteht aus der Spaltennummer, in die der Spieler seinen Stein legt.
+function sendMove(column) {
+    sendToGame({ column });
+}
+
+
 // Sendet Daten an den Server.
 // Gibt ein Promise zurück, das "erfüllt" wird, wenn die Anfrage erfolgreich gestellt wurde und die Antwort
 // ein gültiges JSON-Objekt ist.
 function sendToServer(target, data = {}) {
     return fetch(target, { body: JSON.stringify(data), method: "POST" }).then(response => response.json()).catch(console.error);
+}
+
+// Sendet Daten an das Spiel, mit welchem man aktuell verbunden ist.
+// Die Daten sollten ein JSON-Objekt sein.
+function sendToGame(data) {
+    if (data && isConnectedToGame())
+        gameConnection.send(JSON.stringify(data));
 }
