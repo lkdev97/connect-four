@@ -10,6 +10,7 @@ public class Game {
     private Random r = new Random();
     private int turn = 0;
     private boolean gameOver;
+    private String winner;
 
     Game(Player player1, Player player2) {
         players = new Player[2];
@@ -39,6 +40,10 @@ public class Game {
         return this.players[1];
     }
 
+    public String getWinner(){
+        return this.winner;
+    }
+
     public void setField(int[][] field) {
         this.field = field;
     }
@@ -65,10 +70,10 @@ public class Game {
 
     boolean checkWin() {
 
-        if (gameOver){
+        if (gameOver) {
             return true;
         }
-        
+
         int currentPlayer = getTurn();
 
         // Prüft horizontal
@@ -76,9 +81,10 @@ public class Game {
             for (int i = 0; i < field.length; i++) {
                 if (field[i][j] == currentPlayer && field[i][j + 1] == currentPlayer && field[i][j + 2] == currentPlayer
                         && field[i][j + 3] == currentPlayer) {
-                    field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = currentPlayer +2; // Im field wird die Reihe
-                                                                                           // mit "3" markiert
-                                                                                           gameOver = true;
+                    field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = currentPlayer + 2;
+
+                    gameOver = true;
+                    winner = players[getTurn() - 1].name;
 
                     return true;
                 }
@@ -90,9 +96,10 @@ public class Game {
             for (int j = 0; j < this.field.length; j++) {
                 if (field[i][j] == currentPlayer && field[i + 1][j] == currentPlayer && field[i + 2][j] == currentPlayer
                         && field[i + 3][j] == currentPlayer) {
-                    field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = 3;// Im field wird die Reihe mit
-                                                                                          // "3" markiert
-                                                                                          gameOver = true;
+                    field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = currentPlayer + 2;
+
+                    gameOver = true;
+                    winner = players[getTurn() - 1].name;
 
                     return true;
                 }
@@ -105,10 +112,10 @@ public class Game {
                 if (field[i][j] == currentPlayer && field[i - 1][j + 1] == currentPlayer
                         && field[i - 2][j + 2] == currentPlayer && field[i - 3][j + 3] == currentPlayer) {
 
-                    field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = 3;// Im field wird
-                                                                                                      // die Reihe mit
-                                                                                                      // "3" markiert
-                                                                                                      gameOver = true;
+                    field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = currentPlayer + 2;
+
+                    gameOver = true;
+                    winner = players[getTurn() - 1].name;
 
                     return true;
                 }
@@ -121,10 +128,10 @@ public class Game {
                 if (field[i][j] == currentPlayer && field[i - 1][j - 1] == currentPlayer
                         && field[i - 2][j - 2] == currentPlayer && field[i - 3][j - 3] == currentPlayer) {
 
-                    field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = 3;// Im field wird
-                                                                                                      // die Reihe mit
-                                                                                                      // "3" markiert
-                                                                                                      gameOver = true;
+                    field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = currentPlayer + 2;
+
+                    gameOver = true;
+                    winner = players[getTurn() - 1].name;
                     return true;
                 }
             }
