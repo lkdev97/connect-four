@@ -9,12 +9,14 @@ public class Game {
     private Player[] players;
     private Random r = new Random();
     private int turn = 0;
+    private boolean gameOver;
 
     Game(Player player1, Player player2) {
         players = new Player[2];
         players[0] = player1;
         players[1] = player2;
         turn = r.nextInt(players.length); // Spieler, welcher beginnt wird zufällig ausgewählt
+        gameOver = false;
     }
 
     public int getTurn() {
@@ -62,6 +64,11 @@ public class Game {
     }
 
     boolean checkWin() {
+
+        if (gameOver){
+            return true;
+        }
+        
         int currentPlayer = getTurn();
 
         // Prüft horizontal
@@ -69,8 +76,9 @@ public class Game {
             for (int i = 0; i < field.length; i++) {
                 if (field[i][j] == currentPlayer && field[i][j + 1] == currentPlayer && field[i][j + 2] == currentPlayer
                         && field[i][j + 3] == currentPlayer) {
-                    field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = 3; // Im field wird die Reihe
+                    field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = currentPlayer +2; // Im field wird die Reihe
                                                                                            // mit "3" markiert
+                                                                                           gameOver = true;
 
                     return true;
                 }
@@ -84,6 +92,7 @@ public class Game {
                         && field[i + 3][j] == currentPlayer) {
                     field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = 3;// Im field wird die Reihe mit
                                                                                           // "3" markiert
+                                                                                          gameOver = true;
 
                     return true;
                 }
@@ -99,6 +108,7 @@ public class Game {
                     field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = 3;// Im field wird
                                                                                                       // die Reihe mit
                                                                                                       // "3" markiert
+                                                                                                      gameOver = true;
 
                     return true;
                 }
@@ -114,6 +124,7 @@ public class Game {
                     field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = 3;// Im field wird
                                                                                                       // die Reihe mit
                                                                                                       // "3" markiert
+                                                                                                      gameOver = true;
                     return true;
                 }
             }
@@ -124,6 +135,7 @@ public class Game {
 
     public void newGame() {
         field = new int[8][8];
+        gameOver = false;
         turn = r.nextInt(players.length); // Spieler, welcher beginnt wird zufällig ausgewählt
     }
 
