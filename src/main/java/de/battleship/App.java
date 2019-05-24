@@ -26,7 +26,7 @@ public class App {
                 else
                     session.send("{\"error\":\"Game not found.\"}");
 
-                session.close(1, "Test disconnecct by server.");
+                session.close(1, "Test disconnect by server.");
             });
 
             ws.onClose((session, statusCode, reason) -> {
