@@ -46,7 +46,7 @@ function joinGame(gameId) {
         });
     }
 }
-// Trennt die Verbindung mit dem aktuellen Spiel (falls verbunden).
+// Trennt die Verbindung mit dem aktuellen Spiel (falls verbunden) und versteckt das Spielfeld.
 function disconnectFromGame() {
     if (isConnectedToGame()) {
         console.log('Verbindung mit Spiel getrennt.');
