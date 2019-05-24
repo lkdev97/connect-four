@@ -8,6 +8,7 @@ let createGameButton;
 let createGameIsPublicBox;
 let joinGameButton;
 let joinGameId;
+let leaveGameButton;
 let lobbyBrowser;
 let lobbyCounter;
 let board;
@@ -49,7 +50,7 @@ function loadBoardContent() {
         html += box.parentElement.innerHTML;
         row_counter++;
     }
-    document.getElementById("board").innerHTML = html;
+    board.innerHTML = html;
 }
 
 /*
@@ -75,15 +76,21 @@ function sendRow(row) {
 
 
 function initUI() {
-    loadBoardContent();
-    updateUIReferences();
+    if (updateUIReferences()) {
+        loadBoardContent();
+        leaveGameButton.addEventListener('click', disconnectFromGame);
+
+        return true;
+    }
+
+    return false;
 }
 
 /**
  * Sobald man einem bestehenden Spiel beitritt oder eins erstellt wird das Spielfeld angezeigt
  * 
  */
-function showBoard() {
+function showBoard(gameId) {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
@@ -92,9 +99,14 @@ function showBoard() {
     document.getElementById("new-game").classList.remove('is--hidden');
     document.getElementById("leave-lobby").classList.remove('is--hidden');
 
+    console.log(gameId);
+
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
 }
 
+/**
+ * Sobald man auf den Button "Leave Lobby" klickt, wird das Spielfeld ausgeblendet und man landet wieder auf der Startseite
+ */
 function hideBoard() {
     board.classList.remove('is--hidden');
     board.parentElement.classList.remove('is--hidden');
@@ -119,11 +131,12 @@ function updateUIReferences() {
     createGameIsPublicBox = document.getElementById('create-game-public-box');
     joinGameButton = document.getElementById('join-game-button');
     joinGameId = document.getElementById('join-game-code');
+    leaveGameButton = document.getElementById('leave-lobby');
     lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
     lobbyCounter = document.getElementById('lobby-counter');
     board = document.getElementById('board');
 
-    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser && lobbyCounter && board;
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board;
 }
 
 // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.

@@ -29,7 +29,7 @@ function joinGame(gameId) {
         // TODO: mit /game via websocket verbinden
         sendToServer('/join', { gameId, playerName }).then((response) => {
             if (response && response.success)
-                showBoard();
+                showBoard(gameId);
             else
                 alert('Konnte dem Spiel nicht beitreten.');
         });
@@ -41,6 +41,7 @@ function disconnectFromGame() {
         console.log('Verbindung mit Spiel getrennt.');
         gameConnection.close();
     }
+    hideBoard();
 }
 
 
