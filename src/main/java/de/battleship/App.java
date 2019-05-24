@@ -18,6 +18,8 @@ public class App {
 
         gameManager = new GameManager();
 
+
+        // Game Websocket test
         server.ws("/:game-id", ws -> {
             ws.onConnect(session -> {
                 Game game = gameManager.getGameById(session.pathParam("game-id"));
@@ -35,7 +37,6 @@ public class App {
         });
 
         // Game test
-
         server.get("/getTurn", ctx -> {
             // Testing
             int row = Integer.parseInt(ctx.queryParam("row"));
