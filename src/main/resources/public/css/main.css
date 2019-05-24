@@ -124,8 +124,8 @@ html, body, .main-wrapper {
 
 .main-header::before, .main-header-box::after {
     content: "";
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     background-color: red;
     border-radius: 50%;
     display: inline-block;
@@ -141,8 +141,8 @@ html, body, .main-wrapper {
 
 .main-header::after, .main-header-box::before {
     content: "";
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     background-color: yellow;
     border-radius: 50%;
     display: inline-block;
@@ -151,4 +151,11 @@ html, body, .main-wrapper {
 .browse-lobbies-wrapper {
     max-height: 400px;
     overflow-y: auto;
+}
+
+/**
+TODO
+*/
+.winner {
+
 }

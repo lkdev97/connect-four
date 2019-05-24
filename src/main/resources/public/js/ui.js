@@ -29,6 +29,12 @@ http.onreadystatechange = function () {
     }
 }
 
+/**
+ * Erhält das Spielfeld über die toString-Methode im HTML-Format
+ */
+function setBoardContent(html) {
+    board.innerHTML = html;
+}
 
 /*
 * die Funktion erstellt über eine for-Schleife das Spielfeld "board"
@@ -99,8 +105,6 @@ function showBoard(gameId) {
     document.getElementById("leave-lobby").classList.remove('is--hidden');
     document.getElementById("url-box").classList.remove('is--hidden');
 
-    console.log(gameId);
-
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "! <br> Spiel-ID: " + gameId;
 }
 
@@ -116,7 +120,6 @@ function hideBoard() {
     document.getElementById("new-game").classList.add('is--hidden');
     document.getElementById("leave-lobby").classList.add('is--hidden');
     document.getElementById("url-box").classList.add('is--hidden');
-    console.log("test");
 }
 
 // Setzt den HTML Inhalt für das Spielfeld.
