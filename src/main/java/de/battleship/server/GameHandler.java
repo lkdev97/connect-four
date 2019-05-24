@@ -20,7 +20,7 @@ public class GameHandler {
                 Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
 
                 if (game == null) {
-                    session.send(new OutError("Game not found.").toString());
+                    this.sendErrorMessage(session, "Game not found.");
                     session.close(1, "Disconnect by server.");
                 }
             });
@@ -36,9 +36,9 @@ public class GameHandler {
 
     private void handleClientMessage(WsSession session, String message) {
         Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
-                System.out.println(session.pathParam("game-id") + " >> " + message);
+        System.out.println(session.pathParam("game-id") + " >> " + message);
 
-                this.sendPacket(session, new OutGameField(game.toString()));
+        this.sendPacket(session, new OutGameField(game.toString()));
     }
     
 
@@ -47,5 +47,11 @@ public class GameHandler {
      */
     private void sendPacket(WsSession session, GamePacket packet) {
         session.send(packet.toString());
+    }
+    /**
+     * Sendet eine Fehlernachricht an den Client.
+     */
+    private void sendErrorMessage(WsSession session, String message) {
+        this.sendPacket(session, new OutError(message));
     }
 }
