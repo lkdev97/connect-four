@@ -2,6 +2,7 @@ package de.battleship;
 
 import de.battleship.server.WebHandler;
 import de.battleship.server.packets.game.OutError;
+import de.battleship.server.packets.game.OutGameField;
 import io.javalin.Javalin;
 
 public class App {
@@ -35,7 +36,9 @@ public class App {
                 Game game = gameManager.getGameById(session.pathParam("game-id"));
                 System.out.println(session.pathParam("game-id") + " >> " + message);
 
-                session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
+                session.send(new OutGameField(game.toString()).toString());
+
+                //session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
             });
 
             ws.onClose((session, statusCode, reason) -> {
