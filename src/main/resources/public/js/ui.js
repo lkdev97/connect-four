@@ -9,6 +9,7 @@ let createGameIsPublicBox;
 let joinGameButton;
 let joinGameId;
 let lobbyBrowser;
+let lobbyCounter;
 let board;
 
 
@@ -86,7 +87,8 @@ function showBoard() {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
-    document.getElementById('context-box').classList.add('is--hidden');
+    document.getElementById('join-game-wrapper').classList.add('is--hidden');
+    document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
     document.getElementById("new-game").classList.remove('is--hidden');
 }
@@ -105,9 +107,10 @@ function updateUIReferences() {
     joinGameButton = document.getElementById('join-game-button');
     joinGameId = document.getElementById('join-game-code');
     lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
+    lobbyCounter = document.getElementById('lobby-counter');
     board = document.getElementById('board');
 
-    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser && board;
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && lobbyBrowser && lobbyCounter && board;
 }
 
 // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
@@ -137,17 +140,22 @@ function addGameToBrowser(gameId) {
         rowElement.appendChild(joinTextElement);
 
         lobbyBrowser.insertBefore(rowElement, lobbyBrowser.firstChild);
+
+        lobbyCounter.innerText = lobbyBrowser.children.length;
     }
 }
 // Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
 function removeGameFromBrowser(gameId) {
-    console.log(`Removing ${gameId}`);
     let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
     if (row)
         row.remove();
+
+    lobbyCounter.innerText = lobbyBrowser.children.length;
 }
 // Löscht alle Einträge aus der Spieleliste.
 function clearGameBrowser() {
     while (lobbyBrowser.firstChild)
         lobbyBrowser.firstChild.remove();
+
+    lobbyCounter.innerText = lobbyBrowser.children.length;
 }

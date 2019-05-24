@@ -1,6 +1,6 @@
-package de.battleship.api.packets;
+package de.battleship.server.packets.web;
 
-public class OutJoinGame extends Packet {
+public class OutJoinGame extends WebPacket {
     public boolean success;
 
     public OutJoinGame(boolean success) {

@@ -8,6 +8,10 @@ import java.util.Collection;
  * Verwaltet alle aktiven Spiele.
  */
 public class GameManager {
+    private static final int MAX_GAMES_AMOUNT = 20;
+
+
+
     /**
      * Speichert alle aktiven Spiele mit ihrer ID als Key.
      */
@@ -32,13 +36,18 @@ public class GameManager {
      */
     public String createNewGame(boolean isPublic) {
         String gameId = this.generateNewId();
-        Game game = this.activeGames.put(gameId, new Game(new Player("Player1"), new Player("Player2")));
-        System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
 
-        if (isPublic) {
-            this.publicGames.put(gameId, game);
-            App.getWebApiHandler().broadcastNewPublicGame(gameId);
+        if (this.activeGames.size() < MAX_GAMES_AMOUNT) {
+            Game game = this.activeGames.put(gameId, new Game("Player1", "Player2"));
+            System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
+
+            if (isPublic) {
+                this.publicGames.put(gameId, game);
+                App.getWebHandler().broadcastNewPublicGame(gameId);
+            }
         }
+        else
+            gameId = null;
 
         return gameId;
     }
@@ -60,7 +69,7 @@ public class GameManager {
         for (Entry<String, Game> entry : this.activeGames.entrySet()) {
             if (entry.getValue() == game) {
                 key = entry.getKey();
-                App.getWebApiHandler().broadcastRemovePublicGame(key);
+                App.getWebHandler().broadcastRemovePublicGame(key);
                 System.out.println("Removed a game, total amount now: " + this.activeGames.size());
                 break;
             }
