@@ -73,7 +73,7 @@
             <button type="button" onclick="showBoard(this)" class="btn btn-success">Start Game!</button>
             <button type="button" class="btn btn-primary">New Game!</button>
         </div> -->
-        <div class="url-box">
+        <div id="url-box" class="url-box">
             <p id="game-url"></p>
         </div>
         <div class="d-flex p-2 justify-content-center">
@@ -86,6 +86,8 @@
         <div class="d-flex p-2 justify-content-center">
             <button id="new-game" type="button" onclick="sendRequestGET('newGame')"
                 class="btn btn-primary is--hidden">New Game!</button>
+            <button id="leave-lobby" type="button"
+                class="btn btn-warning is--hidden">Leave Lobby</button>
         </div>
     </div>
 </body>

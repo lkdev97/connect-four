@@ -89,8 +89,21 @@ function showBoard() {
     document.getElementById('board').classList.remove('is--hidden');
     document.getElementById('join-game-wrapper').classList.add('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
-    document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
     document.getElementById("new-game").classList.remove('is--hidden');
+    document.getElementById("leave-lobby").classList.remove('is--hidden');
+
+    document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
+}
+
+function hideBoard() {
+    board.classList.remove('is--hidden');
+    board.parentElement.classList.remove('is--hidden');
+    document.getElementById('board').classList.add('is--hidden');
+    document.getElementById('join-game-wrapper').classList.remove('is--hidden');
+    document.getElementById('browse-lobbies-wrapper').classList.remove('is--hidden');
+    document.getElementById("new-game").classList.add('is--hidden');
+    document.getElementById("leave-lobby").classList.add('is--hidden');
+    document.getElementById("url-box").classList.add('is--hidden');
 }
 
 // Setzt den HTML Inhalt für das Spielfeld.
