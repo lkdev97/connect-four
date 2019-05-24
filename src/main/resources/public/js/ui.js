@@ -105,8 +105,6 @@ function showBoard(gameId) {
     document.getElementById("leave-lobby").classList.remove('is--hidden');
     document.getElementById("url-box").classList.remove('is--hidden');
 
-    console.log(gameId);
-
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "! <br> Spiel-ID: " + gameId;
 }
 
