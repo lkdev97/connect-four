@@ -1,9 +1,9 @@
 package de.battleship.server.packets.game;
 
-public class OutErrorMessage extends GamePacket {
+public class OutError extends GamePacket {
     public String error;
 
-    public OutErrorMessage(String error) {
+    public OutError(String error) {
         this.error = error;
     }
 }
