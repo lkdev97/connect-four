@@ -25,7 +25,7 @@ assert g.checkWin() == true : "Test (12)";
 assert g.makeTurn(3) == false : "Test (13)";
 assert g.makeTurn(0) == false : "Test (14)";
 
-
+g.newGame();
 
 assert g.checkWin() == false: "Test (15)";
 
