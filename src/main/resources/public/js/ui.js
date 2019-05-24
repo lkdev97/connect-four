@@ -29,6 +29,12 @@ http.onreadystatechange = function () {
     }
 }
 
+/**
+ * Erhält das Spielfeld über die toString-Methode im HTML-Format
+ */
+function setBoardContent(html) {
+    board.innerHTML = html;
+}
 
 /*
 * die Funktion erstellt über eine for-Schleife das Spielfeld "board"
