@@ -145,13 +145,16 @@ function addGameToBrowser(gameId) {
 }
 // Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
 function removeGameFromBrowser(gameId) {
-    console.log(`Removing ${gameId}`);
     let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
     if (row)
         row.remove();
+
+    lobbyCounter.innerText = lobbyBrowser.children.length;
 }
 // Löscht alle Einträge aus der Spieleliste.
 function clearGameBrowser() {
     while (lobbyBrowser.firstChild)
         lobbyBrowser.firstChild.remove();
+
+    lobbyCounter.innerText = lobbyBrowser.children.length;
 }
