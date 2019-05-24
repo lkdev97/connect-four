@@ -23,12 +23,18 @@ public class App {
         server.ws("/:game-id", ws -> {
             ws.onConnect(session -> {
                 Game game = gameManager.getGameById(session.pathParam("game-id"));
-                if (game != null)
-                    session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
-                else {
+
+                if (game == null) {
                     session.send("{\"error\":\"Game not found.\"}");
                     session.close(1, "Test disconnect by server.");
                 }
+            });
+
+            ws.onMessage((session, message) -> {
+                Game game = gameManager.getGameById(session.pathParam("game-id"));
+                System.out.println(session.pathParam("game-id") + " >> " + message);
+
+                session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
             });
 
             ws.onClose((session, statusCode, reason) -> {
