@@ -83,7 +83,7 @@ function initUI() {
  * Sobald man einem bestehenden Spiel beitritt oder eins erstellt wird das Spielfeld angezeigt
  * 
  */
-function showBoard() {
+function showBoard(gameId) {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
@@ -91,6 +91,8 @@ function showBoard() {
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
     document.getElementById("new-game").classList.remove('is--hidden');
     document.getElementById("leave-lobby").classList.remove('is--hidden');
+
+    console.log(gameId);
 
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "!";
 }
