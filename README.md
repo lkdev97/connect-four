@@ -13,11 +13,10 @@ Projektbeteiligte:
 * Alexander Pantelkin
 * Felix Schopen
 
-<Inhaltsverzeichnis>
-
-- [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
-- [Die Idee](#die-idee)
-  - [Skizzen zur graphischen Oberfläche](#skizze-zur-graphischen-oberfl%C3%A4che)
+- [Projekt: Battleship (Fr/2, Kr)](#projekt-battleship-fr2-kr)
+  - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
+  - [Die Idee](#die-idee)
+  - [Skizzen zur grafischen Oberfläche](#skizzen-zur-grafischen-oberfl%C3%A4che)
   - [Umsetzung der Anwendungsidee](#umsetzung-der-anwendungsidee)
   - [Lorem ipsum](#lorem-ipsum)
 
@@ -35,9 +34,12 @@ Aliquip dolor occaecat do ad qui amet. Reprehenderit sit est non anim anim proid
 ## Die Idee
 
 
-## Skizzen zur graphischen Oberfläche
+## Skizzen zur grafischen Oberfläche
 
 
 ## Umsetzung der Anwendungsidee
 
+
 ## Lorem ipsum
+
+
