@@ -1,10 +1,10 @@
 package de.battleship;
 
-import de.battleship.server.WebApiHandler;
+import de.battleship.server.WebHandler;
 import io.javalin.Javalin;
 
 public class App {
-    private static WebApiHandler webApiHandler;
+    private static WebHandler webHandler;
 
     private static GameManager gameManager;
 
@@ -13,7 +13,7 @@ public class App {
         server.enableStaticFiles("/public");
         server.enableCaseSensitiveUrls();
 
-        webApiHandler = new WebApiHandler(server);
+        webHandler = new WebHandler(server);
         server.start(80);
 
         gameManager = new GameManager();
@@ -55,8 +55,8 @@ public class App {
 
     }
 
-    public static WebApiHandler getWebApiHandler() {
-        return webApiHandler;
+    public static WebHandler getWebHandler() {
+        return webHandler;
     }
 
     public static GameManager getGameManager() {

@@ -16,9 +16,9 @@ import io.javalin.Javalin;
 import io.javalin.serversentevent.SseClient;
 
 /**
- * Bearbeitet Anfragen per Web-API.
+ * Bearbeitet Anfragen, die von der Hauptseite ausgehen.
  */
-public class WebApiHandler {
+public class WebHandler {
     /**
      * Die Serverinstanz, welche dieser Handler abhört.
      */
@@ -29,7 +29,7 @@ public class WebApiHandler {
      */
     private ArrayList<SseClient> gamesListEventClients;
 
-    public WebApiHandler(Javalin server) {
+    public WebHandler(Javalin server) {
         this.server = server;
         this.gamesListEventClients = new ArrayList<SseClient>();
 
