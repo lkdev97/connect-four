@@ -38,7 +38,7 @@ public class GameManager {
         String gameId = this.generateNewId();
 
         if (this.activeGames.size() < MAX_GAMES_AMOUNT) {
-            Game game = this.activeGames.put(gameId, new Game("Player1", "Player2"));
+            Game game = this.activeGames.put(gameId, new Game(new Player("Player1"), new Player("Player2")));
             System.out.println("Created new game with ID " + gameId + ", total amount now: " + this.activeGames.size());
 
             if (isPublic) {
