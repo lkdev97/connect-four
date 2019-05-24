@@ -22,8 +22,11 @@ assert g.makeTurn(2) == true : "Test (9)";
 assert g.makeTurn(2) == true : "Test (10)";
 assert g.makeTurn(3) == true : "Test (11)";
 assert g.checkWin() == true : "Test (12)";
+assert g.getWinner().equals("Hans") || g.getWinner().equals("Peter");
 assert g.makeTurn(3) == false : "Test (13)";
 assert g.makeTurn(0) == false : "Test (14)";
+
+System.out.println(g.toString());
 
 g.newGame();
 
