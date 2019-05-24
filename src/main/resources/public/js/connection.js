@@ -27,15 +27,17 @@ function joinGame(gameId) {
 
         console.log(`Verbinde mit Spiel "${gameId}"...`);
         gameConnection = new WebSocket(`ws://${window.location.hostname}/${gameId}`);
-        gameConnection.addEventListener('open', () => showBoard(gameId));
+        //gameConnection.addEventListener('open', () => showBoard(gameId));
         gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
         gameConnection.addEventListener('close', () => disconnectFromGame());
         gameConnection.addEventListener('message', ev => {
             let message = JSON.parse(ev.data);
 
             if (message) {
-                if (message.gameField)
+                if (message.gameField) {
                     setBoardContent(message.gameField);
+                    showBoard(gameId);
+                }
                 else if (message.error)
                     alert(`Fehler: ${message.error}`);
                 else
