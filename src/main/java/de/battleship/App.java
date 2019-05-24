@@ -1,6 +1,7 @@
 package de.battleship;
 
 import de.battleship.server.WebHandler;
+import de.battleship.server.packets.game.OutError;
 import io.javalin.Javalin;
 
 public class App {
@@ -25,7 +26,7 @@ public class App {
                 Game game = gameManager.getGameById(session.pathParam("game-id"));
 
                 if (game == null) {
-                    session.send("{\"error\":\"Game not found.\"}");
+                    session.send(new OutError("Game not found.").toString());
                     session.close(1, "Test disconnect by server.");
                 }
             });
