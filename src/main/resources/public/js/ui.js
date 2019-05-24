@@ -14,20 +14,6 @@ let lobbyCounter;
 let board;
 
 
-var http = new XMLHttpRequest();
-var player1 = true; //fängt an
-var player2 = false;
-
-function sendRequestGET(path = '', query = '') {
-    http.open('GET', path + '?' + query);
-    http.send();
-}
-
-http.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200 && this.responseText) {
-        console.log(this.response);
-    }
-}
 
 /**
  * Erhält das Spielfeld über die toString-Methode im HTML-Format
@@ -56,27 +42,6 @@ function loadBoardContent() {
         row_counter++;
     }
     board.innerHTML = html;
-}
-
-/*
-* Wenn man auf ein Feld "box" klickt wird die Spalte übergeben
-*
-*       <div id="box" class="box">
-*            <button id=2 type="button" onclick="sendRow(this)" class="btn btn-light"></button>
-*        </div>
-*/
-function sendRow(row) {
-    if (player1) {
-        row.classList.add('red-ball');
-        player1 = false;
-        player2 = true;
-        sendRequestGET('getTurn', "row=" + row.id + "&player=1");
-    } else if (player2) {
-        player1 = true;
-        player2 = false;
-        row.classList.add('yellow-ball');
-        sendRequestGET('getTurn', "row=" + row.id + "&player=2");
-    }
 }
 
 
