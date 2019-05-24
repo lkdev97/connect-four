@@ -1,6 +1,6 @@
 package de.battleship.server.packets.game;
 
-public class OutErrorMessage {
+public class OutErrorMessage extends GamePacket {
     public String error;
 
     public OutErrorMessage(String error) {
