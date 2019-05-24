@@ -37,8 +37,6 @@ public class App {
                 System.out.println(session.pathParam("game-id") + " >> " + message);
 
                 session.send(new OutGameField(game.toString()).toString());
-
-                //session.send("{\"gameField\":\"" + game.toString().replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t") + "\"}");
             });
 
             ws.onClose((session, statusCode, reason) -> {
