@@ -32,8 +32,8 @@ http.onreadystatechange = function () {
 /**
  * Erhält das Spielfeld über die toString-Methode im HTML-Format
  */
-function setBoardContent(html) {
-    board.innerHTML = html;
+function setBoardContent(content) {
+    board.innerHTML = content;
 }
 
 /*
@@ -120,11 +120,6 @@ function hideBoard() {
     document.getElementById("new-game").classList.add('is--hidden');
     document.getElementById("leave-lobby").classList.add('is--hidden');
     document.getElementById("url-box").classList.add('is--hidden');
-}
-
-// Setzt den HTML Inhalt für das Spielfeld.
-function setBoardContent(htmlContent) {
-
 }
 
 
