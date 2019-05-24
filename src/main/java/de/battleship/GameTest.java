@@ -11,18 +11,17 @@ assert p1.getName().equals("Hans") : "P1 should be Hans";
 assert p2.getName().equals("Peter") : "P2 should be Peter";
 
 assert g.makeTurn(0) == true;
-assert checkWin(g.getP1().id) == false;
-assert checkWin(g.getP2().id) == false;
+assert checkWin() == false;
+assert checkWin() == false;
 assert g.makeTurn(0) == true;
 assert g.makeTurn(1) == true;
 assert g.makeTurn(1) == true;
-assert checkWin(g.getP1().id) == false;
-assert checkWin(g.getP2().id) == false;
+assert checkWin() == false;
+assert checkWin() == false;
 assert g.makeTurn(2) == true;
 assert g.makeTurn(2) == true;
 assert g.makeTurn(3) == true;
-assert checkWin(g.getP1().id) == true;
-assert checkWin(g.getP2().id) == false;
+assert checkWin() == true;
 assert g.makeTurn(3) == false;
 assert g.makeTurn(0) == false;
 
