@@ -14,14 +14,14 @@ public class HTMLGenerator {
         return boardString.toString();
     }
 
-    private static String generateCellElement(int cellNum, int playerId) {
+    private static String generateCellElement(int column, int playerId) {
         return "\t<div class=\"box"
                 + (playerId == 1 ? " yellow-ball"
                         : playerId == 2 ? " red-ball"
                                 : playerId == 3 ? " yellow-ball winner" 
                                     : playerId == 4 ? " red-ball winner" : "")
                 + "\">"
-                +   "<button class=\"btn btn-light\" type=\"button\" onclick=\"sendMove(" + cellNum + ")\"></button>" 
+                +   "<button class=\"btn btn-light\" type=\"button\" onclick=\"sendMove(" + column + ")\"></button>" 
                 + "</div>\n";
     }
 }
