@@ -28,6 +28,11 @@ function clearBoardContent() {
     setBoardContent('');
 }
 
+
+function setUserName(username) {
+    document.getElementById("username").innerHTML = username;
+}
+
 /*
 * die Funktion erstellt über eine for-Schleife das Spielfeld "board"
 * erst wird das Element über die id geholt und in der for-Schleife wird das Feld dupliziert bis das Feld 64 Felder hat
