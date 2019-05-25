@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import de.battleship.App;
 import de.battleship.Lobby;
-import de.battleship.Player;
+import de.battleship.OnlinePlayer;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
 import io.javalin.Javalin;
@@ -24,7 +24,7 @@ public class GameHandler {
      * Hat die WebSocket Session des Spielers als Key.
      * Wird benutzt, um bei einem eingehenden Packet schnell den Spieler anhand der Session zu identifizieren.
      */
-    private HashMap<WsSession, Player> connectedPlayers;
+    private HashMap<WsSession, OnlinePlayer> connectedPlayers;
 
 
     public GameHandler(Javalin server) {
@@ -40,7 +40,7 @@ public class GameHandler {
     }
 
 
-    public void addConnectedPlayer(WsSession session, Player player) {
+    public void addConnectedPlayer(WsSession session, OnlinePlayer player) {
         this.connectedPlayers.put(session, player);
     }
     public void removeConnectedPlayer(WsSession session) {
@@ -101,7 +101,7 @@ public class GameHandler {
      * Wird aufgerufen, wenn ein Client die Verbindung trennt.
      */
     private void handleClientDisconnect(WsSession session, int statusCode, String reason) {
-        Player player = this.connectedPlayers.getOrDefault(session, null);
+        OnlinePlayer player = this.connectedPlayers.getOrDefault(session, null);
 
         if (player != null) {
             Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
