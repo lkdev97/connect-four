@@ -22,21 +22,21 @@ function createNewGame() {
     console.log('Erstelle ein neues Spiel...');
     sendToServer('/create', { isPublic: createGameIsPublicBox.checked }).then((response) => {
         if (response) {
-            if (response.gameId)
-                joinGame(response.gameId);
+            if (response.lobbyId)
+                joinGame(response.lobbyId);
             else
                 alert('Spiel konnte nicht erstellt werden.');
         }
     });
 }
 // Tritt einem Spiel unter der angegebenen ID bei.
-function joinGame(gameId) {
-    if (gameId) {
+function joinGame(lobbyId) {
+    if (lobbyId) {
         // vom alten Spiel trennen
         disconnectFromGame();
 
-        console.log(`Verbinde mit Spiel "${gameId}"...`);
-        gameConnection = new WebSocket(`ws://${window.location.hostname}/${gameId}`);
+        console.log(`Verbinde mit Spiel "${lobbyId}"...`);
+        gameConnection = new WebSocket(`ws://${window.location.hostname}/${lobbyId}`);
         gameConnection.addEventListener('open', () => sendToGame(PacketId.CONNECT_REQUEST, { playerName }));
         gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
         gameConnection.addEventListener('close', () => disconnectFromGame());
@@ -46,7 +46,7 @@ function joinGame(gameId) {
             if (message && message.data) {
                 if (message.data.gameField) {
                     setBoardContent(message.data.gameField);
-                    showBoard(gameId);
+                    showBoard(lobbyId);
                 }
                 else if (message.data.error)
                     alert(`Fehler: ${message.data.error}`);
@@ -69,7 +69,7 @@ function disconnectFromGame() {
 
 // Verbindet sich mit dem Server und hält per SSE (server-sent events) die Spieleliste aktuell.
 function connectToGameListEvents() {
-    let lobbyBrowserEvents = new EventSource('/gamelist');
+    let lobbyBrowserEvents = new EventSource('/lobbylist');
     // Bei einem Fehler soll der EventSource client nach 15 Sekunden vesuchen, sich neu verbinden.
     // Da es sein kann, dass in diesen 15 Sekunden neue Spiele verpasst wurden, wird zusätzlich eine Anfrage zum Aktualisieren der Liste geschickt.
     lobbyBrowserEvents.addEventListener('error', () => {
@@ -82,20 +82,20 @@ function connectToGameListEvents() {
         }, 15000);
     });
 
-    // Events, die vom Server gesendet werden (addgame & rmgame)
-    lobbyBrowserEvents.addEventListener('addgame', (event) => addGameToBrowser(event.data));
-    lobbyBrowserEvents.addEventListener('rmgame', (event) => removeGameFromBrowser(event.data));
+    // Events, die vom Server gesendet werden (addlobby & rmlobby)
+    lobbyBrowserEvents.addEventListener('addlobby', (event) => addGameToBrowser(event.data));
+    lobbyBrowserEvents.addEventListener('rmlobby', (event) => removeGameFromBrowser(event.data));
 }
-// Aktualisiert die gesamte Spieleliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
+// Aktualisiert die gesamte Lobbyliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
 function fetchGameList() {
-    sendToServer('/gamelist', {})
+    sendToServer('/lobbylist', {})
         .then((response) => {
-            if (response && response.games) {
+            if (response && response.lobbies) {
                 clearGameBrowser();
 
                 // neue Einträge einfügen
-                for (let gameId of response.games)
-                    addGameToBrowser(gameId);
+                for (let lobbyId of response.lobbies)
+                    addGameToBrowser(lobbyId);
             }
         });
 }

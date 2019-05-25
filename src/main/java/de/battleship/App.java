@@ -8,7 +8,7 @@ public class App {
     private static WebHandler webHandler;
     private static GameHandler gameHandler;
 
-    private static GameManager gameManager;
+    private static LobbyManager lobbyManager;
 
     public static void main(String[] args) {
         Javalin server = Javalin.create();
@@ -19,15 +19,15 @@ public class App {
         gameHandler = new GameHandler(server);
         server.start(80);
 
-        gameManager = new GameManager();
+        lobbyManager = new LobbyManager();
 
         // Game test
         server.get("/getTurn", ctx -> {
             // Testing
             int row = Integer.parseInt(ctx.queryParam("row"));
             int player = Integer.parseInt(ctx.queryParam("player"));
-            String gameId = ctx.queryParam("id");
-            Game g = gameManager.getGameById(gameId);
+            String lobbyId = ctx.queryParam("id");
+            Game g = lobbyManager.getLobbyById(lobbyId).getGame();
 
             if (g != null) {
                 if (player == g.getTurn())
@@ -35,18 +35,20 @@ public class App {
 
                 ctx.result("Current turn: " + g.getTurn() + "\n" + g.toString());
             } else
-                ctx.result("Game with id " + gameId + " does not exist.");
+                ctx.result("Lobby with id " + lobbyId + " does not exist.");
         });
 
         server.get("/newgame", ctx -> {
-            String gameId = ctx.queryParam("id");
-            Game g = gameManager.getGameById(gameId);
+            String lobbyId = ctx.queryParam("id");
+            Lobby lobby = lobbyManager.getLobbyById(lobbyId);
 
-            if (g != null) {
+            if (lobby != null) {
+                Game g = lobby.getGame();
+
                 g.newGame();
                 ctx.result(g.toString());
             } else {
-                ctx.result("New game id: " + gameManager.createNewGame(false));
+                ctx.result("New lobby id: " + lobbyManager.createNewLobby(false));
             }
         });
 
@@ -59,7 +61,7 @@ public class App {
         return gameHandler;
     }
 
-    public static GameManager getGameManager() {
-        return gameManager;
+    public static LobbyManager getLobbyManager() {
+        return lobbyManager;
     }
 }

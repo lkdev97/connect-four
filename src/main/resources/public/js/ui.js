@@ -109,15 +109,15 @@ function updateUIReferences() {
 }
 
 // Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
-function addGameToBrowser(gameId) {
-    if (!lobbyBrowser.querySelector(`#entry-${gameId}`)) {
+function addGameToBrowser(lobbyId) {
+    if (!lobbyBrowser.querySelector(`#entry-${lobbyId}`)) {
         // erstellt die Tabellenreihe
         let rowElement = document.createElement('tr');
-        rowElement.id = gameId;
+        rowElement.id = lobbyId;
 
         // erstellt den ID-Text
         let idTextElement = document.createElement('td');
-        idTextElement.innerText = gameId;
+        idTextElement.innerText = lobbyId;
         // erstellt den Spielerzahl-Text
         let playerNumTextElement = document.createElement('td');
         playerNumTextElement.innerText = '0 / 2';
@@ -126,7 +126,7 @@ function addGameToBrowser(gameId) {
         let joinLinkElement = document.createElement('span');
         joinLinkElement.className = 'link';
         joinLinkElement.innerText = '>> Beitreten';
-        joinLinkElement.addEventListener('click', () => joinGame(gameId));
+        joinLinkElement.addEventListener('click', () => joinGame(lobbyId));
         joinTextElement.appendChild(joinLinkElement);
 
         // fügt die einzelnen Elemente in die Tabellenreihe ein
@@ -140,8 +140,8 @@ function addGameToBrowser(gameId) {
     }
 }
 // Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
-function removeGameFromBrowser(gameId) {
-    let row = lobbyBrowser.querySelector(`#entry-${gameId}`);
+function removeGameFromBrowser(lobbyId) {
+    let row = lobbyBrowser.querySelector(`#entry-${lobbyId}`);
     if (row)
         row.remove();
 

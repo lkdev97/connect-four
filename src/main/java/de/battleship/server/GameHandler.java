@@ -2,6 +2,7 @@ package de.battleship.server;
 
 import de.battleship.App;
 import de.battleship.Game;
+import de.battleship.Lobby;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
 import de.battleship.server.packets.game.OutGameField;
@@ -15,7 +16,7 @@ public class GameHandler {
     public GameHandler(Javalin server) {
         this.server = server;
 
-        this.server.ws("/:game-id", ws -> {
+        this.server.ws("/:lobby-id", ws -> {
             ws.onConnect(this::handleNewClient);
             ws.onMessage(this::handleClientMessage);
             ws.onClose(this::handleClientDisconnect);
@@ -53,19 +54,19 @@ public class GameHandler {
      * Wird aufgerufen, wenn sich ein neuer Client mit dem Server verbindet.
      */
     private void handleNewClient(WsSession session) {
-        Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
+        Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
 
-        if (game == null)
-            this.sendErrorMessage(session, "Game not found.", true);
+        if (lobby == null)
+            this.sendErrorMessage(session, "Lobby not found.", true);
     }
     /**
      * Wird aufgerufen, wenn ein Client eine Nachricht an den Server sendet.
      */
     private void handleClientMessage(WsSession session, String message) {
-        Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
+        Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
         
         try {
-            GamePacket.fromString(message).handle(this, session, game.getCurrentPlayer(), game);
+            GamePacket.fromString(message).handle(this, session, lobby.getGame().getCurrentPlayer(), lobby.getGame());
         } catch (Exception ex) {
             ex.printStackTrace();
             this.sendErrorMessage(session, "Invalid packet received.", true);
@@ -78,6 +79,6 @@ public class GameHandler {
     private void handleClientDisconnect(WsSession session, int statusCode, String reason) {
         // TODO: Remove player from lobby
         System.out.println(
-                "WebSocket closed for id " + session.pathParam("game-id") + ": (" + statusCode + ") " + reason);
+                "WebSocket closed for id " + session.pathParam("lobby-id") + ": (" + statusCode + ") " + reason);
     }
 }

@@ -3,10 +3,10 @@ package de.battleship.server;
 import java.util.ArrayList;
 
 import de.battleship.App;
-import de.battleship.server.packets.web.InCreateGame;
-import de.battleship.server.packets.web.OutCreateGame;
+import de.battleship.server.packets.web.InCreateLobby;
+import de.battleship.server.packets.web.OutCreateLobby;
 import de.battleship.server.packets.web.OutError;
-import de.battleship.server.packets.web.OutPublicGamesList;
+import de.battleship.server.packets.web.OutPublicLobbiesList;
 import de.battleship.server.packets.web.WebPacket;
 import io.javalin.Context;
 import io.javalin.Javalin;
@@ -22,46 +22,46 @@ public class WebHandler {
     private Javalin server;
 
     /**
-     * Eine Liste, die alle SseClients speichert, welche die Games-Browser Events abhören.
+     * Eine Liste, die alle SseClients speichert, welche die Lobby-Browser Events abhören.
      */
-    private ArrayList<SseClient> gamesListEventClients;
+    private ArrayList<SseClient> lobbiesListEventClients;
 
     public WebHandler(Javalin server) {
         this.server = server;
-        this.gamesListEventClients = new ArrayList<SseClient>();
+        this.lobbiesListEventClients = new ArrayList<SseClient>();
 
-        this.server.post("/create", this::handleCreateGame);
-        this.server.post("/gamelist", this::handlePublicGamesList);
-        this.server.sse("/gamelist", client -> {
-            client.onClose(() -> this.gamesListEventClients.remove(client));
-            this.gamesListEventClients.add(client);
+        this.server.post("/create", this::handleCreateLobby);
+        this.server.post("/lobbylist", this::handlePublicLobbiesList);
+        this.server.sse("/lobbylist", client -> {
+            client.onClose(() -> this.lobbiesListEventClients.remove(client));
+            this.lobbiesListEventClients.add(client);
         });
     }
 
-    public void broadcastNewPublicGame(String gameId) {
-        for (int i = this.gamesListEventClients.size() - 1; i >= 0; i--)
-            this.gamesListEventClients.get(i).sendEvent("addgame", gameId);
+    public void broadcastNewPublicLobby(String lobbyId) {
+        for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
+            this.lobbiesListEventClients.get(i).sendEvent("addlobby", lobbyId);
     }
 
-    public void broadcastRemovePublicGame(String gameId) {
-        for (int i = this.gamesListEventClients.size() - 1; i >= 0; i--)
-            this.gamesListEventClients.get(i).sendEvent("rmgame", gameId);
+    public void broadcastRemovePublicLobby(String lobbyId) {
+        for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
+            this.lobbiesListEventClients.get(i).sendEvent("rmlobby", lobbyId);
     }
 
     /**
-     * Wird aufgerufen, wenn der Client ein neues Spiel erstellen möchte.
+     * Wird aufgerufen, wenn der Client eine neue Lobby erstellen möchte.
      */
-    private void handleCreateGame(Context ctx) {
+    private void handleCreateLobby(Context ctx) {
         try {
-            InCreateGame in = ctx.bodyAsClass(InCreateGame.class);
-            this.sendPacket(ctx, new OutCreateGame(App.getGameManager().createNewGame(in.isPublic)));
+            InCreateLobby in = ctx.bodyAsClass(InCreateLobby.class);
+            this.sendPacket(ctx, new OutCreateLobby(App.getLobbyManager().createNewLobby(in.isPublic)));
         } catch (Exception ex) {
             this.sendError(ctx, "Invalid request.");
         }
     }
 
-    private void handlePublicGamesList(Context ctx) {
-        this.sendPacket(ctx, new OutPublicGamesList(App.getGameManager().getPublicGames()));
+    private void handlePublicLobbiesList(Context ctx) {
+        this.sendPacket(ctx, new OutPublicLobbiesList(App.getLobbyManager().getPublicLobbies()));
     }
 
     /**
