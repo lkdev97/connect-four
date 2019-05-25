@@ -47,7 +47,7 @@ public abstract class GamePacket {
 
 
     @JsonDeserialize(using = PacketContainerDeserializer.class)
-    private class PacketContainer {
+    private static class PacketContainer {
         public int packetId;
         public GamePacket data;
 
@@ -57,13 +57,12 @@ public abstract class GamePacket {
         }
     }
 
-    private class PacketContainerDeserializer extends StdDeserializer<PacketContainer> {
+    public static class PacketContainerDeserializer extends StdDeserializer<PacketContainer> {
         private static final long serialVersionUID = 1L;
 
         public PacketContainerDeserializer() {
             this(null);
         }
-
         public PacketContainerDeserializer(Class<?> clazz) {
             super(clazz);
         }
