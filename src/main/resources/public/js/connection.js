@@ -113,7 +113,7 @@ function fetchGameList() {
 
                 // neue Einträge einfügen
                 for (let lobbyId of response.lobbies)
-                    addGameToBrowser(lobbyId);
+                    addLobbyToBrowser(lobbyId);
             }
         });
 }
