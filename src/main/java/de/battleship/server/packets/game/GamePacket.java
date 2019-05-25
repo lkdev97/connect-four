@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.jetbrains.annotations.NotNull;
 
 import de.battleship.Game;
+import de.battleship.Lobby;
 import de.battleship.Player;
 import de.battleship.server.GameHandler;
 import io.javalin.websocket.WsSession;
@@ -48,7 +49,7 @@ public abstract class GamePacket {
         }
     }
 
-    public void handle(GameHandler gameHandler, WsSession session, Player player, Game game) {
+    public void handle(GameHandler gameHandler, WsSession session, Lobby lobby, Player player) {
         System.err.println("Tried to handle packet " + this.getClass().getCanonicalName() + "!");
     }
 

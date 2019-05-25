@@ -64,7 +64,7 @@ public class GameHandler {
         Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
         
         try {
-            GamePacket.fromString(message).handle(this, session, lobby.getGame().getCurrentPlayer(), lobby.getGame());
+            GamePacket.fromString(message).handle(this, session, lobby, lobby.getGame().getCurrentPlayer());
         } catch (Exception ex) {
             ex.printStackTrace();
             this.sendErrorMessage(session, "Invalid packet received.", true);
