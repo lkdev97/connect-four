@@ -24,6 +24,32 @@ public class GameHandler {
 
 
     /**
+     * Sendet ein Packet an den Client.
+     */
+    public void sendPacket(WsSession session, GamePacket packet) {
+        session.send(packet.toString());
+    }
+    
+    /**
+     * Sendet eine Fehlernachricht an den Client.
+     * Trennt nicht die Verbindung.
+     */
+    public void sendErrorMessage(WsSession session, String message) {
+        this.sendErrorMessage(session, message, false);
+    }
+    /**
+     * Sendet eine Fehlernachricht an den Client.
+     * Trennt danach die Verbindung, falls disconnect auf true gesetzt wurde.
+     */
+    public void sendErrorMessage(WsSession session, String message, boolean disconnect) {
+        this.sendPacket(session, new OutError(message));
+
+        if (disconnect)
+            session.close(1, "Disconnect by server (error).");
+    }
+
+
+    /**
      * Wird aufgerufen, wenn sich ein neuer Client mit dem Server verbindet.
      */
     private void handleNewClient(WsSession session) {
@@ -53,31 +79,5 @@ public class GameHandler {
         // TODO: Remove player from lobby
         System.out.println(
                 "WebSocket closed for id " + session.pathParam("game-id") + ": (" + statusCode + ") " + reason);
-    }
-    
-
-    /**
-     * Sendet ein Packet an den Client.
-     */
-    private void sendPacket(WsSession session, GamePacket packet) {
-        session.send(packet.toString());
-    }
-    
-    /**
-     * Sendet eine Fehlernachricht an den Client.
-     * Trennt nicht die Verbindung.
-     */
-    private void sendErrorMessage(WsSession session, String message) {
-        this.sendErrorMessage(session, message, false);
-    }
-    /**
-     * Sendet eine Fehlernachricht an den Client.
-     * Trennt danach die Verbindung, falls disconnect auf true gesetzt wurde.
-     */
-    private void sendErrorMessage(WsSession session, String message, boolean disconnect) {
-        this.sendPacket(session, new OutError(message));
-
-        if (disconnect)
-            session.close(1, "Disconnect by server (error).");
     }
 }
