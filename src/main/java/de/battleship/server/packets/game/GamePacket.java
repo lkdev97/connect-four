@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
+import org.jetbrains.annotations.NotNull;
+
 import de.battleship.Game;
 import de.battleship.Player;
 import de.battleship.server.GameHandler;
@@ -53,6 +55,7 @@ public abstract class GamePacket {
 
     @JsonDeserialize(using = PacketContainerDeserializer.class)
     private static class PacketContainer {
+        @NotNull // damit es hier keine Warnung in VS Code gibt (Annotation eigtl. nicht nötig)
         public int packetId;
         public GamePacket data;
 

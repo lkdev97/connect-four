@@ -1,11 +1,9 @@
 package de.battleship.server;
 
 import de.battleship.App;
-import de.battleship.Game;
 import de.battleship.Lobby;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
-import de.battleship.server.packets.game.OutGameField;
 import io.javalin.Javalin;
 import io.javalin.websocket.WsSession;
 
