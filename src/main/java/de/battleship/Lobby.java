@@ -35,11 +35,15 @@ public class Lobby {
 
         return false;
     }
+
     public void removePlayer(Player player) {
         this.players.remove(player);
 
         if (this.isPublic())
             App.getWebHandler().broadcastUpdatePublicLobby(this);
+
+        if (this.players.size() <= 0)
+            App.getLobbyManager().removeLobby(this);
     }
 
     
