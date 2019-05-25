@@ -77,8 +77,8 @@ public class LobbyManager {
     }
 
 
-    public Collection<String> getPublicLobbies() {
-        return this.publicLobbies.keySet();
+    public Collection<Lobby> getPublicLobbies() {
+        return this.publicLobbies.values();
     }
 
 

@@ -48,6 +48,10 @@ public class Lobby {
         return this.isPublic;
     }
 
+    public int getMaxPlayersAmount() {
+        return this.maxPlayers;
+    }
+
     public Game getGame() {
         return this.game;
     }
