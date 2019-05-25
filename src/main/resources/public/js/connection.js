@@ -54,7 +54,7 @@ function joinGame(lobbyId) {
         gameConnection.addEventListener('message', ev => {
             let message = JSON.parse(ev.data);
 
-            if (message && message.packetId && message.data) {
+            if (message && message.packetId !== undefined && message.data) {
                 switch (message.packetId) {
                     case Packet.In.ERROR:
                         alert(`Fehler: ${message.data.error}`);
