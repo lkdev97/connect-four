@@ -9,6 +9,7 @@ public class Lobby {
     private boolean isPublic;
 
     private ArrayList<Player> players;
+    private int maxPlayers;
 
     private Game game;
 
@@ -18,13 +19,18 @@ public class Lobby {
         this.isPublic = isPublic;
 
         this.players = new ArrayList<Player>();
+        this.maxPlayers = 2;
     }
     
 
     public boolean addPlayer(Player player) {
-        return true;
-    }
+        if (this.players.size() < this.maxPlayers) {
+            this.players.add(player);
+            return true;
+        }
 
+        return false;
+    }
     public void removePlayer(Player player) {
         this.players.remove(player);
     }
