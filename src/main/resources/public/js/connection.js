@@ -51,15 +51,24 @@ function joinGame(lobbyId) {
         gameConnection.addEventListener('message', ev => {
             let message = JSON.parse(ev.data);
 
-            if (message && message.data) {
-                if (message.data.gameField) {
-                    setBoardContent(message.data.gameField);
-                    showBoard(lobbyId);
+            if (message && message.packetId && message.data) {
+                switch (message.packetId) {
+                    case Packet.In.ERROR:
+                        alert(`Fehler: ${message.data.error}`);
+                        break;
+
+                    case Packet.In.CONNECT_SUCCESS:
+                        showBoard(lobbyId);
+                        break;
+
+                    case Packet.In.GAME_FIELD_CONTENT:
+                        setBoardContent(message.data.gameField);
+                        break;
+
+                    default:
+                        console.log(message);
+                        break;
                 }
-                else if (message.data.error)
-                    alert(`Fehler: ${message.data.error}`);
-                else
-                    console.log(message);
             }
         });
     }
