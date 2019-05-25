@@ -1,5 +1,7 @@
 package de.battleship;
 
+import java.util.Objects;
+
 public class Player {
 
     String name;
@@ -15,4 +17,13 @@ public class Player {
         return this.name;
     }
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.wins);
+    }
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof Player && ((Player) obj).name.equals(this.name);
+    }
 }
