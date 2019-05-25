@@ -1,14 +1,30 @@
 package de.battleship.server;
 
+import java.util.HashMap;
+
 import de.battleship.App;
 import de.battleship.Lobby;
+import de.battleship.Player;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
 import io.javalin.Javalin;
 import io.javalin.websocket.WsSession;
 
+/**
+ * Ermöglicht eine Kommunikation zwischen den Spielern und dem Server über WebSockets.
+ */
 public class GameHandler {
+    /**
+     * Die Serverinstanz, welche dieser Handler abhört.
+     */
     private Javalin server;
+
+    /**
+     * Eine Map mit allen aktuell verbundenen Spielern.
+     * Hat die WebSocket Session des Spielers als Key.
+     * Wird benutzt, um bei einem eingehenden Packet schnell den Spieler anhand der Session zu identifizieren.
+     */
+    private HashMap<WsSession, Player> connectedPlayers;
 
 
     public GameHandler(Javalin server) {
@@ -19,6 +35,8 @@ public class GameHandler {
             ws.onMessage(this::handleClientMessage);
             ws.onClose(this::handleClientDisconnect);
         });
+
+        this.connectedPlayers = new HashMap<>();
     }
 
 
