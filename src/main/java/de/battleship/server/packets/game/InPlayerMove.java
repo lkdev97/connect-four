@@ -17,7 +17,7 @@ public class InPlayerMove extends GamePacket {
             if (game.getCurrentPlayer().equals(player))
                 game.makeTurn(this.column);
 
-            gameHandler.sendPacket(session, new OutGameField(game.toString()));
+            lobby.sendGameFieldUpdate();
         }
     }
 }
