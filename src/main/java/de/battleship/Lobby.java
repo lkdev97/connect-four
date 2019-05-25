@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.battleship.server.packets.game.GamePacket;
+import de.battleship.server.packets.game.OutGameField;
 
 public class Lobby {
     private String lobbyId;
@@ -52,22 +53,19 @@ public class Lobby {
     
 
     public void startGame() {
-        if (!this.hasGame() && this.getPlayersAmount() >= 2)
+        if (!this.hasGame() && this.getPlayersAmount() >= 2) {
             this.game = new Game(this.players.get(0), this.players.get(1));
+            this.sendGameFieldUpdate();
+        }
     }
-    
 
-    public void broadcastPacket(GamePacket packet) {
+
+    public void sendPacket(GamePacket packet) {
 
     }
-    public void broadcastGameFieldUpdate() {
-
-    }
-    public void broadcastChatMessage(Player sender, String message) {
-        
-    }
-    public void broadcastChatMessage(String message) {
-        
+    public void sendGameFieldUpdate() {
+        if (this.hasGame())
+            this.sendPacket(new OutGameField(this.game.toString()));
     }
 
     
