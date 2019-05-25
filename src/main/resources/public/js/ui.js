@@ -31,7 +31,8 @@ function setBoardContent(content) {
 *            <button id=2 type="button" onclick="sendRow(this)" class="btn btn-light"></button>
 *        </div>
 */
-function loadBoardContent() {
+// Diese Funktion wird nicht mehr benötigt, da der Server dem Client den Inhalt des Feldes sendet.
+/*function loadBoardContent() {
     var box = document.getElementById("box");
     var html = "";
     var row_counter = 1;
@@ -42,14 +43,12 @@ function loadBoardContent() {
         row_counter++;
     }
     board.innerHTML = html;
-}
+}*/
 
 
 function initUI() {
     if (updateUIReferences()) {
-        loadBoardContent();
         leaveGameButton.addEventListener('click', disconnectFromGame);
-
         return true;
     }
 
