@@ -108,25 +108,26 @@ function updateUIReferences() {
     return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board;
 }
 
-// Fügt ein Spiel mit der angegebenen ID in die Spieleliste hinzu.
-function addGameToBrowser(lobbyId) {
-    if (!lobbyBrowser.querySelector(`#entry-${lobbyId}`)) {
+// Fügt eine Lobby mit den angegebenen Daten zur Lobbyliste hinzu.
+function addLobbyToBrowser(lobbyData) {
+    if (!lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`)) {
         // erstellt die Tabellenreihe
         let rowElement = document.createElement('tr');
-        rowElement.id = lobbyId;
+        rowElement.id = lobbyData.lobbyId;
 
         // erstellt den ID-Text
         let idTextElement = document.createElement('td');
-        idTextElement.innerText = lobbyId;
+        idTextElement.innerText = lobbyData.lobbyId;
         // erstellt den Spielerzahl-Text
         let playerNumTextElement = document.createElement('td');
-        playerNumTextElement.innerText = '0 / 2';
+        playerNumTextElement.classList.add('player-num-text');
+        playerNumTextElement.innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
         // erstellt den Link, mit dem man sich zum Spiel verbinden kann
         let joinTextElement = document.createElement('td');
         let joinLinkElement = document.createElement('span');
         joinLinkElement.className = 'link';
         joinLinkElement.innerText = '>> Beitreten';
-        joinLinkElement.addEventListener('click', () => joinGame(lobbyId));
+        joinLinkElement.addEventListener('click', () => joinGame(lobbyData.lobbyId));
         joinTextElement.appendChild(joinLinkElement);
 
         // fügt die einzelnen Elemente in die Tabellenreihe ein
@@ -139,16 +140,22 @@ function addGameToBrowser(lobbyId) {
         lobbyCounter.innerText = lobbyBrowser.children.length;
     }
 }
-// Löscht ein Spiel mit der angegebenen ID aus der Spieleliste.
-function removeGameFromBrowser(lobbyId) {
-    let row = lobbyBrowser.querySelector(`#entry-${lobbyId}`);
+// Löscht eine Lobby mit den angegebenen Daten aus der Lobbyliste.
+function removeLobbyFromBrowser(lobbyData) {
+    let row = lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`);
     if (row)
         row.remove();
 
     lobbyCounter.innerText = lobbyBrowser.children.length;
 }
-// Löscht alle Einträge aus der Spieleliste.
-function clearGameBrowser() {
+// Aktualisiert eine Lobby mit den angegebenen Daten.
+function updateLobbyInBrowser(lobbyData) {
+    let row = lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`);
+    if (row)
+        row.querySelector('.player-num-text').innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
+}
+// Löscht alle Einträge aus der Lobbyliste.
+function clearLobbyBrowser() {
     while (lobbyBrowser.firstChild)
         lobbyBrowser.firstChild.remove();
 

@@ -2,7 +2,10 @@ package de.battleship.server;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.battleship.App;
+import de.battleship.Lobby;
 import de.battleship.server.packets.web.InCreateLobby;
 import de.battleship.server.packets.web.OutCreateLobby;
 import de.battleship.server.packets.web.OutError;
@@ -26,9 +29,14 @@ public class WebHandler {
      */
     private ArrayList<SseClient> lobbiesListEventClients;
 
+
+    private ObjectMapper jsonConverter;
+
+
     public WebHandler(Javalin server) {
         this.server = server;
         this.lobbiesListEventClients = new ArrayList<SseClient>();
+        this.jsonConverter = new ObjectMapper();
 
         this.server.post("/create", this::handleCreateLobby);
         this.server.post("/lobbylist", this::handlePublicLobbiesList);
@@ -38,14 +46,35 @@ public class WebHandler {
         });
     }
 
-    public void broadcastNewPublicLobby(String lobbyId) {
-        for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
-            this.lobbiesListEventClients.get(i).sendEvent("addlobby", lobbyId);
-    }
+    public void broadcastNewPublicLobby(Lobby lobby) {
+        try {
+            String jsonData = this.jsonConverter.writeValueAsString(lobby.getData());
 
-    public void broadcastRemovePublicLobby(String lobbyId) {
-        for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
-            this.lobbiesListEventClients.get(i).sendEvent("rmlobby", lobbyId);
+            for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
+                this.lobbiesListEventClients.get(i).sendEvent("addlobby", jsonData);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void broadcastUpdatePublicLobby(Lobby lobby) {
+        try {
+            String jsonData = this.jsonConverter.writeValueAsString(lobby.getData());
+
+            for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
+                this.lobbiesListEventClients.get(i).sendEvent("updlobby", jsonData);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void broadcastRemovePublicLobby(Lobby lobby) {
+        try {
+            String jsonData = this.jsonConverter.writeValueAsString(lobby.getData());
+
+            for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
+                this.lobbiesListEventClients.get(i).sendEvent("rmlobby", jsonData);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

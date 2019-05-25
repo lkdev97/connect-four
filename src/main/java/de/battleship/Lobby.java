@@ -26,6 +26,10 @@ public class Lobby {
     public boolean addPlayer(Player player) {
         if (this.players.size() < this.maxPlayers) {
             this.players.add(player);
+            
+            if (this.isPublic())
+                App.getWebHandler().broadcastUpdatePublicLobby(this);
+
             return true;
         }
 
@@ -33,6 +37,9 @@ public class Lobby {
     }
     public void removePlayer(Player player) {
         this.players.remove(player);
+
+        if (this.isPublic())
+            App.getWebHandler().broadcastUpdatePublicLobby(this);
     }
 
     

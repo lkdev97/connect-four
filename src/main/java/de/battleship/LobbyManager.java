@@ -42,7 +42,7 @@ public class LobbyManager {
 
             if (isPublic) {
                 this.publicLobbies.put(lobbyId, lobby);
-                App.getWebHandler().broadcastNewPublicLobby(lobbyId);
+                App.getWebHandler().broadcastNewPublicLobby(lobby);
             }
         }
         else
@@ -69,7 +69,7 @@ public class LobbyManager {
 
             if (lobby.isPublic()) {
                 this.publicLobbies.remove(lobbyId);
-                App.getWebHandler().broadcastRemovePublicLobby(lobbyId);
+                App.getWebHandler().broadcastRemovePublicLobby(lobby);
             }
 
             System.out.println("Removed a lobby, total amount now: " + this.activeLobbies.size());

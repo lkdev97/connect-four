@@ -82,16 +82,17 @@ function connectToGameListEvents() {
         }, 15000);
     });
 
-    // Events, die vom Server gesendet werden (addlobby & rmlobby)
-    lobbyBrowserEvents.addEventListener('addlobby', (event) => addGameToBrowser(event.data));
-    lobbyBrowserEvents.addEventListener('rmlobby', (event) => removeGameFromBrowser(event.data));
+    // Events, die vom Server gesendet werden (addlobby, rmlobby & updlobby)
+    lobbyBrowserEvents.addEventListener('addlobby', (event) => addLobbyToBrowser(JSON.parse(event.data)));
+    lobbyBrowserEvents.addEventListener('rmlobby', (event) => removeLobbyFromBrowser(JSON.parse(event.data)));
+    lobbyBrowserEvents.addEventListener('updlobby', (event) => updateLobbyInBrowser(JSON.parse(event.data)));
 }
 // Aktualisiert die gesamte Lobbyliste (indem alle Einträge gelöscht werden und neue vom Server geholt werden).
 function fetchGameList() {
     sendToServer('/lobbylist', {})
         .then((response) => {
             if (response && response.lobbies) {
-                clearGameBrowser();
+                clearLobbyBrowser();
 
                 // neue Einträge einfügen
                 for (let lobbyId of response.lobbies)
