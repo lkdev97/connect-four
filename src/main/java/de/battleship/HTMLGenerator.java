@@ -15,13 +15,13 @@ public class HTMLGenerator {
     }
 
     private static String generateCellElement(int column, int playerId) {
-        return "\t<div class=\"box"
-                + (playerId == 1 ? " yellow-ball"
-                        : playerId == 2 ? " red-ball"
-                                : playerId == 3 ? " yellow-ball winner" 
-                                    : playerId == 4 ? " red-ball winner" : "")
-                + "\">"
-                +   "<button class=\"btn btn-light\" type=\"button\" onclick=\"sendMove(" + column + ")\"></button>" 
+        return "\t<div class=\"box\">"
+                +   "<button class=\"btn btn-light"
+                +   (playerId == 1 ? " yellow-ball"
+                            : playerId == 2 ? " red-ball"
+                                    : playerId == 3 ? " yellow-ball winner" 
+                                        : playerId == 4 ? " red-ball winner" : "")
+                +   "\" type=\"button\" onclick=\"sendMove(" + column + ")\"></button>" 
                 + "</div>\n";
     }
 }
