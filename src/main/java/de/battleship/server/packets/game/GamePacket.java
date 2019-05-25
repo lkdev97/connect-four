@@ -16,6 +16,8 @@ public abstract class GamePacket {
         registeredInPackets = new HashMap<>();
         registeredInPackets.put(0, InPingPacket.class);
         registeredInPackets.put(1, InConnectRequest.class);
+
+        registeredInPackets.put(16, InPlayerMove.class);
     }
 
 
