@@ -61,7 +61,9 @@ public class Lobby {
 
 
     public void sendPacket(GamePacket packet) {
-
+        for (int i = this.getPlayersAmount() - 1; i >= 0; i--)
+            if (this.players.get(i) instanceof OnlinePlayer)
+                App.getGameHandler().sendPacket(((OnlinePlayer) this.players.get(i)).getSession(), packet);
     }
     public void sendGameFieldUpdate() {
         if (this.hasGame())
