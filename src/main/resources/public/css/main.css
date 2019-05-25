@@ -150,9 +150,6 @@ html, body, .main-wrapper {
     overflow-y: auto;
 }
 
-/**
-TODO
-*/
 .winner {
-
+    box-shadow: 0px 0px 1px 6px rgb(112, 255, 112);
 }
