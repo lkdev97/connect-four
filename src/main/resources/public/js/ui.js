@@ -21,6 +21,12 @@ let board;
 function setBoardContent(content) {
     board.innerHTML = content;
 }
+/**
+ * Löscht den Inhalt des Spielfeldes.
+ */
+function clearBoardContent() {
+    setBoardContent('');
+}
 
 /*
 * die Funktion erstellt über eine for-Schleife das Spielfeld "board"

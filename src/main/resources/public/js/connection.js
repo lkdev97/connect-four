@@ -53,6 +53,7 @@ function disconnectFromGame() {
         gameConnection.close();
     }
     hideBoard();
+    clearBoardContent();
 }
 
 
