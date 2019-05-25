@@ -35,7 +35,6 @@ public class Lobby {
 
         return false;
     }
-
     public void removePlayer(Player player) {
         this.players.remove(player);
 
@@ -44,6 +43,12 @@ public class Lobby {
 
         if (this.players.size() <= 0)
             App.getLobbyManager().removeLobby(this);
+    }
+    
+
+    public void startGame() {
+        if (!this.hasGame() && this.getPlayersAmount() >= 2)
+            this.game = new Game(this.players.get(0), this.players.get(1));
     }
 
     
@@ -72,6 +77,10 @@ public class Lobby {
 
     public Game getGame() {
         return this.game;
+    }
+
+    public boolean hasGame() {
+        return this.game != null;
     }
 
 

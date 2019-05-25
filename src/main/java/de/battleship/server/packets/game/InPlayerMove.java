@@ -11,7 +11,7 @@ public class InPlayerMove extends GamePacket {
 
     @Override
     public void handle(GameHandler gameHandler, WsSession session, Lobby lobby, Player player) {
-        if (lobby.getGame() != null) {
+        if (lobby.hasGame()) {
             Game game = lobby.getGame();
             
             if (game.getCurrentPlayer().equals(player))
