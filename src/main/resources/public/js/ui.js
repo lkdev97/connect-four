@@ -113,7 +113,7 @@ function addLobbyToBrowser(lobbyData) {
     if (!lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`)) {
         // erstellt die Tabellenreihe
         let rowElement = document.createElement('tr');
-        rowElement.id = lobbyData.lobbyId;
+        rowElement.id = `entry-${lobbyData.lobbyId}`;
 
         // erstellt den ID-Text
         let idTextElement = document.createElement('td');
