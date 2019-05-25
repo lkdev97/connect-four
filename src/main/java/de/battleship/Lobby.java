@@ -8,6 +8,8 @@ public class Lobby {
 
     private ArrayList<Player> players;
 
+    private Game game;
+
 
     public Lobby(String lobbyId, boolean isPublic) {
         this.lobbyId = lobbyId;
@@ -28,7 +30,12 @@ public class Lobby {
     public String getLobbyId() {
         return this.lobbyId;
     }
+
     public boolean isPublic() {
         return this.isPublic;
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 }
