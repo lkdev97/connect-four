@@ -52,7 +52,27 @@ public class Lobby {
         return this.maxPlayers;
     }
 
+    public Lobby.Data getData() {
+        return new Lobby.Data(this.lobbyId, this.players.size(), this.maxPlayers);
+    }
+
     public Game getGame() {
         return this.game;
+    }
+
+
+
+
+
+    public static class Data {
+        public String lobbyId;
+        public int players;
+        public int maxPlayers;
+
+        public Data(String lobbyID, int players, int maxPlayers) {
+            this.lobbyId = lobbyID;
+            this.players = players;
+            this.maxPlayers = maxPlayers;
+        }
     }
 }
