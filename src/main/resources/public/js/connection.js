@@ -58,6 +58,7 @@ function joinGame(lobbyId) {
                         break;
 
                     case Packet.In.CONNECT_SUCCESS:
+                        playerName = message.data.playerName;
                         showBoard(lobbyId);
                         break;
 
