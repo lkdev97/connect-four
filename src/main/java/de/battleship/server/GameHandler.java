@@ -65,7 +65,7 @@ public class GameHandler {
         Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
         
         try {
-            GamePacket packet = GamePacket.fromString(message);
+            GamePacket.fromString(message).handle(this, session, game);
         } catch (Exception ex) {
             ex.printStackTrace();
             this.sendErrorMessage(session, "Invalid packet received.", true);

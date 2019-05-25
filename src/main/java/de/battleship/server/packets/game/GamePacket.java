@@ -13,6 +13,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
+import de.battleship.Game;
+import de.battleship.server.GameHandler;
+import io.javalin.websocket.WsSession;
+
 public abstract class GamePacket {
     public static HashMap<Integer, Class<? extends GamePacket>> registeredInPackets;
 
@@ -41,9 +45,9 @@ public abstract class GamePacket {
         }
     }
 
-
-
-
+    public void handle(GameHandler gameHandler, WsSession session, Game game) {
+        System.err.println("Tried to handle packet " + this.getClass().getCanonicalName() + "!");
+    }
 
 
     @JsonDeserialize(using = PacketContainerDeserializer.class)
