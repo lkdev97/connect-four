@@ -22,7 +22,10 @@ let Packet = {
         PLAYER_MOVE: 16
     }
 };
-Object.freeze(PacketId); // Verhindert, dass die Werte innerhalb von PacketId verändert werden können
+// Verhindert, dass die Werte innerhalb von Packet verändert werden können
+Object.freeze(Packet);
+Object.freeze(Packet.In);
+Object.freeze(Packet.Out);
 
 
 // Fordert an, dass ein neues Spiel erstellt werden soll.
