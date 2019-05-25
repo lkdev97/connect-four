@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import org.jetbrains.annotations.NotNull;
 
-import de.battleship.Game;
 import de.battleship.Lobby;
 import de.battleship.Player;
 import de.battleship.server.GameHandler;

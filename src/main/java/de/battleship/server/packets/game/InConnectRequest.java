@@ -1,6 +1,5 @@
 package de.battleship.server.packets.game;
 
-import de.battleship.Game;
 import de.battleship.Lobby;
 import de.battleship.Player;
 import de.battleship.server.GameHandler;
