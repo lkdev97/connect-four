@@ -37,7 +37,8 @@ public class LobbyManager {
         String lobbyId = this.generateNewId();
 
         if (this.activeLobbies.size() < MAX_LOBBIES_AMOUNT) {
-            Lobby lobby = this.activeLobbies.put(lobbyId, new Lobby(lobbyId, isPublic));
+            Lobby lobby = new Lobby(lobbyId, isPublic);
+            this.activeLobbies.put(lobbyId, lobby);
             System.out.println("Created new lobby with ID " + lobbyId + ", total amount now: " + this.activeLobbies.size());
 
             if (isPublic) {
