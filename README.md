@@ -1,4 +1,4 @@
-# Projekt: Battleship (Fr/2, Kr)
+# Projekt: Vier Gewinnt! (Fr/2, Kr)
 
 > Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein 8x8 Feld für zwei Personen. Die Personen legen im Wechsel rote & gelbe Steine und der erste der vier Steine in Reihe bringt (senkrecht, waagerecht oder diagonal) hat gewonnen.
 
