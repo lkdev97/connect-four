@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.battleship.server.packets.game.GamePacket;
+
 public class Lobby {
     private String lobbyId;
     private boolean isPublic;
@@ -30,6 +32,9 @@ public class Lobby {
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
+            if (!this.hasGame() && this.getPlayersAmount() >= 2)
+                this.startGame();
+
             return true;
         }
 
@@ -49,6 +54,20 @@ public class Lobby {
     public void startGame() {
         if (!this.hasGame() && this.getPlayersAmount() >= 2)
             this.game = new Game(this.players.get(0), this.players.get(1));
+    }
+    
+
+    public void broadcastPacket(GamePacket packet) {
+
+    }
+    public void broadcastGameFieldUpdate() {
+
+    }
+    public void broadcastChatMessage(Player sender, String message) {
+        
+    }
+    public void broadcastChatMessage(String message) {
+        
     }
 
     
