@@ -10,7 +10,9 @@ public class InPlayerMove extends GamePacket {
 
     @Override
     public void handle(GameHandler gameHandler, WsSession session, Player player, Game game) {
-        game.makeTurn(this.column);
+        if (game.getCurrentPlayer().equals(player))
+            game.makeTurn(this.column);
+        
         gameHandler.sendPacket(session, new OutGameField(game.toString()));
     }
 }
