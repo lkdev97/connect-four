@@ -7,6 +7,16 @@
 let gameConnection = null;
 
 
+// Beinhaltet die IDs von ausgehenden Packets.
+let PacketId = {
+    PING: 0,
+    CONNECT_REQUEST: 1,
+
+    PLAYER_MOVE: 16
+};
+Object.freeze(PacketId); // Verhindert, dass die Werte innerhalb von PacketId verändert werden können
+
+
 // Fordert an, dass ein neues Spiel erstellt werden soll.
 function createNewGame() {
     console.log('Erstelle ein neues Spiel...');
@@ -27,7 +37,7 @@ function joinGame(gameId) {
 
         console.log(`Verbinde mit Spiel "${gameId}"...`);
         gameConnection = new WebSocket(`ws://${window.location.hostname}/${gameId}`);
-        gameConnection.addEventListener('open', () => sendToGame(1, { playerName }));
+        gameConnection.addEventListener('open', () => sendToGame(PacketId.CONNECT_REQUEST, { playerName }));
         gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
         gameConnection.addEventListener('close', () => disconnectFromGame());
         gameConnection.addEventListener('message', ev => {
@@ -99,7 +109,7 @@ function isConnectedToGame() {
 // Sendet einen Spielzug an den Server.
 // Der Spielzug besteht aus der Spaltennummer, in die der Spieler seinen Stein legt.
 function sendMove(column) {
-    sendToGame(16, { column });
+    sendToGame(PacketId.PLAYER_MOVE, { column });
 }
 
 
@@ -111,7 +121,7 @@ function sendToServer(target, data = {}) {
 }
 
 // Sendet Daten an das Spiel, mit welchem man aktuell verbunden ist.
-// Die Daten sollten ein JSON-Objekt sein.
+// Die Daten sollten ein JSON-Objekt sein, das in ein Packet umgewandelt werden kann.
 function sendToGame(packetId, data) {
     if (data && isConnectedToGame())
         gameConnection.send(JSON.stringify({ packetId, data }));
