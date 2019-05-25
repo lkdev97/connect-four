@@ -101,7 +101,14 @@ public class GameHandler {
      * Wird aufgerufen, wenn ein Client die Verbindung trennt.
      */
     private void handleClientDisconnect(WsSession session, int statusCode, String reason) {
-        // TODO: Remove player from lobby
+        Player player = this.connectedPlayers.getOrDefault(session, null);
+
+        if (player != null) {
+            Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
+            lobby.removePlayer(player);
+            this.connectedPlayers.remove(session);
+        }
+
         System.out.println(
                 "WebSocket closed for id " + session.pathParam("lobby-id") + ": (" + statusCode + ") " + reason);
     }
