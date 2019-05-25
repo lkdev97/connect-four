@@ -19,17 +19,34 @@ import de.battleship.server.GameHandler;
 import io.javalin.websocket.WsSession;
 
 public abstract class GamePacket {
-    public static HashMap<Integer, Class<? extends GamePacket>> registeredInPackets;
+    public static HashMap<Integer, Class<? extends GamePacket>> id2InPacket;
+    public static HashMap<Class<? extends GamePacket>, Integer> inPacket2Id;
+
+    public static HashMap<Integer, Class<? extends GamePacket>> id2OutPacket;
+    public static HashMap<Class<? extends GamePacket>, Integer> outPacket2Id;
 
     protected static ObjectMapper jsonConverter;
 
     static {
         jsonConverter = new ObjectMapper();
 
-        registeredInPackets = new HashMap<>();
-        registeredInPackets.put(0, InPingPacket.class);
-        registeredInPackets.put(1, InConnectRequest.class);
-        registeredInPackets.put(16, InPlayerMove.class);
+        // In Packets
+        id2InPacket = new HashMap<>();
+        id2InPacket.put(0, InPingPacket.class);
+        id2InPacket.put(1, InConnectRequest.class);
+        id2InPacket.put(16, InPlayerMove.class);
+
+        inPacket2Id = new HashMap<>();
+        id2InPacket.forEach((k, v) -> inPacket2Id.put(v, k));
+
+        // Out Packets
+        id2OutPacket = new HashMap<>();
+        id2OutPacket.put(0, OutError.class);
+        id2OutPacket.put(1, OutConnectSuccess.class);
+        id2OutPacket.put(16, OutGameField.class);
+
+        outPacket2Id = new HashMap<>();
+        id2OutPacket.forEach((k, v) -> outPacket2Id.put(v, k));
     }
 
     public static GamePacket fromString(String data) throws JsonParseException, JsonMappingException, IOException {
@@ -39,7 +56,8 @@ public abstract class GamePacket {
     @Override
     public String toString() {
         try {
-            return jsonConverter.writeValueAsString(new PacketContainer(0, this));
+            return jsonConverter.writeValueAsString(new PacketContainer(
+                    outPacket2Id.getOrDefault(this.getClass(), inPacket2Id.getOrDefault(this.getClass(), 0)), this));
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -81,7 +99,7 @@ public abstract class GamePacket {
             JsonNode dataNode = node.get("data");
 
             int packetId = packetIdNode.asInt();
-            Class<? extends GamePacket> inPacketType = registeredInPackets.get(packetId);
+            Class<? extends GamePacket> inPacketType = id2InPacket.get(packetId);
 
             if (inPacketType != null)
                 return new PacketContainer(packetId, jsonConverter.treeToValue(dataNode, inPacketType));
