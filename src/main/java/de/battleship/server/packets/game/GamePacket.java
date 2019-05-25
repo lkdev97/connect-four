@@ -77,10 +77,8 @@ public abstract class GamePacket {
             int packetId = packetIdNode.asInt();
             Class<? extends GamePacket> inPacketType = registeredInPackets.get(packetId);
 
-            if (inPacketType != null) {
-                System.out.println(dataNode.asText());
-                return new PacketContainer(packetId, jsonConverter.readValue(dataNode.asText(), inPacketType));
-            }
+            if (inPacketType != null)
+                return new PacketContainer(packetId, jsonConverter.treeToValue(dataNode, inPacketType));
 
             return null;
         }
