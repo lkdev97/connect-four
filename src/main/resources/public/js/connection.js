@@ -43,13 +43,13 @@ function joinGame(gameId) {
         gameConnection.addEventListener('message', ev => {
             let message = JSON.parse(ev.data);
 
-            if (message) {
-                if (message.gameField) {
-                    setBoardContent(message.gameField);
+            if (message && message.data) {
+                if (message.data.gameField) {
+                    setBoardContent(message.data.gameField);
                     showBoard(gameId);
                 }
-                else if (message.error)
-                    alert(`Fehler: ${message.error}`);
+                else if (message.data.error)
+                    alert(`Fehler: ${message.data.error}`);
                 else
                     console.log(message);
             }
