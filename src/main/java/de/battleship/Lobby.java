@@ -24,7 +24,7 @@ public class Lobby {
     
 
     public boolean addPlayer(Player player) {
-        if (this.players.size() < this.maxPlayers) {
+        if (this.players.size() < this.maxPlayers && !this.players.contains(player)) {
             this.players.add(player);
             
             if (this.isPublic())
@@ -55,6 +55,9 @@ public class Lobby {
         return this.isPublic;
     }
 
+    public int getPlayersAmount() {
+        return this.players.size();
+    }
     public int getMaxPlayersAmount() {
         return this.maxPlayers;
     }

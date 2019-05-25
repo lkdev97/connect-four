@@ -40,6 +40,14 @@ public class GameHandler {
     }
 
 
+    public void addConnectedPlayer(WsSession session, Player player) {
+        this.connectedPlayers.put(session, player);
+    }
+    public void removeConnectedPlayer(WsSession session) {
+        this.connectedPlayers.remove(session);
+    }
+
+
     /**
      * Sendet ein Packet an den Client.
      */
@@ -82,7 +90,7 @@ public class GameHandler {
         Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
         
         try {
-            GamePacket.fromString(message).handle(this, session, lobby, lobby.getGame().getCurrentPlayer());
+            GamePacket.fromString(message).handle(this, session, lobby, this.connectedPlayers.getOrDefault(session, null));
         } catch (Exception ex) {
             ex.printStackTrace();
             this.sendErrorMessage(session, "Invalid packet received.", true);
