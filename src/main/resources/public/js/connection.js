@@ -7,12 +7,20 @@
 let gameConnection = null;
 
 
-// Beinhaltet die IDs von ausgehenden Packets.
-let PacketId = {
-    PING: 0,
-    CONNECT_REQUEST: 1,
+// Beinhaltet die IDs von Packets.
+let Packet = {
+    In: {
+        ERROR: 0,
+        CONNECT_SUCCESS: 1,
 
-    PLAYER_MOVE: 16
+        GAME_FIELD_CONTENT: 16
+    },
+    Out: {
+        PING: 0,
+        CONNECT_REQUEST: 1,
+
+        PLAYER_MOVE: 16
+    }
 };
 Object.freeze(PacketId); // Verhindert, dass die Werte innerhalb von PacketId verändert werden können
 
@@ -37,7 +45,7 @@ function joinGame(lobbyId) {
 
         console.log(`Verbinde mit Spiel "${lobbyId}"...`);
         gameConnection = new WebSocket(`ws://${window.location.hostname}/${lobbyId}`);
-        gameConnection.addEventListener('open', () => sendToGame(PacketId.CONNECT_REQUEST, { playerName }));
+        gameConnection.addEventListener('open', () => sendToGame(Packet.Out.CONNECT_REQUEST, { playerName }));
         gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
         gameConnection.addEventListener('close', () => disconnectFromGame());
         gameConnection.addEventListener('message', ev => {
@@ -110,7 +118,7 @@ function isConnectedToGame() {
 // Sendet einen Spielzug an den Server.
 // Der Spielzug besteht aus der Spaltennummer, in die der Spieler seinen Stein legt.
 function sendMove(column) {
-    sendToGame(PacketId.PLAYER_MOVE, { column });
+    sendToGame(Packet.Out.PLAYER_MOVE, { column });
 }
 
 
