@@ -17,8 +17,10 @@ public class InConnectRequest extends GamePacket {
                 player = new OnlinePlayer(this.playerName, session);
                 gameHandler.addConnectedPlayer(session, player);
 
-                if (lobby.addPlayer(player))
+                if (lobby.addPlayer(player)) {
                     gameHandler.sendPacket(session, new OutConnectSuccess(this.playerName));
+                    lobby.sendGameFieldUpdate();
+                } 
                 else
                     gameHandler.sendErrorMessage(session, "Couldn't add you to lobby. Try changing your name.", true);
             } else
