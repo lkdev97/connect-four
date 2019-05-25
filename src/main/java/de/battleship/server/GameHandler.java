@@ -29,20 +29,23 @@ public class GameHandler {
     private void handleNewClient(WsSession session) {
         Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
 
-        if (game == null) {
-            this.sendErrorMessage(session, "Game not found.");
-            session.close(1, "Disconnect by server.");
-        }
+        if (game == null)
+            this.sendErrorMessage(session, "Game not found.", true);
     }
     /**
      * Wird aufgerufen, wenn ein Client eine Nachricht an den Server sendet.
      */
     private void handleClientMessage(WsSession session, String message) {
         Game game = App.getGameManager().getGameById(session.pathParam("game-id"));
-        System.out.println(session.pathParam("game-id") + " >> " + message);
-
-        this.sendPacket(session, new OutGameField(game.toString()));
+        
+        try {
+            GamePacket packet = GamePacket.fromString(message);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.sendErrorMessage(session, "Invalid packet received.", true);
+        }
     }
+
     /**
      * Wird aufgerufen, wenn ein Client die Verbindung trennt.
      */
@@ -59,10 +62,22 @@ public class GameHandler {
     private void sendPacket(WsSession session, GamePacket packet) {
         session.send(packet.toString());
     }
+    
     /**
      * Sendet eine Fehlernachricht an den Client.
+     * Trennt nicht die Verbindung.
      */
     private void sendErrorMessage(WsSession session, String message) {
+        this.sendErrorMessage(session, message, false);
+    }
+    /**
+     * Sendet eine Fehlernachricht an den Client.
+     * Trennt danach die Verbindung, falls disconnect auf true gesetzt wurde.
+     */
+    private void sendErrorMessage(WsSession session, String message, boolean disconnect) {
         this.sendPacket(session, new OutError(message));
+
+        if (disconnect)
+            session.close(1, "Disconnect by server (error).");
     }
 }
