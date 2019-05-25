@@ -11,13 +11,18 @@ public class InConnectRequest extends GamePacket {
     @Override
     public void handle(GameHandler gameHandler, WsSession session, Lobby lobby, Player player) {
         if (lobby.getPlayersAmount() < lobby.getMaxPlayersAmount()) {
-            player = new Player(this.playerName);
-            gameHandler.addConnectedPlayer(session, player);
+            this.playerName = this.playerName.replace(" ", "");
 
-            if (lobby.addPlayer(player))
-                gameHandler.sendPacket(session, new OutGameField(lobby.getGame().toString()));
-            else
-                gameHandler.sendErrorMessage(session, "Couldn't add you to lobby. Try changing your name.", true);
+            if (this.playerName.length() >= 3) {
+                player = new Player(this.playerName);
+                gameHandler.addConnectedPlayer(session, player);
+
+                if (lobby.addPlayer(player))
+                    gameHandler.sendPacket(session, new OutConnectSuccess(this.playerName));
+                else
+                    gameHandler.sendErrorMessage(session, "Couldn't add you to lobby. Try changing your name.", true);
+            } else
+                gameHandler.sendErrorMessage(session, "Invalid player name (min. 3 characters).", true);
         } else
             gameHandler.sendErrorMessage(session, "Lobby is already full.", true);
     }
