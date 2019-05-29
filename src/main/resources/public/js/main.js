@@ -20,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setUserName(`Player${Math.floor(Math.random() * 9001 + 1000)}`);
         setUserName(prompt("Bitte gib deinen Spielernamen ein:", playerName) || playerName);
-        //setUserName(prompt("Test"));
-        //setUserName(playerName);
     }
     else
         console.error('Manche UI Elemente fehlen.');
