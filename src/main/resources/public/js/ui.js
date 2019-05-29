@@ -12,6 +12,7 @@ let leaveGameButton;
 let lobbyBrowser;
 let lobbyCounter;
 let board;
+let txtUserName;
 
 
 
@@ -30,7 +31,12 @@ function clearBoardContent() {
 
 
 function setUserName(username) {
-    document.getElementById("username").innerHTML = username;
+    playerName = username;
+    document.getElementById("username").innerHTML = playerName;
+}
+
+function changeUserName() {
+    setUserName(prompt("Dein aktueller Name lautet: " + playerName + ". Sollten Sie ihn ändern wollen geben Sie einen neuen ein", playerName) || playerName);
 }
 
 /*
@@ -102,6 +108,7 @@ function hideBoard() {
 // Lädt Referenzen auf UI Elemente neu.
 function updateUIReferences() {
     createGameButton = document.getElementById('create-game-button');
+    txtUserName = document.getElementById('username');
     createGameIsPublicBox = document.getElementById('create-game-public-box');
     joinGameButton = document.getElementById('join-game-button');
     joinGameId = document.getElementById('join-game-code');
