@@ -82,9 +82,10 @@ function showBoard(gameId) {
     document.getElementById('board').classList.remove('is--hidden');
     document.getElementById('join-game-wrapper').classList.add('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
-    document.getElementById("new-game").classList.remove('is--hidden');
+    //document.getElementById("new-game").classList.remove('is--hidden');
     document.getElementById("leave-lobby").classList.remove('is--hidden');
     document.getElementById("url-box").classList.remove('is--hidden');
+    document.getElementById("username").classList.add('is--hidden');
 
     document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "! <br> Spiel-ID: " + gameId;
 }
@@ -98,9 +99,10 @@ function hideBoard() {
     document.getElementById('board').classList.add('is--hidden');
     document.getElementById('join-game-wrapper').classList.remove('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.remove('is--hidden');
-    document.getElementById("new-game").classList.add('is--hidden');
+    //document.getElementById("new-game").classList.add('is--hidden');
     document.getElementById("leave-lobby").classList.add('is--hidden');
     document.getElementById("url-box").classList.add('is--hidden');
+    document.getElementById("username").classList.remove('is--hidden');
 }
 
 
