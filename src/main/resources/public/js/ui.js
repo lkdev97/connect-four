@@ -36,7 +36,7 @@ function setUserName(username) {
 }
 
 function changeUserName() {
-    setUserName(prompt("Dein aktueller Name lautet: " + playerName + ". Sollten Sie ihn ändern wollen geben Sie einen neuen ein", playerName) || playerName);
+    setUserName(prompt("Spielname ändern", playerName) || playerName);
 }
 
 /*

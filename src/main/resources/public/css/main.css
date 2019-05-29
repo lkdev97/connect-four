@@ -154,3 +154,10 @@ html, body, .main-wrapper {
     box-shadow: 0px 0px 1px 6px rgb(112, 255, 112);
     z-index: 10;
 }
+
+#username {
+    cursor: pointer;
+    text-decoration: underline;
+    max-width: 400px;
+    overflow: auto;
+}
