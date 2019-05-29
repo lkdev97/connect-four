@@ -160,4 +160,5 @@ html, body, .main-wrapper {
     text-decoration: underline;
     max-width: 400px;
     overflow: auto;
+    font-style: italic;
 }
