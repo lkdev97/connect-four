@@ -89,12 +89,17 @@ public class GameHandler {
     private void handleClientMessage(WsSession session, String message) {
         Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
         
-        try {
-            GamePacket.fromString(message).handle(this, session, lobby, this.connectedPlayers.getOrDefault(session, null));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.sendErrorMessage(session, "Invalid packet received.", true);
+        if (lobby != null) {
+            try {
+                GamePacket.fromString(message).handle(this, session, lobby,
+                        this.connectedPlayers.getOrDefault(session, null));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                this.sendErrorMessage(session, "Invalid packet received.", true);
+            }
         }
+        else
+            this.sendErrorMessage(session, "Session no longer exists.", true);
     }
 
     /**
@@ -102,10 +107,12 @@ public class GameHandler {
      */
     private void handleClientDisconnect(WsSession session, int statusCode, String reason) {
         OnlinePlayer player = this.connectedPlayers.getOrDefault(session, null);
+        Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
 
         if (player != null) {
-            Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
-            lobby.removePlayer(player);
+            if (lobby != null)
+                lobby.removePlayer(player);
+            
             this.connectedPlayers.remove(session);
         }
 
