@@ -1,5 +1,7 @@
 package de.battleship;
 
+import java.util.Objects;
+
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
 import io.javalin.websocket.WsSession;
@@ -69,5 +71,15 @@ public class OnlinePlayer extends Player {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.wins, this.session.getId());
+    }
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && obj instanceof OnlinePlayer && ((OnlinePlayer) obj).session.getId().equals(this.session.getId());
     }
 }
