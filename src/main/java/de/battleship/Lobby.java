@@ -14,6 +14,7 @@ public class Lobby {
     private ArrayList<Player> players;
     private int maxPlayers;
     private ArrayList<Player> spectators;
+    private boolean spectatorsAllowed;
 
     private Game game;
 
@@ -25,6 +26,7 @@ public class Lobby {
         this.players = new ArrayList<Player>();
         this.maxPlayers = 2;
         this.spectators = new ArrayList<Player>();
+        this.spectatorsAllowed = true;
     }
     
 
@@ -83,6 +85,9 @@ public class Lobby {
     }
     
     public boolean canJoin(Player player) {
+        if (!this.areSpectatorsAllowed() && this.players.size() >= this.maxPlayers)
+            return false;
+        
         for (int i = 0; i < this.players.size(); i++)
             if (this.players.get(i).getName().equalsIgnoreCase(player.getName()))
                 return false;
@@ -107,6 +112,10 @@ public class Lobby {
 
     public boolean isPublic() {
         return this.isPublic;
+    }
+
+    public boolean areSpectatorsAllowed() {
+        return this.spectatorsAllowed;
     }
 
     public int getPlayersAmount() {
