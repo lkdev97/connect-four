@@ -13,6 +13,7 @@ public class Lobby {
 
     private ArrayList<Player> players;
     private int maxPlayers;
+    private ArrayList<Player> spectators;
 
     private Game game;
 
@@ -23,12 +24,16 @@ public class Lobby {
 
         this.players = new ArrayList<Player>();
         this.maxPlayers = 2;
+        this.spectators = new ArrayList<Player>();
     }
     
 
     public boolean addPlayer(Player player) {
         if (canJoin(player)) {
-            this.players.add(player);
+            if (this.players.size() < this.maxPlayers)
+                this.players.add(player);
+            else
+                this.spectators.add(player);
 
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
@@ -42,6 +47,7 @@ public class Lobby {
 
     public void removePlayer(Player player) {
         this.players.remove(player);
+        this.spectators.remove(player);
 
         if (this.isPublic())
             App.getWebHandler().broadcastUpdatePublicLobby(this);
@@ -60,9 +66,15 @@ public class Lobby {
 
 
     public void sendPacket(GamePacket packet) {
-        for (int i = this.getPlayersAmount() - 1; i >= 0; i--)
+        // Spieler
+        for (int i = this.players.size() - 1; i >= 0; i--)
             if (this.players.get(i) instanceof OnlinePlayer)
                 ((OnlinePlayer) this.players.get(i)).sendPacket(packet);
+
+        // Zuschauer
+        for (int i = this.spectators.size() - 1; i >= 0; i--)
+            if (this.spectators.get(i) instanceof OnlinePlayer)
+                ((OnlinePlayer) this.spectators.get(i)).sendPacket(packet);
     }
 
     public void sendGameFieldUpdate() {
@@ -71,8 +83,11 @@ public class Lobby {
     }
     
     public boolean canJoin(Player player) {
-        for (int i = 0; i < this.getPlayersAmount(); i++)
+        for (int i = 0; i < this.players.size(); i++)
             if (this.players.get(i).getName().equalsIgnoreCase(player.getName()))
+                return false;
+        for (int i = 0; i < this.spectators.size(); i++)
+            if (this.spectators.get(i).getName().equalsIgnoreCase(player.getName()))
                 return false;
 
         return true;
@@ -81,6 +96,9 @@ public class Lobby {
     
     public List<Player> getPlayers() {
         return Collections.unmodifiableList(this.players);
+    }
+    public List<Player> getSpectators() {
+        return Collections.unmodifiableList(this.spectators);
     }
 
     public String getLobbyId() {
@@ -97,9 +115,12 @@ public class Lobby {
     public int getMaxPlayersAmount() {
         return this.maxPlayers;
     }
+    public int getSpectatorsAmount() {
+        return this.spectators.size();
+    }
 
     public Lobby.Data getData() {
-        return new Lobby.Data(this.lobbyId, this.players.size(), this.maxPlayers);
+        return new Lobby.Data(this.lobbyId, this.players.size(), this.maxPlayers, this.spectators.size());
     }
 
     public Game getGame() {
@@ -118,11 +139,13 @@ public class Lobby {
         public String lobbyId;
         public int players;
         public int maxPlayers;
+        public int spectators;
 
-        public Data(String lobbyID, int players, int maxPlayers) {
+        public Data(String lobbyID, int players, int maxPlayers, int spectators) {
             this.lobbyId = lobbyID;
             this.players = players;
             this.maxPlayers = maxPlayers;
+            this.spectators = spectators;
         }
     }
 }

@@ -130,7 +130,7 @@ function addLobbyToBrowser(lobbyData) {
         // erstellt den Spielerzahl-Text
         let playerNumTextElement = document.createElement('td');
         playerNumTextElement.classList.add('player-num-text');
-        playerNumTextElement.innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
+        playerNumTextElement.innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}${lobbyData.spectators > 0 ? ` (+${lobbyData.spectators})` : ''}`;
         // erstellt den Link, mit dem man sich zum Spiel verbinden kann
         let joinTextElement = document.createElement('td');
         let joinLinkElement = document.createElement('span');
@@ -161,7 +161,7 @@ function removeLobbyFromBrowser(lobbyData) {
 function updateLobbyInBrowser(lobbyData) {
     let row = lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`);
     if (row) {
-        row.querySelector('.player-num-text').innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
+        row.querySelector('.player-num-text').innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}${lobbyData.spectators > 0 ? ` (+${lobbyData.spectators})` : ''}`;
         row.querySelector('.join-link').innerText = `>> ${lobbyData.players < lobbyData.maxPlayers ? 'Beitreten' : 'Zuschauen'}`;
     }
 }
