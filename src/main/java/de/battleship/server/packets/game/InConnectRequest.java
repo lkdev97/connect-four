@@ -15,11 +15,13 @@ public class InConnectRequest extends GamePacket {
 
             if (this.playerName.length() >= 3) {
                 player.setName(this.playerName);
-                gameHandler.addConnectedPlayer(session, player);
 
                 if (lobby.addPlayer(player)) {
-                    gameHandler.sendPacket(session, new OutConnectSuccess(this.playerName));
-                    lobby.sendGameFieldUpdate();
+                    player.sendPacket(new OutConnectSuccess(this.playerName));
+
+                    // versuche, das Spiel zu starten, falls die Lobby noch kein laufendes Spiel hat
+                    if (!lobby.hasGame())
+                        lobby.startGame();
                 } 
                 else
                     player.disconnect("Konnte dem Spiel nicht beitreten. Versuche es mit einem anderen Spielernamen.");
