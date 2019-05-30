@@ -63,4 +63,11 @@ public class OnlinePlayer extends Player {
     public WsSession getSession() {
         return this.session;
     }
+
+    /**
+     * Setzt einen neuen Spielernamen für diesen Spieler.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }
