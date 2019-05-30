@@ -87,7 +87,11 @@ function showBoard(gameId) {
     document.getElementById("url-box").classList.remove('is--hidden');
     document.getElementById("username").classList.add('is--hidden');
 
-    document.getElementById("game-url").innerHTML = "Viel Erfolg " + playerName + "! <br> Spiel-ID: " + gameId;
+    document.getElementById("game-url").innerHTML = `
+                                                    Viel Erfolg, ${playerName}!<br />
+                                                    Spiel-ID: ${gameId}<br />
+                                                    Link zum Spiel: <i>${location.href}</i>
+                                                    `;
 }
 
 /**
