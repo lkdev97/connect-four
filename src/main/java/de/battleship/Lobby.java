@@ -27,20 +27,19 @@ public class Lobby {
     
 
     public boolean addPlayer(Player player) {
-        if (this.players.size() < this.maxPlayers && !this.players.contains(player)) {
+        if (canJoin(player)) {
             this.players.add(player);
-            
+
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
-            if (!this.hasGame() && this.getPlayersAmount() >= 2)
-                this.startGame();
-
+            this.sendGameFieldUpdate();
             return true;
         }
 
         return false;
     }
+
     public void removePlayer(Player player) {
         this.players.remove(player);
 
@@ -63,11 +62,20 @@ public class Lobby {
     public void sendPacket(GamePacket packet) {
         for (int i = this.getPlayersAmount() - 1; i >= 0; i--)
             if (this.players.get(i) instanceof OnlinePlayer)
-                App.getGameHandler().sendPacket(((OnlinePlayer) this.players.get(i)).getSession(), packet);
+                ((OnlinePlayer) this.players.get(i)).sendPacket(packet);
     }
+
     public void sendGameFieldUpdate() {
         if (this.hasGame())
             this.sendPacket(new OutGameField(this.game.toString()));
+    }
+    
+    public boolean canJoin(Player player) {
+        for (int i = 0; i < this.getPlayersAmount(); i++)
+            if (this.players.get(i).getName().equalsIgnoreCase(player.getName()))
+                return false;
+
+        return true;
     }
 
     

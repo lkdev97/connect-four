@@ -40,72 +40,48 @@ public class GameHandler {
     }
 
 
-    public void addConnectedPlayer(WsSession session, OnlinePlayer player) {
-        this.connectedPlayers.put(session, player);
-    }
-    public void removeConnectedPlayer(WsSession session) {
-        this.connectedPlayers.remove(session);
-    }
-
-
-    /**
-     * Sendet ein Packet an den Client.
-     */
-    public void sendPacket(WsSession session, GamePacket packet) {
-        session.send(packet.toString());
-    }
-    
-    /**
-     * Sendet eine Fehlernachricht an den Client.
-     * Trennt nicht die Verbindung.
-     */
-    public void sendErrorMessage(WsSession session, String message) {
-        this.sendErrorMessage(session, message, false);
-    }
-    /**
-     * Sendet eine Fehlernachricht an den Client.
-     * Trennt danach die Verbindung, falls disconnect auf true gesetzt wurde.
-     */
-    public void sendErrorMessage(WsSession session, String message, boolean disconnect) {
-        this.sendPacket(session, new OutError(message));
-
-        if (disconnect)
-            session.close(1, "Disconnect by server (error).");
-    }
-
-
     /**
      * Wird aufgerufen, wenn sich ein neuer Client mit dem Server verbindet.
      */
     private void handleNewClient(WsSession session) {
         Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
 
-        if (lobby == null)
-            this.sendErrorMessage(session, "Lobby not found.", true);
+        if (lobby != null) {
+            this.connectedPlayers.put(session, new OnlinePlayer("", session));
+        }
+        else {
+            session.send(new OutError("Das angegebene Spiel wurde nicht gefunden.").toString());
+            session.close();
+        }
     }
     /**
      * Wird aufgerufen, wenn ein Client eine Nachricht an den Server sendet.
      */
     private void handleClientMessage(WsSession session, String message) {
         Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
-        
-        try {
-            GamePacket.fromString(message).handle(this, session, lobby, this.connectedPlayers.getOrDefault(session, null));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.sendErrorMessage(session, "Invalid packet received.", true);
-        }
-    }
+        OnlinePlayer player = this.connectedPlayers.get(session);
 
+        if (lobby != null) {
+            try {
+                GamePacket.fromString(message).handle(this, session, lobby, player);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                player.disconnect("Ungültiges Packet erhalten.");
+            }
+        } else
+            player.disconnect("Die Lobby existiert nicht mehr.");
+    }
     /**
      * Wird aufgerufen, wenn ein Client die Verbindung trennt.
      */
     private void handleClientDisconnect(WsSession session, int statusCode, String reason) {
-        OnlinePlayer player = this.connectedPlayers.getOrDefault(session, null);
+        Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
+        OnlinePlayer player = this.connectedPlayers.get(session);
 
         if (player != null) {
-            Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
-            lobby.removePlayer(player);
+            if (lobby != null)
+                lobby.removePlayer(player);
+            
             this.connectedPlayers.remove(session);
         }
 
