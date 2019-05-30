@@ -101,7 +101,6 @@ public class GameHandler {
         else
             this.sendErrorMessage(session, "Session no longer exists.", true);
     }
-
     /**
      * Wird aufgerufen, wenn ein Client die Verbindung trennt.
      */
