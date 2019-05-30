@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setUserName(`Player${Math.floor(Math.random() * 9001 + 1000)}`);
         setUserName(prompt("Bitte gib deinen Spielernamen ein:", playerName) || playerName);
+
+        if (location.hash.length > 0)
+            joinGame(location.hash.substr(1));
     }
     else
         console.error('Manche UI Elemente fehlen.');
