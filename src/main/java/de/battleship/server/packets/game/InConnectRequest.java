@@ -14,7 +14,7 @@ public class InConnectRequest extends GamePacket {
             this.playerName = this.playerName.replace(" ", "");
 
             if (this.playerName.length() >= 3) {
-                player = new OnlinePlayer(this.playerName, session);
+                player.setName(this.playerName);
                 gameHandler.addConnectedPlayer(session, player);
 
                 if (lobby.addPlayer(player)) {
@@ -22,10 +22,10 @@ public class InConnectRequest extends GamePacket {
                     lobby.sendGameFieldUpdate();
                 } 
                 else
-                    gameHandler.sendErrorMessage(session, "Couldn't add you to lobby. Try changing your name.", true);
+                    player.disconnect("Konnte dem Spiel nicht beitreten. Versuche es mit einem anderen Spielernamen.");
             } else
-                gameHandler.sendErrorMessage(session, "Invalid player name (min. 3 characters).", true);
+                player.disconnect("Ungültiger Spielername (mindestens 3 Zeichen benötigt).");
         } else
-            gameHandler.sendErrorMessage(session, "Lobby is already full.", true);
+            player.disconnect("Dieses Spiel ist bereits voll.");
     }
 }

@@ -33,9 +33,6 @@ public class Lobby {
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
-            if (!this.hasGame() && this.getPlayersAmount() >= 2)
-                this.startGame();
-
             return true;
         }
 
