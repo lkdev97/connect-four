@@ -1,3 +1,4 @@
+<a name="Einleitung"></a>
 # Projekt: Vier Gewinnt! (Fr/2, Kr)
 
 > Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein Spiel für zwei Personen, bei dem die Spieler im Wechsel rote und gelbe Steine in ein (in unserem Fall) 8x8-Spielfeld legen. Wer es zuerst schafft, vier Steine seiner Farbe in eine Reihe (horizontal, vertikal oder diagonal) zu bringen, gewinnt. Unsere Anwendung ist darauf ausgelegt, das Spiel auf zwei verschiedenen Rechnern gegeneinander zu spielen. Jeder kann sich beim betreten der Seite einen Nutzernamen aussuchen. Dabei können auch mehrere Spiele gleichzeitig laufen. Das funktioniert, weil die Spiele in einzelnen Lobbies stattfinden, welche entweder öffentlich oder privat sein können. Öffentliche Lobbies können über den Spiel-Browser auf der Startseite betreten werden, während man für private Lobbies eine Spiel-ID benötigt, die man vom ersteller der Lobby erhält. Diese gibt man in das vorgesehene Feld auf der Startseite ein und betritt so das Spiel.
@@ -16,7 +17,8 @@ Projektbeteiligte:
 * Alexander Pantelkin
 * Felix Schopen
 
-- [Projekt: Battleship (Fr/2, Kr)](#projekt-battleship-fr2-kr)
+### Inhalt
+- [Projekt: Vier Gewinnt!](#Einleitung)
   - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
   - [Die Idee](#die-idee)
   - [Skizzen zur grafischen Oberfläche](#skizzen-zur-grafischen-oberfl%C3%A4che)
