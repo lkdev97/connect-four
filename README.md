@@ -1,6 +1,6 @@
 # Projekt: Vier Gewinnt! (Fr/2, Kr)
 
-> Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein 8x8 Feld für zwei Personen. Die Personen legen im Wechsel rote & gelbe Steine und der erste der vier Steine in Reihe bringt (senkrecht, waagerecht oder diagonal) hat gewonnen.
+> Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein Spiel für zwei Personen, bei dem die Spieler im Wechsel rote & gelbe Steine in ein (in unserem Fall) 8x8-Spielfeld legen. Wer es zuerst schafft, vier Steine seiner Farbe in eine Reihe (horizontal, vertikal oder diagonal) zu legen. Unsere Anwendung ist darauf ausgelegt, das Spiel auf zwei verschiedenen Rechnern zu spielen. Dabei können auch meherere Spiele gleichzeitig laufen.
 
 ![Screenshot](Screenshot.png)
 
