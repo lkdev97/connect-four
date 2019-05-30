@@ -10,26 +10,25 @@ Game g = new Game(p1, p2);
 assert p1.getName().equals("Hans") : "P1 should be Hans";
 assert p2.getName().equals("Peter") : "P2 should be Peter";
 
-assert g.makeTurn(0) == true : "Test (1)";
-assert g.checkWin() == false : "Test (2)";
-assert g.checkWin() == false : "Test (3)";
-assert g.makeTurn(0) == true : "Test (4)";
-assert g.makeTurn(1) == true : "Test (5)";
-assert g.makeTurn(1) == true : "Test (6)";
-assert g.checkWin() == false : "Test (7)";
-assert g.checkWin() == false : "Test (8)";
-assert g.makeTurn(2) == true : "Test (9)";
-assert g.makeTurn(2) == true : "Test (10)";
-assert g.makeTurn(3) == true : "Test (11)";
-assert g.checkWin() == true : "Test (12)";
-assert g.getWinner().equals("Hans") || g.getWinner().equals("Peter");
-assert g.makeTurn(3) == false : "Test (13)";
-assert g.makeTurn(0) == false : "Test (14)";
-
-System.out.println(g.toString());
+assert g.makeTurn(0) : "Test (1)";
+assert !g.checkWin() : "Test (2)";
+assert !g.checkWin() : "Test (3)";
+assert g.makeTurn(0) : "Test (4)";
+assert g.makeTurn(1) : "Test (5)";
+assert g.makeTurn(1) : "Test (6)";
+assert !g.checkWin() : "Test (7)";
+assert !g.checkWin() : "Test (8)";
+assert g.makeTurn(2) : "Test (9)";
+assert g.makeTurn(2) : "Test (10)";
+assert g.makeTurn(3) : "Test (11)";
+assert g.checkWin() : "Test (12)";
+assert g.getWinner().equals(p1.name) || g.getWinner().equals(p2.name) : "Test (13)";
+assert !g.makeTurn(3) : "Test (14)";
+assert !g.makeTurn(0) : "Test (15)";
 
 g.newGame();
 
-assert g.checkWin() == false: "Test (15)";
+assert !g.checkWin() : "Test (15)";
+assert g.makeTurn(0) : "Test (16)";
 
 //System.out.println(g.toString());
