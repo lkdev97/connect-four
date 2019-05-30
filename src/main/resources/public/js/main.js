@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
         leaveGameButton.addEventListener('click', disconnectFromGame);
         window.addEventListener('hashchange', () => {
             if (window.location.hash.length > 1) {
-                joinGameId.value = window.location.hash;
+                joinGameId.value = window.location.hash.substr(1);
 
                 if (!isConnectedToGame())
-                    joinGame(location.hash.substr(1));
+                    joinGame(joinGameId.value);
             }
         });
         console.log('Alle UI Elemente gefunden und registriert.');
