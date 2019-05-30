@@ -134,8 +134,8 @@ function addLobbyToBrowser(lobbyData) {
         // erstellt den Link, mit dem man sich zum Spiel verbinden kann
         let joinTextElement = document.createElement('td');
         let joinLinkElement = document.createElement('span');
-        joinLinkElement.className = 'link';
-        joinLinkElement.innerText = '>> Beitreten';
+        joinLinkElement.classList.add('link', 'join-link');
+        joinLinkElement.innerText = `>> ${lobbyData.players < lobbyData.maxPlayers ? 'Beitreten' : 'Zuschauen'}`;
         joinLinkElement.addEventListener('click', () => joinGame(lobbyData.lobbyId));
         joinTextElement.appendChild(joinLinkElement);
 
@@ -160,8 +160,10 @@ function removeLobbyFromBrowser(lobbyData) {
 // Aktualisiert eine Lobby mit den angegebenen Daten.
 function updateLobbyInBrowser(lobbyData) {
     let row = lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`);
-    if (row)
+    if (row) {
         row.querySelector('.player-num-text').innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
+        row.querySelector('.join-link').innerText = `>> ${lobbyData.players < lobbyData.maxPlayers ? 'Beitreten' : 'Zuschauen'}`;
+    }
 }
 // Löscht alle Einträge aus der Lobbyliste.
 function clearLobbyBrowser() {
