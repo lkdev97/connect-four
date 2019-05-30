@@ -29,9 +29,12 @@ public class Lobby {
     public boolean addPlayer(Player player) {
         if (this.players.size() < this.maxPlayers && !this.players.contains(player)) {
             this.players.add(player);
-            
+
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
+
+            if (this.hasGame())
+                this.sendGameFieldUpdate();
 
             return true;
         }
