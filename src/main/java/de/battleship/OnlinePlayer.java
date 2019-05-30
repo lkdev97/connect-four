@@ -32,7 +32,7 @@ public class OnlinePlayer extends Player {
     /**
      * Sendet eine Fehlernachricht an den Spieler.
      */
-    public void sendErrorMessage(WsSession session, String message) {
+    public void sendErrorMessage(String message) {
         this.sendPacket(new OutError(message));
     }
 
@@ -47,8 +47,12 @@ public class OnlinePlayer extends Player {
      * Trennt die Verbindung zum Spieler mit einem angegebenen Grund.
      */
     public void disconnect(String reason) {
-        if (this.isConnected())
-            this.session.close(1, reason);
+        if (this.isConnected()) {
+            if (reason != null)
+                this.sendErrorMessage(reason);
+            
+            this.session.close();
+        }
     }
 
 
