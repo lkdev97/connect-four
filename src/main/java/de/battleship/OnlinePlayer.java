@@ -12,6 +12,15 @@ public class OnlinePlayer extends Player {
     }
 
 
+    public void disconnect() {
+        this.disconnect(null);
+    }
+    public void disconnect(String reason) {
+        if (this.session.isOpen())
+            this.session.close();
+    }
+
+
     public WsSession getSession() {
         return this.session;
     }
