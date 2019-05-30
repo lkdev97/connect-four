@@ -49,39 +49,15 @@ public class GameHandler {
 
 
     /**
-     * Sendet ein Packet an den Client.
-     */
-    public void sendPacket(WsSession session, GamePacket packet) {
-        session.send(packet.toString());
-    }
-    
-    /**
-     * Sendet eine Fehlernachricht an den Client.
-     * Trennt nicht die Verbindung.
-     */
-    public void sendErrorMessage(WsSession session, String message) {
-        this.sendErrorMessage(session, message, false);
-    }
-    /**
-     * Sendet eine Fehlernachricht an den Client.
-     * Trennt danach die Verbindung, falls disconnect auf true gesetzt wurde.
-     */
-    public void sendErrorMessage(WsSession session, String message, boolean disconnect) {
-        this.sendPacket(session, new OutError(message));
-
-        if (disconnect)
-            session.close(1, "Disconnect by server (error).");
-    }
-
-
-    /**
      * Wird aufgerufen, wenn sich ein neuer Client mit dem Server verbindet.
      */
     private void handleNewClient(WsSession session) {
         Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
 
-        if (lobby == null)
-            this.sendErrorMessage(session, "Lobby not found.", true);
+        if (lobby == null) {
+            session.send(new OutError("Das angegebene Spiel wurde nicht gefunden.").toString());
+            session.close();
+        }
     }
     /**
      * Wird aufgerufen, wenn ein Client eine Nachricht an den Server sendet.
@@ -95,11 +71,14 @@ public class GameHandler {
                         this.connectedPlayers.getOrDefault(session, null));
             } catch (Exception ex) {
                 ex.printStackTrace();
-                this.sendErrorMessage(session, "Invalid packet received.", true);
+                session.send(new OutError("Ungültiges Packet erhalten.").toString());
+                session.close();
             }
         }
-        else
-            this.sendErrorMessage(session, "Session no longer exists.", true);
+        else {
+            session.send(new OutError("Die Lobby existiert nicht mehr.").toString());
+            session.close();
+        }
     }
     /**
      * Wird aufgerufen, wenn ein Client die Verbindung trennt.

@@ -1,5 +1,7 @@
 package de.battleship;
 
+import de.battleship.server.packets.game.GamePacket;
+import de.battleship.server.packets.game.OutError;
 import io.javalin.websocket.WsSession;
 
 /**
@@ -15,6 +17,21 @@ public class OnlinePlayer extends Player {
     public OnlinePlayer(String name, WsSession session) {
         super(name);
         this.session = session;
+    }
+
+
+    /**
+     * Sendet ein Packet an den Spieler.
+     */
+    public void sendPacket(GamePacket packet) {
+        this.session.send(packet.toString());
+    }
+    
+    /**
+     * Sendet eine Fehlernachricht an den Spieler.
+     */
+    public void sendErrorMessage(WsSession session, String message) {
+        this.sendPacket(new OutError(message));
     }
 
 
