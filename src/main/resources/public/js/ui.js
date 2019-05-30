@@ -63,15 +63,6 @@ function changeUserName() {
 }*/
 
 
-function initUI() {
-    if (updateUIReferences()) {
-        leaveGameButton.addEventListener('click', disconnectFromGame);
-        return true;
-    }
-
-    return false;
-}
-
 /**
  * Sobald man einem bestehenden Spiel beitritt oder eins erstellt wird das Spielfeld angezeigt
  * 
