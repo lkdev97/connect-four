@@ -21,9 +21,8 @@ public class App {
 
         lobbyManager = new LobbyManager();
 
-        // Game test
+        
         server.get("/getTurn", ctx -> {
-            // Testing
             int row = Integer.parseInt(ctx.queryParam("row"));
             int player = Integer.parseInt(ctx.queryParam("player"));
             String lobbyId = ctx.queryParam("id");

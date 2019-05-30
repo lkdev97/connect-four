@@ -4,7 +4,9 @@ import java.util.Random;
 
 public class Game {
 
-    private int[][] field = new int[8][8];
+    private final int FIELD_X = 8;
+    private final int FIELD_Y = 8;
+    private int[][] field = new int[FIELD_X][FIELD_Y];
 
     private Player[] players;
     private Random r = new Random();
@@ -40,7 +42,7 @@ public class Game {
         return this.players[1];
     }
 
-    public String getWinner(){
+    public String getWinner() {
         return this.winner;
     }
 
@@ -55,6 +57,7 @@ public class Game {
         }
     }
 
+    // True, wenn ein gültiger Zug gemacht wurde
     public boolean makeTurn(int column) {
         if (!checkWin()) {
             for (int i = field[column].length - 1; i >= 0; i--) {
@@ -68,6 +71,7 @@ public class Game {
         return false;
     }
 
+    //True, wenn vier Steine in einer Reihe liegen oder wenn das Spiel bereits beendet ist
     boolean checkWin() {
 
         if (gameOver) {
@@ -140,14 +144,15 @@ public class Game {
         return false;
     }
 
+    // Spielfeld wird zurückgesetzt
     public void newGame() {
-        field = new int[8][8];
+        field = new int[FIELD_X][FIELD_Y];
         gameOver = false;
-        turn = r.nextInt(players.length); // Spieler, welcher beginnt wird zufällig ausgewählt
+        turn = r.nextInt(players.length);
     }
 
+    // Gibt das Feld im 4Gewinnt-Style auf der Konsole aus
     public void printField() {
-        // gibt das Feld im 4Gewinnt-Style auf der Console aus
         for (int i = 0; i < 8; i++) {
             System.out.println(field[0][i] + "\t" + field[1][i] + "\t" + field[2][i] + "\t" + field[3][i] + "\t"
                     + field[4][i] + "\t" + field[5][i] + "\t" + field[6][i] + "\t" + field[7][i]);
