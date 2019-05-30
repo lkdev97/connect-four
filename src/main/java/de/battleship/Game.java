@@ -10,7 +10,7 @@ public class Game {
     private Random r = new Random();
     private int turn = 0;
     private boolean gameOver;
-    private String winner;
+    private String winner = "";
 
     Game(Player player1, Player player2) {
         players = new Player[2];
