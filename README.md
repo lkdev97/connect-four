@@ -170,3 +170,97 @@ public class HTMLGenerator {
 
 </details>
 <br>
+
+Die beiden Methoden generieren einen HTML-Code, der dem aktuellen Spielfeld entspricht. Man muss dabei beachten, dass `x` und `y` in der FOR-Schleife von
+`generateBoard()` vertauscht sein müssen, damit das Spielfeld nicht um 90° gedreht angezeigt wird. 
+
+<details>
+<summary>Beispiel HTML-Code</summary>
+
+~~~html
+<div class="board-row">
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light yellow-ball" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light yellow-ball" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light yellow-ball" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+<div class="board-row">
+	<div class="box"><button class="btn btn-light red-ball winner" type="button" onclick="sendMove(0)"></button></div>
+	<div class="box"><button class="btn btn-light red-ball winner" type="button" onclick="sendMove(1)"></button></div>
+	<div class="box"><button class="btn btn-light red-ball winner" type="button" onclick="sendMove(2)"></button></div>
+	<div class="box"><button class="btn btn-light red-ball winner" type="button" onclick="sendMove(3)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(4)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(5)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(6)"></button></div>
+	<div class="box"><button class="btn btn-light" type="button" onclick="sendMove(7)"></button></div>
+</div>
+~~~
+
+</details>
+<br>
+
+
