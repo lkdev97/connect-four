@@ -9,10 +9,10 @@ Lobby erhält. Diese gibt man in das vorgesehene Feld auf der Startseite ein und
 mitchatten.
 
 #### Startseite
-![Screenshot](documentation/Screenshot&#32;1.png)
+![Screenshot](documentation/Screenshot_Index.png)
 
 #### Spielfeld
-![Screenshot](documentation/Screenshot&#32;2.png)
+![Screenshot](documentation/Screenshot_Game.png)
 
 Keywords: WebSockets, Bootstrap, Responsive Design, Server-Sent Events (SSE), JSON Mapper, Static Files, 
 
@@ -25,14 +25,17 @@ Projektbeteiligte:
 
 #### Inhalt
 - [Projekt: Vier Gewinnt! (Fr/2, Kr)](#projekt-vier-gewinnt-fr2-kr)
-	- [Startseite](#startseite)
-	- [Spielfeld](#spielfeld)
-	- [Inhalt](#inhalt)
+			- [Startseite](#startseite)
+			- [Spielfeld](#spielfeld)
+			- [Inhalt](#inhalt)
 	- [Die Idee](#die-idee)
 	- [Der Einstieg](#der-einstieg)
 		- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
 		- [UI im Browser aufrufen](#ui-im-browser-aufrufen)
 		- [Erklärung der UI](#erkl%C3%A4rung-der-ui)
+			- [Spielername](#spielername)
+			- [Hauptseite](#hauptseite)
+			- [Spielseite](#spielseite)
 	- [Aufbau der Anwendung](#aufbau-der-anwendung)
 		- [Die Logik in Java](#die-logik-in-java)
 	- [Anleitung](#anleitung)
@@ -62,7 +65,38 @@ unter dem link `http://localhost/`. Andere Spieler müssen sich über die lokale
 Netzwerk wie der Host befinden. Man kann die Serveranwendung auch auf einem dedizierten Server starten, welcher dann von überall aus verfügbar ist.
 
 ### Erklärung der UI
-Sobald die Seite geladen wurde, sieht man ein Fenster, in das man seinen Namen eingibt.
+Das UI besteht nur aus einer einzigen Seite, der `index.html`.
+Sobald die Seite geladen wurde, sieht man ein Fenster, in das man seinen Spielernamen eingibt.
+
+#### Spielername
+![Screenshot](documentation/Screenshot_Playername.png)
+
+Sobald man den Namen eingegeben hat, drückt man auf OK. Falls man den Namen ändern möchte, dann klickt man auf den unterstrichenen Spielernamen oben links (im Bild rot umrandet). Danach kommt man zur Hauptseite.
+
+#### Hauptseite
+Hier hat man drei Möglichkeiten:
+1. Ein neues Spiel erstellen
+2. Einem vorhandenen Spiel beitreten, indem man einen Spiel-Code eingibt
+3. Ein Spiel aus dem Lobbybrowser aussuchen und beitreten
+
+![Screenshot](documentation/Screenshot_UI_Expl.png)
+Option 3 ist jedoch nur verfügbar, falls jemand anderes ein öffentliches Spiel erstellt hat (einen Haken bei `Öffentliches Spiel` gesetzt).
+
+#### Spielseite
+Nach einem erfolgreichem Lobby-Beitritt sieht man das Spielfeld und den Lobby-Chat:
+![Screenshot](documentation/Screenshot_UI_Game_Expl.png)
+
+Oben sieht man die Spiel-Daten, wie zum Beispiel den Spielcode und die URL. Man kann diesen Spielcode einem Partner weitergeben und er kann somit dieser Lobby beitreten, indem er ihn auf der Hauptseite eingibt (Option 2). Alternativ kann auch die Lobby-Url weitergegeben werden, durch welche der Partner direkt in die Lobby kommt, ohne vorher einen Code eingeben zu müssen.
+
+Weiter unten befindet sich das eigentliche Spiel.
+Hier kann man mit den anderen Spielern chatten (rechts) und seinen Spielzug durchführen (links), indem man auf das Loch klickt, in das man seinen Spielstein werfen möchte. Natürlich "fällt" der Spielstein dann bis in das unterste Loch, falls man "in die Luft" geklickt hat.
+
+> Hinweis: Falls man ein neues Spiel erstellt hat, dann erscheint das Spielfeld zunächst komplett blau. Das liegt daran, dass man die Spielfelddaten erst bekommt, wenn sich zwei Spieler zur Lobby verbunden haben. Man kann Vier Gewinnt eben nicht alleine spielen.
+
+Am Ende befindet sich der `Zurück-Button`, welcher die Verbindung mit dem Spiel trennt und einen zurück auf die Hauptseite führt.
+
+
+
 
 
 ## Aufbau der Anwendung
