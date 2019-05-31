@@ -205,6 +205,8 @@ html, body, .main-wrapper {
     display: block;
     padding-top: 2px;
     padding-bottom: 2px;
+
+    font-size: 0.9em;
 }
 
 .chat-container * .message>.sender {
@@ -217,13 +219,11 @@ html, body, .main-wrapper {
 
 .message.message-join-game {
     font-style: italic;
-    font-size: 13px;
 
     color: rgb(86, 192, 86);
 }
 .message.message-leave-game {
     font-style: italic;
-    font-size: 13px;
 
     color: rgb(192, 173, 89);
 }
