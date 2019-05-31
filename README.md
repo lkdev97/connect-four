@@ -1,4 +1,3 @@
-<a name="Einleitung"></a>
 # Projekt: Vier Gewinnt! (Fr/2, Kr)
 
 > Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein Spiel für zwei Personen, bei dem die Spieler im Wechsel 
@@ -26,9 +25,9 @@ Projektbeteiligte:
 
 #### Inhalt
 - [Projekt: Vier Gewinnt! (Fr/2, Kr)](#projekt-vier-gewinnt-fr2-kr)
-			- [Startseite](#startseite)
-			- [Spielfeld](#spielfeld)
-			- [Inhalt](#inhalt)
+	- [Startseite](#startseite)
+	- [Spielfeld](#spielfeld)
+	- [Inhalt](#inhalt)
 	- [Die Idee](#die-idee)
 	- [Der Einstieg](#der-einstieg)
 		- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
