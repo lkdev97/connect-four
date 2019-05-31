@@ -406,10 +406,55 @@ Das alles musste der Netzcode ohne große Verzögerungen bewältigen können. Un
 * Die Punkte 1 und 2 steuern nur die Elemente auf der [Hauptseite](#hauptseite) (`Lobby-Browser` und der `Spiel erstellen` Button). Außerdem darf die Verzögerung zwar nicht groß sein, jedoch ist es in Ordnung, falls eine neu erstellte Lobby zum Beispiel erst nach eine Sekunde bei den anderen Clients angezeigt wird.
 * Die anderen Punkte haben nur etwas mit der [Spielseite](#spielseite) zu tun und erfordern die Übertragung in Echtzeit (ohne Verzögerungen)
 
-Deshalb haben wir uns dazu entschieden, für die Punkte 1 und 2 mit SSE und POST-Requests zu arbeiten (`web`). Die Lobbydaten werden dann per Event übertragen und das Erstellen einer Lobby wird mit einem POST-Request realisiert. Für die restlichen Punkte möchten wir WebSockets benutzen, da sie schnell sind und man eine einzige dauerhafte Verbindung zwischen dem Server und dem Client hat. Dadurch kann man das Client-Objekt (in Javalin ein Objekt von `WsSession`) in einer Liste speichern, die sich in einem Lobby-Objekt befindet. Somit könnte man auch die Lobbies realisieren.
+Deshalb haben wir uns dazu entschieden, für die Punkte 1 und 2 mit SSE und POST-Requests zu arbeiten. Die Lobbydaten werden dann per Event übertragen und das Erstellen einer Lobby wird mit einem POST-Request realisiert. Für die restlichen Punkte möchten wir WebSockets benutzen, da sie schnell sind und man eine einzige dauerhafte Verbindung zwischen dem Server und dem Client hat (mit SSE hätte man zwar auch eine dauerhafte Verbindung, diese ist jedoch nur einseitig, d.h., man kann keine Daten vom Client zum Server senden). Dadurch kann man das Client-Objekt (in Javalin ein Objekt von `WsSession`) in einer Liste speichern, die sich in einem Lobby-Objekt befindet. Somit könnte man auch die Lobbies realisieren.
+
+Dadurch gibt es im Server-Code auch die Unterscheidung zwischen `web` (SSE und POST-Requests) und `game` (WebSockets und Lobbies).
 
 
 ### SSE
+Die Implementierung von WebSockets ist dank Javalin nicht schwer. Diese vier Zeilen aus `WebHandler.java` fügen neue SSE Clients, die sich mit `/lobbylist` verbinden, in eine Liste ein (und entfernt diese wieder, wenn die Verbindung getrennt wird):
+<details>
+<summary>SSE connect handler aus WebHandler.java</summary>
+
+~~~java
+this.server.sse("/lobbylist", client -> {
+	client.onClose(() -> this.lobbiesListEventClients.remove(client));
+	this.lobbiesListEventClients.add(client);
+});
+~~~
+</details>
+
+Falls sich eine Lobby ändert (z.B. die Spielerzahl ändert sich, neue Lobby wird erstellt/geschlossen, usw.), so muss diese Liste durchlaufen werden und an jeden Client ein bestimmtes Event gesendet werden, wie folgt:
+<details>
+<summary>SSE broadcast event aus WebHandler.java</summary>
+
+~~~java
+for (int i = this.lobbiesListEventClients.size() - 1; i >= 0; i--)
+	this.lobbiesListEventClients.get(i).sendEvent("updlobby", jsonData);
+~~~
+</details>
+
+Hier wird das Event `updlobby` an alle SSE Clients in der Liste gesendet.
+
+Das Event wird folgendermaßen auf der Clientseite abgefangen (natürlich in `connection.js`):
+<details>
+<summary>SSE handler aus connection.js</summary>
+
+~~~javascript
+let lobbyBrowserEvents = new EventSource('/lobbylist');
+	
+// [...]
+
+// Events, die vom Server gesendet werden (addlobby, rmlobby & updlobby)
+lobbyBrowserEvents.addEventListener('addlobby', (event) => addLobbyToBrowser(JSON.parse(event.data)));
+lobbyBrowserEvents.addEventListener('rmlobby', (event) => removeLobbyFromBrowser(JSON.parse(event.data)));
+lobbyBrowserEvents.addEventListener('updlobby', (event) => updateLobbyInBrowser(JSON.parse(event.data)));
+~~~
+</details>
+
+Hier werden die Events `addlobby`, `rmlobby` und `updlobby` abgefangen und verarbeitet. Eigentlich ganz simpel.
+
+
 
 ### Packets
 
