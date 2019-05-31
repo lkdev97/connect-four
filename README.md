@@ -32,7 +32,7 @@ Projektbeteiligte:
 	- [Der Einstieg](#der-einstieg)
 		- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
 		- [UI im Browser aufrufen](#ui-im-browser-aufrufen)
-		- [Erklärung der UI](#erkl%C3%A4rung-der-ui)
+		- [Erklärung des UI](#erkl%C3%A4rung-des-ui)
 			- [Spielername](#spielername)
 			- [Hauptseite](#hauptseite)
 			- [Spielseite](#spielseite)
@@ -63,7 +63,7 @@ Als Host erreicht man die Seite im Internetbrowser
 unter dem link `http://localhost/`. Andere Spieler müssen sich über die lokale [IP-Adresse]() des Hosts verbinden. Dazu müssen sie sich aber im selben 
 Netzwerk wie der Host befinden. Man kann die Serveranwendung auch auf einem dedizierten Server starten, welcher dann von überall aus verfügbar ist.
 
-### Erklärung der UI
+### Erklärung des UI
 Das UI besteht nur aus einer einzigen Seite, der `index.html`.
 Sobald die Seite geladen wurde, sieht man ein Fenster, in das man seinen Spielernamen eingibt.
 
