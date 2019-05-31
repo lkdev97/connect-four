@@ -30,5 +30,3 @@ g.newGame();
 
 assert !g.checkWin() : "Test (15)";
 assert g.makeTurn(0) : "Test (16)";
-
-//System.out.println(g.toString());
