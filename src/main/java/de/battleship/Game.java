@@ -48,8 +48,8 @@ public class Game {
         this.players[1] = p2;
     }
 
-    public Player getWinner() {
-        return this.winner;
+    public String getWinner() {
+        return this.winner.name;
     }
 
     public void setField(int[][] field) {
