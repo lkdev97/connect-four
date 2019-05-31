@@ -26,7 +26,7 @@ Projektbeteiligte:
 - [Projekt: Vier Gewinnt!](#Einleitung)
   - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
   - [Die Idee](#die-idee)
-  - [Skizzen zur grafischen Oberfläche](#skizzen-zur-grafischen-oberfl%C3%A4che)
+  - [Die Logik in Java](#die-logik-in-java)
   - [Umsetzung der Anwendungsidee](#umsetzung-der-anwendungsidee)
   - [Lorem ipsum](#lorem-ipsum)
 
@@ -45,8 +45,8 @@ Aliquip dolor occaecat do ad qui amet. Reprehenderit sit est non anim anim proid
 
 
 ## Die Logik in Java
-Intern besteht das Spielfeld aus einem zweidimensionalen Array namens "field". Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
-richtigen Stelle eine **1** für Spieler 1 oder eine **2** für Spieler 2 eingefügt. Dazu wird die Methode makeTurn() verwendet:
+Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
+richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
 ~~~
 public boolean makeTurn(int column) {
     if (!checkWin()) {
@@ -60,8 +60,90 @@ public boolean makeTurn(int column) {
     }
     return false;
 }
+
+private void changeTurn() {
+    if (!checkWin()) {
+        this.turn++;
+        this.turn %= this.players.length;
+        }
+}
 ~~~
-Solange noch niemand gewonnen hat, wird in der gewünschten Spalte(column) der letzten Stelle, die den Wert **0** trägt, entweder **1** oder **2** zugewiesen.  
+Solange noch niemand gewonnen hat, wird in der gewünschten Spalte(column) der letzten Stelle, die den Wert **0** trägt, entweder **1** oder **2** zugewiesen und die Methode gibt
+`true` zurück. Wenn entweder schon ein Spieler gewonnen hat oder die Spalte bereits voll ist, wird `false` zurückgegeben. Mithilfe von `changeTurn()` wechselt die Variable
+`turn` jeden gültigen Spielzug zwischen den zwei Spielern (0/1).
+
+Um zu ermitteln, ob einer der Spieler gewonnen hat, verwenden wir die Methode `checkWin()`:
+~~~
+boolean checkWin() {
+
+    if (gameOver) {
+        return true;
+    }
+
+    int currentPlayer = getTurn();
+
+    // Prüft horizontal
+    for (int j = 0; j < field.length - 3; j++) {
+        for (int i = 0; i < field.length; i++) {
+            if (field[i][j] == currentPlayer && field[i][j + 1] == currentPlayer && field[i][j + 2] == currentPlayer
+                && field[i][j + 3] == currentPlayer) {
+                
+                field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = currentPlayer + 2;
+                gameOver = true;
+                winner = players[getTurn() - 1].name;
+                return true;
+            }
+        }
+    }
+
+    // Prüft vertikal
+    for (int i = 0; i < field.length - 3; i++) {
+        for (int j = 0; j < this.field.length; j++) {
+            if (field[i][j] == currentPlayer && field[i + 1][j] == currentPlayer && field[i + 2][j] == currentPlayer
+                    && field[i + 3][j] == currentPlayer) {
+                
+                field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = currentPlayer + 2;
+                gameOver = true;
+                winner = players[getTurn() - 1].name;
+                return true;
+            }
+        }
+    }
+
+    // Prüft diagonal(↗)
+    for (int i = 3; i < field.length; i++) {
+        for (int j = 0; j < field.length - 3; j++) {
+            if (field[i][j] == currentPlayer && field[i - 1][j + 1] == currentPlayer
+                    && field[i - 2][j + 2] == currentPlayer && field[i - 3][j + 3] == currentPlayer) {
+
+                field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = currentPlayer + 2;
+                gameOver = true;
+                winner = players[getTurn() - 1].name;
+                return true;
+            }
+        }
+    }
+
+    // Prüft diagonal(↘)
+    for (int i = 3; i < field.length; i++) {
+        for (int j = 3; j < field.length; j++) {
+            if (field[i][j] == currentPlayer && field[i - 1][j - 1] == currentPlayer
+                    && field[i - 2][j - 2] == currentPlayer && field[i - 3][j - 3] == currentPlayer) {
+                    
+                field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = currentPlayer + 2;
+                gameOver = true;
+                winner = players[getTurn() - 1].name;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+~~~
+Die Variable `gameOver` vom Typ boolean wird benutzt, um zu prüfen, ob das Spiel bereits beendet ist. Wenn das nicht der Fall ist wird mithilfe von vier FOR-Schleifen ermittelt,
+ob vier nebeneinanderliegende Stellen dem Wert des Spielers, der am Zug ist, entsprechen. Dies geschieht horizontal, vertikal und diagonal in zwei Richtungen. Tritt dieser Fall
+ein, wird die "gewinnende" Reihe mit einer `currentPlayer + 2` markiert.
 ## Umsetzung der Anwendungsidee
 
 
