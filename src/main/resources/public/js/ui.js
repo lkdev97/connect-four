@@ -15,6 +15,8 @@ let board;
 let chatMessagesContainer;
 let chatInputBox;
 let chatSendButton;
+let gameStatusContainer;
+let gameStatusText;
 let txtUserName;
 
 
@@ -73,6 +75,7 @@ function changeUserName() {
 function showBoard(gameId) {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
+    document.getElementById('game-status-container').classList.remove('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
     document.getElementById('chat-container').classList.remove('is--hidden');
     document.getElementById('join-game-wrapper').classList.add('is--hidden');
@@ -95,6 +98,7 @@ function showBoard(gameId) {
 function hideBoard() {
     board.classList.remove('is--hidden');
     board.parentElement.classList.remove('is--hidden');
+    document.getElementById('game-status-container').classList.add('is--hidden');
     document.getElementById('board').classList.add('is--hidden');
     document.getElementById('chat-container').classList.add('is--hidden');
     document.getElementById('join-game-wrapper').classList.remove('is--hidden');
@@ -158,8 +162,10 @@ function updateUIReferences() {
     chatMessagesContainer = document.getElementById('chat-messages-container');
     chatInputBox = document.getElementById('chat-input-box');
     chatSendButton = document.getElementById('chat-send-button');
+    gameStatusContainer = document.getElementById('game-status-container');
+    gameStatusText = document.getElementById('game-status-text');
 
-    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board && chatMessagesContainer && chatInputBox && chatSendButton;
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board && chatMessagesContainer && chatInputBox && chatSendButton && gameStatusContainer && gameStatusText;
 }
 
 // Fügt eine Lobby mit den angegebenen Daten zur Lobbyliste hinzu.
@@ -256,4 +262,10 @@ function clearChat() {
 // Löscht den Inhalt des Chat-Eingabefeldes.
 function clearChatInput() {
     chatInputBox.value = '';
+}
+
+// Setzt den Text über dem Feld.
+// Wird verwendet, um den aktuellen Spielernamen anzuzeigen, welcher gerade am Zug ist.
+function setGameStatus(text) {
+    gameStatusText.innerText = text;
 }

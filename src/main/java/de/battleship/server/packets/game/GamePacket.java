@@ -44,7 +44,7 @@ public abstract class GamePacket {
         id2OutPacket = new HashMap<>();
         id2OutPacket.put(0, OutError.class);
         id2OutPacket.put(1, OutConnectSuccess.class);
-        id2OutPacket.put(16, OutGameField.class);
+        id2OutPacket.put(16, OutGameState.class);
         id2OutPacket.put(17, OutChatMessage.class);
 
         outPacket2Id = new HashMap<>();

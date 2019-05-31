@@ -6,7 +6,7 @@ import java.util.List;
 
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutChatMessage;
-import de.battleship.server.packets.game.OutGameField;
+import de.battleship.server.packets.game.OutGameState;
 
 public class Lobby {
     private String lobbyId;
@@ -43,7 +43,7 @@ public class Lobby {
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
-            this.sendGameFieldUpdate();
+            this.sendGameState();
             this.sendPacket(new OutChatMessage(">> " + player.getName() + " ist dem Spiel beigetreten", OutChatMessage.Type.SUCCESS));
             return true;
         }
@@ -76,7 +76,7 @@ public class Lobby {
     public void startGame() {
         if (!this.hasGame() && this.getPlayersAmount() >= 2) {
             this.game = new Game(this.players.get(0), this.players.get(1));
-            this.sendGameFieldUpdate();
+            this.sendGameState();
         }
     }
 
@@ -92,9 +92,16 @@ public class Lobby {
             if (this.spectators.get(i) instanceof OnlinePlayer)
                 ((OnlinePlayer) this.spectators.get(i)).sendPacket(packet);
     }
-    public void sendGameFieldUpdate() {
-        if (this.hasGame())
-            this.sendPacket(new OutGameField(this.game.toString()));
+    public void sendGameState() {
+        if (this.hasGame()) {
+            String status = "";
+            if (this.game.getWinner() != null)
+                status = this.game.getWinner().getName() + " hat gewonnen!";
+            else
+                status = this.game.getCurrentPlayer().getName() + " ist am Zug";
+
+            this.sendPacket(new OutGameState(status, this.game.toString()));
+        }
     }
     
     public boolean canJoin(Player player) {

@@ -16,7 +16,7 @@ let Packet = {
         ERROR: 0,
         CONNECT_SUCCESS: 1,
 
-        GAME_FIELD_CONTENT: 16,
+        GAME_STATE: 16,
         CHAT_MESSAGE: 17
     },
     Out: {
@@ -72,7 +72,8 @@ function joinGame(lobbyId) {
                         showBoard(message.data.lobbyId);
                         break;
 
-                    case Packet.In.GAME_FIELD_CONTENT:
+                    case Packet.In.GAME_STATE:
+                        setGameStatus(message.data.status);
                         setBoardContent(message.data.gameField);
                         break;
 
