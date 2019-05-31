@@ -205,12 +205,6 @@ html, body, .main-wrapper {
     display: block;
     padding-top: 2px;
     padding-bottom: 2px;
-
-    border-bottom: 1px solid #CCCCCC;
-}
-
-.chat-container * .message:last-child {
-    border-bottom: none;
 }
 
 .chat-container * .message>.sender {
@@ -219,4 +213,17 @@ html, body, .main-wrapper {
 
 .chat-container * .message>.content {
     margin-left: 5px;
+}
+
+.message.message-join-game {
+    font-style: italic;
+    font-size: 13px;
+
+    color: rgb(86, 192, 86);
+}
+.message.message-leave-game {
+    font-style: italic;
+    font-size: 13px;
+
+    color: rgb(192, 173, 89);
 }
