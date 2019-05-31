@@ -32,12 +32,15 @@ Projektbeteiligte:
 		- [Spielername](#spielername)
 		- [Hauptseite](#hauptseite)
 		- [Spielseite](#spielseite)
-- [Aufbau der Anwendung](#aufbau-der-anwendung)
+- [Der Aufbau der Anwendung](#der-aufbau-der-anwendung)
 	- [Das Front-End](#das-front-end)
-		- [Das UI](#das-ui)
-		- [Die Kommunikation](#die-kommunikation)
+		- [UI](#ui)
+		- [Kommunikation](#kommunikation)
 	- [Das Back-End](#das-back-end)
-		- [Spiel-Logik (Java)](#spiel-logik-java)
+		- [Spiel-Logik](#spiel-logik)
+		- [Server-Logik](#server-logik)
+- [Umsetzung der Spiellogik](#umsetzung-der-spiellogik)
+- [Der Netzcode](#der-netzcode)
 
 
 ## Die Idee
@@ -100,14 +103,14 @@ Am Ende befindet sich der `Zurück-Button`, welcher die Verbindung mit dem Spiel
 
 
 
-## Aufbau der Anwendung
+## Der Aufbau der Anwendung
 Die Anwendung besteht aus zwei Teilen, die wiederum aus zwei weiteren Teilen bestehen:
 * [**Das Front-End**](#das-front-end) (HTML, CSS und JavaScript)
   - *UI*
   - *Kommunikation mit Server*
 * [**Das Back-End**](#das-back-end) (Java)
-  - *Spiel-Logik* (befindet sich im Package `de.battleship`)
-  - *Server-Logik + Kommunikation mit Clients* (befindet sich im Package `de.battleship.server` einschließlich Unterpackages)
+  - *Spiel-Logik*
+  - *Server-Logik + Kommunikation mit Clients*
 
 Der Code der Anwendung wurde kommentiert und sollte beim Lesen verständlich sein.
 
@@ -115,7 +118,7 @@ Der Code der Anwendung wurde kommentiert und sollte beim Lesen verständlich sei
 Hierzu gehören die Dateien, die vom Server an den Client (Webbrowser) ausgeliefert werden. Diese befinden sich im Ordner [`src/main/resources/public`](src/main/resources/public). Die Dateien kann man in `UI` und `Kommunikation` einteilen.
 Der Startpunkt des Front-Ends liegt in der Datei `main.js`. Diese Datei initialisiert sowohl das UI-Skript als auch das Kommunikations-Skript.
 
-#### Das UI
+#### UI
 - `index.html`
 - `ui.js`
 - `main.css`
@@ -150,12 +153,23 @@ function updateUIReferences() {
 Anschließend werden für diese Referenzen Events registriert (siehe Methode `initUI`), wie zum Beispiel Button-Klicks oder das Drücken der Enter-Taste (bei den Eingabefeldern).
 Es werden noch viele weitere Methoden zur Verfügung gestellt, wie zum Beispiel `addChatMessage(message)`, welche eine Nachricht in das Chat-Fenster einfügt. Diese Methoden werden dann später vom Kommunikations-Skript verwendet, um Daten vom Server auf dem UI anzuzeigen. Die `main.css` beschreibt, wie die UI-Elemente dargestellt werden sollen (wie jede andere CSS Datei auch).
 
-#### Die Kommunikation
-Für die Kommunikation mit dem Server ist die Datei `connection.js` zuständig. 
+#### Kommunikation
+Für die Kommunikation mit dem Server ist die Datei `connection.js` zuständig. Diese beinhaltet Funktionen zum Senden von Daten an den Server und zum Verarbeiten von Daten, die vom Server gesendet werden. Hier werden die Events vom Server mit SSE abgehört und Packets verarbeitet. Außerdem werden hier die Methoden zum Verbinden zur Lobby per WebSocket definiert (siehe `joinGame(gameId)`).
+> Näheres zur Funktionsweise der Übertragung zwischen Server und Client siehe [Der Netzcode](#der-netzcode)
 
 
 ### Das Back-End
-#### Spiel-Logik (Java)
+Hierzu gehören alle Dateien des [src/main/java](src/main/java)-Ordners. Die Dateien lassen sich einteilen in `Spiel-Logik` und `Server-Logik`. Der Einstiegspunkt für das Back-End befindet sich in `App.java`.
+
+#### Spiel-Logik
+Alle Klassen, die zur Spiel-Logik gehören, befinden sich im Package `de.battleship`. Diese stellen das eigentliche Spiel dar, ohne die Interaktion zwischen den Webbrowser mit dem Server.
+
+#### Server-Logik
+Alle Klassen, die zur Server-Logik gehören, befinden sich im Package `de.battleship.server`. Diese ermöglichen die Interaktion zwischen dem Webbrowser und der Spiel-Logik. Hier befinden sich die verschiedenen Packets, über welche der Server mit dem Client kommuniziert und Packet-Handler, welche die verschiedenen Packets vom Client verarbeiten. Außerdem werden hier Lobbies definiert, welche es erlauben, dass sich mehrere Spieler zu einem Spiel verbinden können.
+> Näheres zur Funktionsweise der Übertragung zwischen Server und Client siehe [Der Netzcode](#der-netzcode)
+
+
+## Umsetzung der Spiellogik
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
 
@@ -377,3 +391,4 @@ Die beiden Methoden generieren einen HTML-Code, der dem aktuellen Spielfeld ents
 </details>
 <br>
 
+## Der Netzcode
