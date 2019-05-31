@@ -13,13 +13,15 @@ let Packet = {
         ERROR: 0,
         CONNECT_SUCCESS: 1,
 
-        GAME_FIELD_CONTENT: 16
+        GAME_FIELD_CONTENT: 16,
+        CHAT_MESSAGE: 17
     },
     Out: {
         PING: 0,
         CONNECT_REQUEST: 1,
 
-        PLAYER_MOVE: 16
+        PLAYER_MOVE: 16,
+        CHAT_MESSSAGE: 17
     }
 };
 // Verhindert, dass die Werte innerhalb von Packet verändert werden können

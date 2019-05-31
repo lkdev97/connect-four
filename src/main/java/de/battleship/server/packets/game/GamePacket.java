@@ -35,6 +35,7 @@ public abstract class GamePacket {
         id2InPacket.put(0, InPingPacket.class);
         id2InPacket.put(1, InConnectRequest.class);
         id2InPacket.put(16, InPlayerMove.class);
+        id2InPacket.put(17, InChatMessage.class);
 
         inPacket2Id = new HashMap<>();
         id2InPacket.forEach((k, v) -> inPacket2Id.put(v, k));
@@ -44,6 +45,7 @@ public abstract class GamePacket {
         id2OutPacket.put(0, OutError.class);
         id2OutPacket.put(1, OutConnectSuccess.class);
         id2OutPacket.put(16, OutGameField.class);
+        id2OutPacket.put(17, OutChatMessage.class);
 
         outPacket2Id = new HashMap<>();
         id2OutPacket.forEach((k, v) -> outPacket2Id.put(v, k));
