@@ -457,5 +457,63 @@ Hier werden die Events `addlobby`, `rmlobby` und `updlobby` abgefangen und verar
 
 
 ### Packets
+Die Kommunikation zwischen dem Server und dem Client findet ausschließlich im Format `JSON` statt. Im JavaScript kann man JSON-Objekte direkt im Code erstellen und auslesen, für den Java-Server hat Javalin zum Glück eine Library (`Jackson`), sodass wir die JSON-Strings nicht selbst parsen müssen.
+
+`Jackson` kann Objekte in einen JSON-String umwandeln. Es nimmt alle `öffentlichen Felder` (und die, die mit einer speziellen Annotation versehen sind) und deren Werte und wandelt dies dann in einen JSON-String um. Das Ganze funktioniert auch rückwärts. Aus einem JSON-String kann `Jackson` unter Angabe einer Klasse ein Objekt von dieser Klasse erzeugen und die Werte aus dem JSON-String in das Objekt schreiben. Das heißt, dass die Packets einfach nur Datenklassen sind, die nur benutzt werden, um in JSON (oder zurück) umgewandelt zu werden.
+
+Dazu brauchen wir nur Folgendes:
+<details>
+<summary>ObjectMapper Beispiel Objekt->JSON</summary>
+
+~~~java
+ObjectMapper jsonConverter = new ObjectMapper();
+jsonConverter.writeValueAsString(packet);
+~~~
+</details>
+
+Wenn wir als `packet` eine Datenklasse übergeben mit beliebigen Werten, dann werden diese in einen JSON-String umgewandelt, den wir an den Client senden können.
+
+Um ein Packet aus einem JSON-String in ein Packet umzuwandeln braucht man nur Folgendes:
+<details>
+<summary>ObjectMapper Beispiel JSON->Objekt</summary>
+
+~~~java
+jsonConverter.readValue(data, Packet.class)
+~~~
+</details>
+
+`Packet` steht hier für die Klasse, aus der ein Objekt erzeugt wird, in das die Werte geschrieben werden. Doch woher wissen wir, welche Klasse wir genau brauchen? Wir haben doch mehrere Packets...
+
+Genau deswegen gibt es die PacketIDs in `GamePacket.java` und `connection.js`. Diese werden mitgesendet und dann vom Handler in einem Register nachgeschaut, um welches Packet es sich denn gerade handelt.
+
+So sieht das Register in `connection.js` aus:
+<details>
+<summary>Packet-Register connection.js</summary>
+
+~~~javascript
+let Packet = {
+    In: {
+        ERROR: 0,
+        CONNECT_SUCCESS: 1,
+
+        GAME_STATE: 16,
+        CHAT_MESSAGE: 17
+    },
+    Out: {
+        PING: 0,
+        CONNECT_REQUEST: 1,
+
+        PLAYER_MOVE: 16,
+        CHAT_MESSSAGE: 17
+    }
+};
+~~~
+</details>
+
+Wenn zum Beispiel ein Packet mit der ID 17 ankommt, dann weiß der Handler, dass es sich hierbei um eine Chat-Nachricht handelt.
+
+Man sieht hier auch eine Unterscheidung zwischen `InPackets` und `OutPackets`. `InPackets` sind lediglich `ausgehende Packets` (die Packets, die versendet werden). `OutPackets` sind `eingehende Packets` (die Packets, die von der Gegenseite gesendet werden).
+
 
 ### Lobby Verbindung mit WebSockets
+Mit POST-Requests kann man eine bestimmte Ressource abrufen. Zum Beispiel liefert eine Anfrage auf `/lobbylist` ein JSON-Objekt mit allen Lobbies. Der Server weiß genau, was der Client haben möchte, indem er den Namen der Ressource ausliest.
