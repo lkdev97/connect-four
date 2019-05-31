@@ -75,14 +75,16 @@ Sobald man den Namen eingegeben hat, drückt man auf OK. Falls man den Namen än
 #### Hauptseite
 Hier hat man drei Möglichkeiten:
 1. Ein neues Spiel erstellen
-2. Einem vorhandenen Spiel beitreten, indem man einen Spiel-Code eingibt
+2. Einem vorhandenen Spiel beitreten, indem man einen Spielcode eingibt
 3. Ein Spiel aus dem Lobbybrowser aussuchen und beitreten
 
 ![Screenshot](documentation/Screenshot_UI_Expl.png)
+
 Option 3 ist jedoch nur verfügbar, falls jemand anderes ein öffentliches Spiel erstellt hat (einen Haken bei `Öffentliches Spiel` gesetzt).
 
 #### Spielseite
 Nach einem erfolgreichem Lobby-Beitritt sieht man das Spielfeld und den Lobby-Chat:
+
 ![Screenshot](documentation/Screenshot_UI_Game_Expl.png)
 
 Oben sieht man die Spiel-Daten, wie zum Beispiel den Spielcode und die URL. Man kann diesen Spielcode einem Partner weitergeben und er kann somit dieser Lobby beitreten, indem er ihn auf der Hauptseite eingibt (Option 2). Alternativ kann auch die Lobby-Url weitergegeben werden, durch welche der Partner direkt in die Lobby kommt, ohne vorher einen Code eingeben zu müssen.
