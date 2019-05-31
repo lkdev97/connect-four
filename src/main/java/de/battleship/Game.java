@@ -70,7 +70,7 @@ public class Game {
                 if (field[column][i] == 0) {
                     field[column][i] = turn + 1;
                     changeTurn();
-                    return true; // true, wenn ein gültiger Zug gemacht wurde
+                    return true; 
                 }
             }
         }
