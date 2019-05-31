@@ -162,3 +162,66 @@ html, body, .main-wrapper {
     overflow: auto;
     font-style: italic;
 }
+
+
+
+
+/* CHAT */
+.chat-container {
+    max-width: 30%;
+    border: 1px solid #000000;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    padding: 5px;
+
+    font-family: sans-serif;
+}
+
+.chat-container>.messages-box {
+    width: 100%;
+
+    padding-bottom: 5px;
+    border-bottom: 1px solid #AAAAAA;
+}
+
+.chat-container>.control-box {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    padding-top: 5px;
+}
+
+.chat-container * .message {
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.chat-container * .message:last-child {
+    border-bottom: none;
+}
+
+.chat-container * .message>.user {
+    font-weight: bold;
+}
+
+.chat-container * .message>.content {
+    margin-left: 5px;
+}
+
+.chat-container * .input {
+    width: 100%;
+
+    margin-right: 5px;
+}
+
+.chat-container * .send {
+    flex: 1;
+}
