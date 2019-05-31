@@ -44,6 +44,10 @@ Aliquip dolor occaecat do ad qui amet. Reprehenderit sit est non anim anim proid
 ## Die Logik in Java
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
+
+<details>
+<summary>Methode makeTurn()</summary>
+
 ~~~java
 public boolean makeTurn(int column) {
     if (!checkWin()) {
@@ -65,11 +69,17 @@ private void changeTurn() {
         }
 }
 ~~~
+
+</details>  
+<br>
 Solange noch niemand gewonnen hat, wird in der gewünschten Spalte(column) der letzten Stelle, die den Wert **0** trägt, entweder **1** oder **2** zugewiesen und die Methode gibt
 `true` zurück. Wenn entweder schon ein Spieler gewonnen hat oder die Spalte bereits voll ist, wird `false` zurückgegeben. Mithilfe von `changeTurn()` wechselt die Variable
 `turn` jeden gültigen Spielzug zwischen den zwei Spielern (0/1).
 
 Um zu ermitteln, ob einer der Spieler gewonnen hat, verwenden wir die Methode `checkWin()`:
+<details>
+<summary>Methode checkWin()</summary>
+
 ~~~java
 boolean checkWin() {
 
@@ -101,10 +111,14 @@ boolean checkWin() {
     return false;
 }
 ~~~
+
+</details>
+<br>
 Die Variable `gameOver` vom Typ boolean wird benutzt, um zu prüfen, ob das Spiel bereits beendet ist. Wenn das nicht der Fall ist, wird mithilfe von vier verschachtelten FOR-Schleifen ermittelt,
 ob vier nebeneinanderliegende Stellen dem Wert des Spielers, der am Zug ist, entsprechen. Dies geschieht horizontal, vertikal und diagonal in zwei Richtungen. Tritt dieser Fall
 ein, wird die "gewinnende" Reihe mit einer `currentPlayer + 2` markiert. So erkennt man auch im Spielfeld welcher Spieler mit welcher Reihe gewonnen hat.
-Nach einem abgeschlossenen Spiel könnte das Spielfeld-Array `field` beispielsweise intern so aussehen:
+Nach einem abgeschlossenen Spiel könnte das Spielfeld-Array `field` beispielsweise intern so aussehen:  
+
 ~~~
 0   0   0   0   0   0   2   3
 0   0   0   0   0   0   2   3
@@ -115,6 +129,7 @@ Nach einem abgeschlossenen Spiel könnte das Spielfeld-Array `field` beispielswe
 0   0   0   0   0   0   0   0
 0   0   0   0   0   0   0   0
 ~~~
+
 Man sieht, das Spielfeld ist intern um 90° gedreht. Bei der Abbildung wird jedoch dafür gesorgt, dass es im Frontend korrekt angezeigt wird. Dafür werden die Methoden in der 
 Klasse `HTMLGenerator` verwendet.
 
