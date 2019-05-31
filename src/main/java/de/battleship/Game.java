@@ -12,7 +12,7 @@ public class Game {
     private Random r = new Random();
     private int turn = 0;
     private boolean gameOver;
-    private String winner = "";
+    private Player winner = null;
 
     Game(Player player1, Player player2) {
         players = new Player[2];
@@ -37,12 +37,18 @@ public class Game {
     public Player getP1() {
         return this.players[0];
     }
+    public void setP1(Player p1) {
+        this.players[0] = p1;
+    }
 
     public Player getP2() {
         return this.players[1];
     }
+    public void setP2(Player p2) {
+        this.players[1] = p2;
+    }
 
-    public String getWinner() {
+    public Player getWinner() {
         return this.winner;
     }
 
@@ -88,7 +94,7 @@ public class Game {
                     field[i][j] = field[i][j + 1] = field[i][j + 2] = field[i][j + 3] = currentPlayer + 2;
 
                     gameOver = true;
-                    winner = players[getTurn() - 1].name;
+                    winner = players[getTurn() - 1];
 
                     return true;
                 }
@@ -103,7 +109,7 @@ public class Game {
                     field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = currentPlayer + 2;
 
                     gameOver = true;
-                    winner = players[getTurn() - 1].name;
+                    winner = players[getTurn() - 1];
 
                     return true;
                 }
@@ -119,7 +125,7 @@ public class Game {
                     field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = currentPlayer + 2;
 
                     gameOver = true;
-                    winner = players[getTurn() - 1].name;
+                    winner = players[getTurn() - 1];
 
                     return true;
                 }
@@ -135,7 +141,7 @@ public class Game {
                     field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = currentPlayer + 2;
 
                     gameOver = true;
-                    winner = players[getTurn() - 1].name;
+                    winner = players[getTurn() - 1];
                     return true;
                 }
             }
