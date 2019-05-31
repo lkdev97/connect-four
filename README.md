@@ -141,9 +141,49 @@ boolean checkWin() {
     return false;
 }
 ~~~
-Die Variable `gameOver` vom Typ boolean wird benutzt, um zu prüfen, ob das Spiel bereits beendet ist. Wenn das nicht der Fall ist wird mithilfe von vier FOR-Schleifen ermittelt,
+Die Variable `gameOver` vom Typ boolean wird benutzt, um zu prüfen, ob das Spiel bereits beendet ist. Wenn das nicht der Fall ist, wird mithilfe von vier verschachtelten FOR-Schleifen ermittelt,
 ob vier nebeneinanderliegende Stellen dem Wert des Spielers, der am Zug ist, entsprechen. Dies geschieht horizontal, vertikal und diagonal in zwei Richtungen. Tritt dieser Fall
-ein, wird die "gewinnende" Reihe mit einer `currentPlayer + 2` markiert.
+ein, wird die "gewinnende" Reihe mit einer `currentPlayer + 2` markiert. So erkennt man auch im Spielfeld welcher Spieler mit welcher Reihe gewonnen hat.
+Nach einem abgeschlossenen Spiel könnte das Spielfeld-Array `field` beispielsweise intern so aussehen:
+~~~
+0   0   0   0   0   0   2   3
+0   0   0   0   0   0   2   3
+0   0   0   0   0   0   2   3
+0   0   0   0   0   0   0   3
+0   0   0   0   0   0   0   0
+0   0   0   0   0   0   0   0
+0   0   0   0   0   0   0   0
+0   0   0   0   0   0   0   0
+~~~
+Man sieht, das Spielfeld ist intern um 90° gedreht. Bei der abbildung wird jedoch dafür gesorgt, dass es im Frontend korrekt angezeigt wird. Dafür werden die Methoden in der 
+Klasse `HTMLGenerator` verwendet:
+~~~
+public class HTMLGenerator {
+    public static String generateBoard(int[][] content) {
+        StringBuilder boardString = new StringBuilder();
+
+        for (int y = 0; y < content.length; y++) {
+            boardString.append("<div class=\"board-row\">\n");
+            for (int x = 0; x < content[y].length; x++)
+                boardString.append(generateCellElement(x, content[x][y]));
+            boardString.append("</div>\n");
+        }
+
+        return boardString.toString();
+    }
+
+    private static String generateCellElement(int column, int playerId) {
+        return "\t<div class=\"box\">"
+                +   "<button class=\"btn btn-light"
+                +   (playerId == 1 ? " yellow-ball"
+                            : playerId == 2 ? " red-ball"
+                                    : playerId == 3 ? " yellow-ball winner" 
+                                        : playerId == 4 ? " red-ball winner" : "")
+                +   "\" type=\"button\" onclick=\"sendMove(" + column + ")\"></button>" 
+                + "</div>\n";
+    }
+}
+~~~
 ## Umsetzung der Anwendungsidee
 
 
