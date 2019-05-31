@@ -41,6 +41,9 @@ Projektbeteiligte:
 		- [Serverlogik](#serverlogik)
 - [Umsetzung der Spiellogik](#umsetzung-der-spiellogik)
 - [Der Netzcode](#der-netzcode)
+	- [SSE](#sse)
+	- [Packets](#packets)
+	- [Lobby Verbindung mit WebSockets](#lobby-verbindung-mit-websockets)
 
 
 ## Die Idee
@@ -392,3 +395,22 @@ Die beiden Methoden generieren einen HTML-Code, der dem aktuellen Spielfeld ents
 <br>
 
 ## Der Netzcode
+Eine große Herausforderung war es, den Netzcode zu entwickeln. Es wurden hohe Anforderungen an ihn gestellt. Dieser musste nämlich:
+1. schnell Lobbies erstellen und im Lobby-Browser auflisten können
+2. die Einträge des Lobby-Browsers in fast Echtzeit aktualisieren können
+3. Chat-Nachrichten in Echtzeit übertragen
+4. Spielerzüge und Spielfelddaten in Echtzeit übertragen
+5. Lobbies unterstützen, damit nur bestimmte Spieler eine Nachricht oder Spielfelddaten erhalten
+
+Das alles musste der Netzcode ohne große Verzögerungen bewältigen können. Uns ist aufgefallen, dass man diese Anforderungen in zwei Teile aufteilen kann:
+* Die Punkte 1 und 2 steuern nur die Elemente auf der [Hauptseite](#hauptseite) (`Lobby-Browser` und der `Spiel erstellen` Button). Außerdem darf die Verzögerung zwar nicht groß sein, jedoch ist es in Ordnung, falls eine neu erstellte Lobby zum Beispiel erst nach eine Sekunde bei den anderen Clients angezeigt wird.
+* Die anderen Punkte haben nur etwas mit der [Spielseite](#spielseite) zu tun und erfordern die Übertragung in Echtzeit (ohne Verzögerungen)
+
+Deshalb haben wir uns dazu entschieden, für die Punkte 1 und 2 mit SSE und POST-Requests zu arbeiten (`web`). Die Lobbydaten werden dann per Event übertragen und das Erstellen einer Lobby wird mit einem POST-Request realisiert. Für die restlichen Punkte möchten wir WebSockets benutzen, da sie schnell sind und man eine einzige dauerhafte Verbindung zwischen dem Server und dem Client hat. Dadurch kann man das Client-Objekt (in Javalin ein Objekt von `WsSession`) in einer Liste speichern, die sich in einem Lobby-Objekt befindet. Somit könnte man auch die Lobbies realisieren.
+
+
+### SSE
+
+### Packets
+
+### Lobby Verbindung mit WebSockets
