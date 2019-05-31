@@ -5,6 +5,9 @@
 
 // Speichert den WebSocket zum Verbinden mit dem Spiel.
 let gameConnection = null;
+// Speichert den aktuellen "Ping-Timer"
+// (ein Timer, der alle 20 Sekunden ein Ping-Packet an den Server sendet, um das automatische Schließen des WebSockets durch Inaktivität zu vermeiden)
+let pingTimerHandle = null;
 
 
 // Beinhaltet die IDs von Packets.
@@ -55,6 +58,7 @@ function joinGame(lobbyId) {
         gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
         gameConnection.addEventListener('close', () => disconnectFromGame());
         gameConnection.addEventListener('message', ev => {
+            resetPingTimer();
             let message = JSON.parse(ev.data);
 
             if (message && message.packetId !== undefined && message.data) {
@@ -131,11 +135,29 @@ function fetchGameList() {
         });
 }
 
+// Stoppt den Ping-Timer.
+function stopPingTimer() {
+    if (pingTimerHandle !== null) {
+        clearInterval(pingTimerHandle);
+        pingTimerHandle = null;
+    }
+}
+// Setzt den Ping-Timer zurück und startet ihn wieder bei 0 Sekunden.
+function resetPingTimer() {
+    stopPingTimer();
+    pingTimerHandle = setInterval(sendPing, 20000);
+}
+
 // Gibt einen boolean zurück, der aussagt, ob es eine Verbindung zum Spiel gibt.
 function isConnectedToGame() {
     return gameConnection && gameConnection.readyState < WebSocket.CLOSING /* CONNECTING || OPEN */;
 }
 
+
+// Sendet ein Ping-Packet an den Server.
+function sendPing() {
+    sendToGame(Packet.Out.PING);
+}
 
 // Sendet einen Spielzug an den Server.
 // Der Spielzug besteht aus der Spaltennummer, in die der Spieler seinen Stein legt.
@@ -158,7 +180,7 @@ function sendToServer(target, data = {}) {
 
 // Sendet Daten an das Spiel, mit welchem man aktuell verbunden ist.
 // Die Daten sollten ein JSON-Objekt sein, das in ein Packet umgewandelt werden kann.
-function sendToGame(packetId, data) {
+function sendToGame(packetId, data = {}) {
     if (data && isConnectedToGame())
         gameConnection.send(JSON.stringify({ packetId, data }));
 }
