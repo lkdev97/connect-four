@@ -71,6 +71,7 @@ function showBoard(gameId) {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
+    document.getElementById('chat-container').classList.remove('is--hidden');
     document.getElementById('join-game-wrapper').classList.add('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
     //document.getElementById("new-game").classList.remove('is--hidden');
@@ -92,6 +93,7 @@ function hideBoard() {
     board.classList.remove('is--hidden');
     board.parentElement.classList.remove('is--hidden');
     document.getElementById('board').classList.add('is--hidden');
+    document.getElementById('chat-container').classList.add('is--hidden');
     document.getElementById('join-game-wrapper').classList.remove('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.remove('is--hidden');
     //document.getElementById("new-game").classList.add('is--hidden');
