@@ -33,7 +33,11 @@ Projektbeteiligte:
 		- [Hauptseite](#hauptseite)
 		- [Spielseite](#spielseite)
 - [Aufbau der Anwendung](#aufbau-der-anwendung)
-	- [Spiel-Logik (Java)](#spiel-logik-java)
+	- [Das Front-End](#das-front-end)
+		- [Das UI](#das-ui)
+		- [Die Kommunikation](#die-kommunikation)
+	- [Das Back-End](#das-back-end)
+		- [Spiel-Logik (Java)](#spiel-logik-java)
 
 
 ## Die Idee
@@ -97,16 +101,61 @@ Am Ende befindet sich der `Zurück-Button`, welcher die Verbindung mit dem Spiel
 
 
 ## Aufbau der Anwendung
-Die Anwendung besteht aus **vier Teilen**:
-* Front-End (HTML, CSS und JavaScript)
-  - **UI** (`index.html`, `main.js`, und `ui.js`)
-  - **Kommunikation mit Server** (`connection.js`)
-* Back-End (Java)
-  - **Spiel-Logik** (befindet sich im Package `de.battleship`)
-  - **Kommunikation mit Clients** (befindet sich im Package `de.battleship.server` einschließlich Unterpackages)
+Die Anwendung besteht aus zwei Teilen, die wiederum aus zwei weiteren Teilen bestehen:
+* [**Das Front-End**](#das-front-end) (HTML, CSS und JavaScript)
+  - *UI*
+  - *Kommunikation mit Server*
+* [**Das Back-End**](#das-back-end) (Java)
+  - *Spiel-Logik* (befindet sich im Package `de.battleship`)
+  - *Server-Logik + Kommunikation mit Clients* (befindet sich im Package `de.battleship.server` einschließlich Unterpackages)
+
+Der Code der Anwendung wurde kommentiert und sollte beim Lesen verständlich sein.
+
+### Das Front-End
+Hierzu gehören die Dateien, die vom Server an den Client (Webbrowser) ausgeliefert werden. Diese befinden sich im Ordner [`src/main/resources/public`](src/main/resources/public). Die Dateien kann man in `UI` und `Kommunikation` einteilen.
+Der Startpunkt des Front-Ends liegt in der Datei `main.js`. Diese Datei initialisiert sowohl das UI-Skript als auch das Kommunikations-Skript.
+
+#### Das UI
+- `index.html`
+- `ui.js`
+- `main.css`
+
+Diese Dateien steuern das Verhalten und das Aussehen von UI-Elementen auf der Webseite. `index.html` enthält alle UI Elemente und verweist auf die beiden Skripte und die CSS-Datei. `ui.js` speichert Referenzen auf die notwendigen UI-Elemente (z.B. der Spielfeld-Container oder das Chat-Textfeld), indem es diese nach ihrer ID sucht:
+<details>
+<summary>Methode updateUIReferences in ui.js</summary>
+
+~~~javascript
+// Lädt Referenzen auf UI Elemente neu.
+function updateUIReferences() {
+    createGameButton = document.getElementById('create-game-button');
+    txtUserName = document.getElementById('username');
+    createGameIsPublicBox = document.getElementById('create-game-public-box');
+    joinGameButton = document.getElementById('join-game-button');
+    joinGameId = document.getElementById('join-game-code');
+    leaveGameButton = document.getElementById('leave-lobby');
+    lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
+    lobbyCounter = document.getElementById('lobby-counter');
+    board = document.getElementById('board');
+    chatMessagesContainer = document.getElementById('chat-messages-container');
+    chatInputBox = document.getElementById('chat-input-box');
+    chatSendButton = document.getElementById('chat-send-button');
+    gameStatusContainer = document.getElementById('game-status-container');
+    gameStatusText = document.getElementById('game-status-text');
+
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board && chatMessagesContainer && chatInputBox && chatSendButton && gameStatusContainer && gameStatusText;
+}
+~~~
+</details>
+
+Anschließend werden für diese Referenzen Events registriert (siehe Methode `initUI`), wie zum Beispiel Button-Klicks oder das Drücken der Enter-Taste (bei den Eingabefeldern).
+Es werden noch viele weitere Methoden zur Verfügung gestellt, wie zum Beispiel `addChatMessage(message)`, welche eine Nachricht in das Chat-Fenster einfügt. Diese Methoden werden dann später vom Kommunikations-Skript verwendet, um Daten vom Server auf dem UI anzuzeigen. Die `main.css` beschreibt, wie die UI-Elemente dargestellt werden sollen (wie jede andere CSS Datei auch).
+
+#### Die Kommunikation
+Für die Kommunikation mit dem Server ist die Datei `connection.js` zuständig. 
 
 
-### Spiel-Logik (Java)
+### Das Back-End
+#### Spiel-Logik (Java)
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
 
