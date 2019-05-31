@@ -217,12 +217,12 @@ html, body, .main-wrapper {
     margin-left: 5px;
 }
 
-.message.message-join-game {
+.message.message-success {
     font-style: italic;
 
     color: rgb(86, 192, 86);
 }
-.message.message-leave-game {
+.message.message-warning {
     font-style: italic;
 
     color: rgb(192, 173, 89);

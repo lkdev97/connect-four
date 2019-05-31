@@ -42,7 +42,7 @@ public class Lobby {
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
             this.sendGameFieldUpdate();
-            this.sendPacket(new OutChatMessage(">> " + player.getName() + " ist dem Spiel beigetreten", OutChatMessage.Type.JOIN_GAME));
+            this.sendPacket(new OutChatMessage(">> " + player.getName() + " ist dem Spiel beigetreten", OutChatMessage.Type.SUCCESS));
             return true;
         }
 
@@ -59,7 +59,7 @@ public class Lobby {
         if (this.players.size() <= 0)
             App.getLobbyManager().removeLobby(this);
 
-        this.sendPacket(new OutChatMessage("<< " + player.getName() + " hat das Spiel verlassen", OutChatMessage.Type.LEAVE_GAME));
+        this.sendPacket(new OutChatMessage("<< " + player.getName() + " hat das Spiel verlassen", OutChatMessage.Type.WARNING));
     }
     
 

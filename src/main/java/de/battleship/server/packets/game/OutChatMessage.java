@@ -23,8 +23,8 @@ public class OutChatMessage extends GamePacket {
 
     public static enum Type {
         NORMAL("normal"),
-        JOIN_GAME("join-game"),
-        LEAVE_GAME("leave-game");
+        SUCCESS("success"),
+        WARNING("warning");
 
 
         private String cssClass;

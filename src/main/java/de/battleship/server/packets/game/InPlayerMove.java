@@ -16,9 +16,9 @@ public class InPlayerMove extends GamePacket {
             
             if (game.getWinner().length() == 0 && game.getCurrentPlayer().equals(player)) {
                 game.makeTurn(this.column);
-                
+
                 if (game.getWinner().length() > 0)
-                    lobby.sendPacket(new OutChatMessage(game.getWinner() + " hat gewonnen!", OutChatMessage.Type.JOIN_GAME));
+                    lobby.sendPacket(new OutChatMessage(game.getWinner() + " hat gewonnen!", OutChatMessage.Type.SUCCESS));
             }
 
             lobby.sendGameFieldUpdate();
