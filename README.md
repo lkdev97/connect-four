@@ -93,47 +93,10 @@ boolean checkWin() {
         }
     }
 
-    // Prüft vertikal
-    for (int i = 0; i < field.length - 3; i++) {
-        for (int j = 0; j < this.field.length; j++) {
-            if (field[i][j] == currentPlayer && field[i + 1][j] == currentPlayer && field[i + 2][j] == currentPlayer
-                    && field[i + 3][j] == currentPlayer) {
-                
-                field[i][j] = field[i + 1][j] = field[i + 2][j] = field[i + 3][j] = currentPlayer + 2;
-                gameOver = true;
-                winner = players[getTurn() - 1].name;
-                return true;
-            }
-        }
-    }
-
-    // Prüft diagonal(↗)
-    for (int i = 3; i < field.length; i++) {
-        for (int j = 0; j < field.length - 3; j++) {
-            if (field[i][j] == currentPlayer && field[i - 1][j + 1] == currentPlayer
-                    && field[i - 2][j + 2] == currentPlayer && field[i - 3][j + 3] == currentPlayer) {
-
-                field[i][j] = field[i - 1][j + 1] = field[i - 2][j + 2] = field[i - 3][j + 3] = currentPlayer + 2;
-                gameOver = true;
-                winner = players[getTurn() - 1].name;
-                return true;
-            }
-        }
-    }
-
-    // Prüft diagonal(↘)
-    for (int i = 3; i < field.length; i++) {
-        for (int j = 3; j < field.length; j++) {
-            if (field[i][j] == currentPlayer && field[i - 1][j - 1] == currentPlayer
-                    && field[i - 2][j - 2] == currentPlayer && field[i - 3][j - 3] == currentPlayer) {
-                    
-                field[i][j] = field[i - 1][j - 1] = field[i - 2][j - 2] = field[i - 3][j - 3] = currentPlayer + 2;
-                gameOver = true;
-                winner = players[getTurn() - 1].name;
-                return true;
-            }
-        }
-    }
+    
+    // Dies ist eine gekürzte Version der Methode
+    // In der richtigen Version folgen noch drei weitere Prüfungen für vertikal, diagonal(↗) und diagonal(↘)
+    
 
     return false;
 }
