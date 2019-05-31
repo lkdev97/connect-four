@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         createGameButton.addEventListener('click', createNewGame);
         txtUserName.addEventListener('click', changeUserName);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
+        joinGameId.addEventListener('keydown', (ev) => {
+            if (ev.keyCode == 13) { // Enter Taste gedrückt
+                ev.preventDefault();
+                joinGameButton.click();
+            }
+        });
         leaveGameButton.addEventListener('click', disconnectFromGame);
         window.addEventListener('hashchange', () => {
             if (window.location.hash.length > 1) {
@@ -20,6 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!isConnectedToGame())
                     joinGame(joinGameId.value);
+            }
+        });
+        chatSendButton.addEventListener('click', () => {
+            sendChatMessage(chatInputBox.value);
+            clearChatInput();
+        });
+        chatInputBox.addEventListener('keydown', (ev) => {
+            if (ev.keyCode == 13) { // Enter Taste gedrückt
+                ev.preventDefault();
+                chatSendButton.click();
             }
         });
         console.log('Alle UI Elemente gefunden und registriert.');

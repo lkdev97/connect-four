@@ -10,7 +10,7 @@ public class InConnectRequest extends GamePacket {
 
     @Override
     public void handle(GameHandler gameHandler, WsSession session, Lobby lobby, OnlinePlayer player) {
-        if (lobby.getPlayersAmount() < lobby.getMaxPlayersAmount()) {
+        if (lobby.areSpectatorsAllowed() || lobby.getPlayersAmount() < lobby.getMaxPlayersAmount()) {
             this.playerName = this.playerName.replace(" ", "");
 
             if (this.playerName.length() >= 3) {

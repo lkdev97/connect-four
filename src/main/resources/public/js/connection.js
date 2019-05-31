@@ -13,13 +13,15 @@ let Packet = {
         ERROR: 0,
         CONNECT_SUCCESS: 1,
 
-        GAME_FIELD_CONTENT: 16
+        GAME_FIELD_CONTENT: 16,
+        CHAT_MESSAGE: 17
     },
     Out: {
         PING: 0,
         CONNECT_REQUEST: 1,
 
-        PLAYER_MOVE: 16
+        PLAYER_MOVE: 16,
+        CHAT_MESSSAGE: 17
     }
 };
 // Verhindert, dass die Werte innerhalb von Packet verändert werden können
@@ -70,6 +72,10 @@ function joinGame(lobbyId) {
                         setBoardContent(message.data.gameField);
                         break;
 
+                    case Packet.In.CHAT_MESSAGE:
+                        addChatMessage(message.data);
+                        break;
+
                     default:
                         console.log(message);
                         break;
@@ -86,6 +92,7 @@ function disconnectFromGame() {
     }
     hideBoard();
     clearBoardContent();
+    clearChat();
     location.hash = '';
 }
 
@@ -134,6 +141,11 @@ function isConnectedToGame() {
 // Der Spielzug besteht aus der Spaltennummer, in die der Spieler seinen Stein legt.
 function sendMove(column) {
     sendToGame(Packet.Out.PLAYER_MOVE, { column });
+}
+
+// Sendet eine Chat-Nachricht an den Server.
+function sendChatMessage(content) {
+    sendToGame(Packet.Out.CHAT_MESSSAGE, { content });
 }
 
 

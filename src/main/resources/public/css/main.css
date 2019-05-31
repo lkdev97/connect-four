@@ -83,6 +83,7 @@ html, body, .main-wrapper {
 
 .board {
     width: 432.9px;
+    min-width: 432.9px;
     height: 401px;
     border: 1px solid black;
     background: blue;
@@ -161,4 +162,69 @@ html, body, .main-wrapper {
     max-width: 400px;
     overflow: auto;
     font-style: italic;
+}
+
+
+
+
+/* CHAT */
+.chat-container {
+    background-color: #FFFFFF;
+
+    width: 25%;
+    height: 401px;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    border: 1px solid #000000;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    overflow: hidden;
+}
+
+.chat-container>.messages-box {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    padding: 5px;
+}
+
+.chat-container>.control-box {
+    flex: 1;
+    padding: 5px;
+
+    border-top: 1px solid #AAAAAA;
+}
+
+.chat-container * .message {
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    font-size: 0.9em;
+}
+
+.chat-container * .message>.sender {
+    font-weight: bold;
+}
+
+.chat-container * .message>.content {
+    margin-left: 5px;
+}
+
+.message.message-success {
+    font-style: italic;
+
+    color: rgb(86, 192, 86);
+}
+.message.message-warning {
+    font-style: italic;
+
+    color: rgb(192, 173, 89);
 }

@@ -12,6 +12,9 @@ let leaveGameButton;
 let lobbyBrowser;
 let lobbyCounter;
 let board;
+let chatMessagesContainer;
+let chatInputBox;
+let chatSendButton;
 let txtUserName;
 
 
@@ -71,6 +74,7 @@ function showBoard(gameId) {
     board.classList.add('is--hidden');
     board.parentElement.classList.add('is--hidden');
     document.getElementById('board').classList.remove('is--hidden');
+    document.getElementById('chat-container').classList.remove('is--hidden');
     document.getElementById('join-game-wrapper').classList.add('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
     //document.getElementById("new-game").classList.remove('is--hidden');
@@ -80,7 +84,7 @@ function showBoard(gameId) {
 
     document.getElementById("game-url").innerHTML = `
                                                     Viel Erfolg, ${playerName}!<br />
-                                                    Spiel-ID: ${gameId}<br />
+                                                    Spiel-Code: ${gameId}<br />
                                                     Link zum Spiel: <i>${location.href}</i>
                                                     `;
 }
@@ -92,6 +96,7 @@ function hideBoard() {
     board.classList.remove('is--hidden');
     board.parentElement.classList.remove('is--hidden');
     document.getElementById('board').classList.add('is--hidden');
+    document.getElementById('chat-container').classList.add('is--hidden');
     document.getElementById('join-game-wrapper').classList.remove('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.remove('is--hidden');
     //document.getElementById("new-game").classList.add('is--hidden');
@@ -113,8 +118,11 @@ function updateUIReferences() {
     lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
     lobbyCounter = document.getElementById('lobby-counter');
     board = document.getElementById('board');
+    chatMessagesContainer = document.getElementById('chat-messages-container');
+    chatInputBox = document.getElementById('chat-input-box');
+    chatSendButton = document.getElementById('chat-send-button');
 
-    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board;
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board && chatMessagesContainer && chatInputBox && chatSendButton;
 }
 
 // Fügt eine Lobby mit den angegebenen Daten zur Lobbyliste hinzu.
@@ -130,7 +138,7 @@ function addLobbyToBrowser(lobbyData) {
         // erstellt den Spielerzahl-Text
         let playerNumTextElement = document.createElement('td');
         playerNumTextElement.classList.add('player-num-text');
-        playerNumTextElement.innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
+        playerNumTextElement.innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}${lobbyData.spectators > 0 ? ` (+${lobbyData.spectators})` : ''}`;
         // erstellt den Link, mit dem man sich zum Spiel verbinden kann
         let joinTextElement = document.createElement('td');
         let joinLinkElement = document.createElement('span');
@@ -161,7 +169,7 @@ function removeLobbyFromBrowser(lobbyData) {
 function updateLobbyInBrowser(lobbyData) {
     let row = lobbyBrowser.querySelector(`#entry-${lobbyData.lobbyId}`);
     if (row) {
-        row.querySelector('.player-num-text').innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}`;
+        row.querySelector('.player-num-text').innerText = `${lobbyData.players} / ${lobbyData.maxPlayers}${lobbyData.spectators > 0 ? ` (+${lobbyData.spectators})` : ''}`;
         row.querySelector('.join-link').innerText = `>> ${lobbyData.players < lobbyData.maxPlayers ? 'Beitreten' : 'Zuschauen'}`;
     }
 }
@@ -171,4 +179,44 @@ function clearLobbyBrowser() {
         lobbyBrowser.firstChild.remove();
 
     lobbyCounter.innerText = lobbyBrowser.children.length;
+}
+
+// Fügt eine Chat-Nachricht hinzu.
+function addChatMessage(message) {
+    let messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+
+    if (message.type)
+        messageElement.classList.add(`message-${message.type}`);
+
+    if (message.sender) {
+        let senderText = document.createElement('span');
+        senderText.classList.add('sender');
+        senderText.textContent = message.sender;
+
+        if (message.content)
+            senderText.textContent += ':';
+
+        messageElement.appendChild(senderText);
+    }
+
+    if (message.content) {
+        let contentText = document.createElement('span');
+        contentText.classList.add('content');
+        contentText.textContent = message.content;
+        messageElement.appendChild(contentText);
+    }
+
+    chatMessagesContainer.appendChild(messageElement);
+    // nach unten scrollen
+    chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight - chatMessagesContainer.clientHeight;
+}
+// Löscht alle Nachrichten aus dem Chat.
+function clearChat() {
+    while (chatMessagesContainer.firstChild)
+        chatMessagesContainer.firstChild.remove();
+}
+// Löscht den Inhalt des Chat-Eingabefeldes.
+function clearChatInput() {
+    chatInputBox.value = '';
 }

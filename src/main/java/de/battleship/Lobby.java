@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.battleship.server.packets.game.GamePacket;
+import de.battleship.server.packets.game.OutChatMessage;
 import de.battleship.server.packets.game.OutGameField;
 
 public class Lobby {
@@ -13,6 +14,8 @@ public class Lobby {
 
     private ArrayList<Player> players;
     private int maxPlayers;
+    private ArrayList<Player> spectators;
+    private boolean spectatorsAllowed;
 
     private Game game;
 
@@ -23,17 +26,23 @@ public class Lobby {
 
         this.players = new ArrayList<Player>();
         this.maxPlayers = 2;
+        this.spectators = new ArrayList<Player>();
+        this.spectatorsAllowed = true;
     }
     
 
     public boolean addPlayer(Player player) {
         if (canJoin(player)) {
-            this.players.add(player);
+            if (this.players.size() < this.maxPlayers)
+                this.players.add(player);
+            else
+                this.spectators.add(player);
 
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
             this.sendGameFieldUpdate();
+            this.sendPacket(new OutChatMessage(">> " + player.getName() + " ist dem Spiel beigetreten", OutChatMessage.Type.SUCCESS));
             return true;
         }
 
@@ -42,12 +51,15 @@ public class Lobby {
 
     public void removePlayer(Player player) {
         this.players.remove(player);
+        this.spectators.remove(player);
 
         if (this.isPublic())
             App.getWebHandler().broadcastUpdatePublicLobby(this);
 
         if (this.players.size() <= 0)
             App.getLobbyManager().removeLobby(this);
+
+        this.sendPacket(new OutChatMessage("<< " + player.getName() + " hat das Spiel verlassen", OutChatMessage.Type.WARNING));
     }
     
 
@@ -60,19 +72,30 @@ public class Lobby {
 
 
     public void sendPacket(GamePacket packet) {
-        for (int i = this.getPlayersAmount() - 1; i >= 0; i--)
+        // Spieler
+        for (int i = this.players.size() - 1; i >= 0; i--)
             if (this.players.get(i) instanceof OnlinePlayer)
                 ((OnlinePlayer) this.players.get(i)).sendPacket(packet);
-    }
 
+        // Zuschauer
+        for (int i = this.spectators.size() - 1; i >= 0; i--)
+            if (this.spectators.get(i) instanceof OnlinePlayer)
+                ((OnlinePlayer) this.spectators.get(i)).sendPacket(packet);
+    }
     public void sendGameFieldUpdate() {
         if (this.hasGame())
             this.sendPacket(new OutGameField(this.game.toString()));
     }
     
     public boolean canJoin(Player player) {
-        for (int i = 0; i < this.getPlayersAmount(); i++)
+        if (!this.areSpectatorsAllowed() && this.players.size() >= this.maxPlayers)
+            return false;
+        
+        for (int i = 0; i < this.players.size(); i++)
             if (this.players.get(i).getName().equalsIgnoreCase(player.getName()))
+                return false;
+        for (int i = 0; i < this.spectators.size(); i++)
+            if (this.spectators.get(i).getName().equalsIgnoreCase(player.getName()))
                 return false;
 
         return true;
@@ -81,6 +104,9 @@ public class Lobby {
     
     public List<Player> getPlayers() {
         return Collections.unmodifiableList(this.players);
+    }
+    public List<Player> getSpectators() {
+        return Collections.unmodifiableList(this.spectators);
     }
 
     public String getLobbyId() {
@@ -91,15 +117,22 @@ public class Lobby {
         return this.isPublic;
     }
 
+    public boolean areSpectatorsAllowed() {
+        return this.spectatorsAllowed;
+    }
+
     public int getPlayersAmount() {
         return this.players.size();
     }
     public int getMaxPlayersAmount() {
         return this.maxPlayers;
     }
+    public int getSpectatorsAmount() {
+        return this.spectators.size();
+    }
 
     public Lobby.Data getData() {
-        return new Lobby.Data(this.lobbyId, this.players.size(), this.maxPlayers);
+        return new Lobby.Data(this.lobbyId, this.players.size(), this.maxPlayers, this.spectators.size());
     }
 
     public Game getGame() {
@@ -118,11 +151,13 @@ public class Lobby {
         public String lobbyId;
         public int players;
         public int maxPlayers;
+        public int spectators;
 
-        public Data(String lobbyID, int players, int maxPlayers) {
+        public Data(String lobbyID, int players, int maxPlayers, int spectators) {
             this.lobbyId = lobbyID;
             this.players = players;
             this.maxPlayers = maxPlayers;
+            this.spectators = spectators;
         }
     }
 }
