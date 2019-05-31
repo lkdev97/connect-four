@@ -52,7 +52,6 @@ function joinGame(lobbyId) {
         disconnectFromGame();
 
         console.log(`Verbinde mit Spiel "${lobbyId}"...`);
-        location.hash = lobbyId;
         gameConnection = new WebSocket(`ws://${window.location.hostname}/${lobbyId}`);
         gameConnection.addEventListener('open', () => sendToGame(Packet.Out.CONNECT_REQUEST, { playerName }));
         gameConnection.addEventListener('error', () => alert('Es ist ein Fehler bei der Übertragung aufgetreten.'));
@@ -69,7 +68,8 @@ function joinGame(lobbyId) {
 
                     case Packet.In.CONNECT_SUCCESS:
                         playerName = message.data.playerName;
-                        showBoard(lobbyId);
+                        location.hash = message.data.lobbyId;
+                        showBoard(message.data.lobbyId);
                         break;
 
                     case Packet.In.GAME_FIELD_CONTENT:

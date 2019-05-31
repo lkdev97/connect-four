@@ -17,7 +17,7 @@ public class InConnectRequest extends GamePacket {
                 player.setName(this.playerName);
 
                 if (lobby.addPlayer(player)) {
-                    player.sendPacket(new OutConnectSuccess(this.playerName));
+                    player.sendPacket(new OutConnectSuccess(lobby.getLobbyId(), this.playerName));
 
                     // versuche, das Spiel zu starten, falls die Lobby noch kein laufendes Spiel hat
                     if (!lobby.hasGame())

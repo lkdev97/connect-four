@@ -56,7 +56,7 @@ public class LobbyManager {
      * Gibt eine Lobby mit einer angegebenen ID zurück.
      */
     public Lobby getLobbyById(String id) {
-        return (id != null) ? this.activeLobbies.getOrDefault(id.toUpperCase(), null) : null;
+        return (id != null) ? this.activeLobbies.getOrDefault(id.replace(" ", "").toUpperCase(), null) : null;
     }
 
     /**
