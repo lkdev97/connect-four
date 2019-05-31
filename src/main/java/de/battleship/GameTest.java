@@ -30,3 +30,4 @@ g.newGame();
 
 assert !g.checkWin() : "Test (15)";
 assert g.makeTurn(0) : "Test (16)";
+assert !g.checkWin() : "Test (17)";
