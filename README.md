@@ -30,6 +30,15 @@ Projektbeteiligte:
 
 
 ## Die Idee
+Unser Ziel war es zunächst, eine Vier-Gewinnt-Anwendung zu schreiben. Diese wollten wir im Laufe des Projekts durch weitere Features erweitern:
+* Das Spiel soll auf zwei verschiedenen Rechnern spielbar sein
+* Jeder Spieler kann sich einen Namen aussuchen
+* Es können mehrere Spiele gleichzeitig laufen
+* Man kann sowohl private als auch öffentliche Spiele spielen
+    * Private Spiele können über einen Code betreten werden
+    * Öffentliche Spiele können in einem Browser eingesehen werden
+* Es gibt eine Chatfunktion in jeder Lobby
+* Man kann eine Lobby auch als Zuschauer betreten
 
 ## Die Darstellung des Spielbretts
 
