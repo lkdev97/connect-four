@@ -38,6 +38,8 @@ public class Lobby {
             else
                 this.spectators.add(player);
 
+            this.checkGamePlayers();
+
             if (this.isPublic())
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
@@ -50,8 +52,16 @@ public class Lobby {
     }
 
     public void removePlayer(Player player) {
+        if (this.hasGame()) {
+            if (player.equals(this.game.getP1()))
+                this.game.setP1(null);
+            if (player.equals(this.game.getP2()))
+                this.game.setP2(null);
+        }
+
         this.players.remove(player);
         this.spectators.remove(player);
+        this.checkGamePlayers();
 
         if (this.isPublic())
             App.getWebHandler().broadcastUpdatePublicLobby(this);
@@ -141,6 +151,34 @@ public class Lobby {
 
     public boolean hasGame() {
         return this.game != null;
+    }
+
+
+    private void checkGamePlayers() {
+        if (this.hasGame()) {
+            if (this.game.getP1() == null)
+                this.game.setP1(this.findNewPlayer(this.game.getP2()));
+            if (this.game.getP2() == null)
+                this.game.setP2(this.findNewPlayer(this.game.getP1()));
+        }
+    }
+
+    private Player findNewPlayer(Player exceptPlayer) {
+        // zuerst in der aktiven Spielerliste suchen (z. B. reconnect?)
+        for (int i = 0; i < this.players.size(); i++)
+            if (!this.players.get(i).equals(exceptPlayer))
+                return this.players.get(i);
+        
+        // falls kein Spieler gefunden wurde, dann wird ein Zuschauer als Spieler eingetragen
+        if (this.spectators.size() > 0) {
+            Player player = this.spectators.get(0);
+            this.players.add(player);
+            this.spectators.remove(0);
+
+            return player;
+        }
+
+        return null;
     }
 
 

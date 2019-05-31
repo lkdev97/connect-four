@@ -14,7 +14,7 @@ public class InPlayerMove extends GamePacket {
         if (lobby.hasGame()) {
             Game game = lobby.getGame();
             
-            if (game.getWinner() == null && game.getCurrentPlayer().equals(player)) {
+            if (game.getWinner() == null && player.equals(game.getCurrentPlayer())) {
                 game.makeTurn(this.column);
 
                 if (game.getWinner() != null)
