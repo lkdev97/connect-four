@@ -6,7 +6,8 @@ rote und gelbe Steine in ein (in unserem Fall) 8x8-Spielfeld legen. Wer es zuers
 gewinnt. Unsere Anwendung ist darauf ausgelegt, das Spiel auf zwei verschiedenen Rechnern gegeneinander zu spielen. Jeder kann sich beim betreten der Seite einen Nutzernamen 
 aussuchen. Dabei können auch mehrere Spiele gleichzeitig laufen. Das funktioniert, weil die Spiele in einzelnen Lobbies stattfinden, welche entweder öffentlich oder privat sein
 können. Öffentliche Lobbies können über den Spiel-Browser auf der Startseite betreten werden, während man für private Lobbies eine Spiel-ID benötigt, die man vom ersteller der 
-Lobby erhält. Diese gibt man in das vorgesehene Feld auf der Startseite ein und betritt so das Spiel.
+Lobby erhält. Diese gibt man in das vorgesehene Feld auf der Startseite ein und betritt so das Spiel. Sobald eine Lobby voll ist, kann man ihr auch als Zuschauer beitreten und
+mitchatten.
 
 ### Startseite
 ![Screenshot](Screenshot 1.png)
@@ -274,6 +275,7 @@ Die beiden Methoden generieren einen HTML-Code, der dem aktuellen Spielfeld ents
 <br>
 
 ## Anleitung
+(Für den Fall, dass jemand nicht weiß, wie das Starten der Anwendung funktioniert)
 Um die Anwendung zu starten benötigt man das Tool [Gradle](https://gradle.org) und selbstverständlich Java. In der Konsole navigiert man in den Ordner, der 
 die `build.gradle` Datei enthält. Hier führt man den Befehl `gradle run` aus. Das Programm sollte jetzt starten. Als Host erreicht man die Seite im Internetbrowser
 unter dem link `http://localhost:80/`. Andere Spieler müssen sich über die lokale [IPv4-Adresse]() des Hosts verbinden. Dazu müssen sie sich aber im selben 
