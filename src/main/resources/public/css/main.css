@@ -83,6 +83,7 @@ html, body, .main-wrapper {
 
 .board {
     width: 432.9px;
+    min-width: 432.9px;
     height: 401px;
     border: 1px solid black;
     background: blue;
