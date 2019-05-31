@@ -51,7 +51,7 @@
             <table id="lobby-browser" class="lobby-browser-table">
                 <thead>
                     <tr>
-                        <td>Spiel-Code</td>
+                        <td>Spiel-ID</td>
                         <td>Spieler</td>
                         <td>&nbsp;</td>
                     </tr>
@@ -60,29 +60,12 @@
                 </tbody>
             </table>
         </div>
-        <!--<div class="d-flex p-2 justify-content-center">
-            <button type="button" onclick="showBoard(this)" class="btn btn-success">Start Game!</button>
-            <button type="button" class="btn btn-primary">New Game!</button>
-        </div> -->
+        
         <div id="url-box" class="url-box">
             <p id="game-url"></p>
         </div>
-        <div id="game-status-container" class="container-fluid text-center is--hidden">
-            <span id="game-status-text" class="font-weight-bold"></span>
-        </div>
         <div class="d-flex p-2 justify-content-center">
-            <!-- SPIELBRETT -->
-            <div class="board is--hidden" id="board"></div>
-
-            <!-- CHAT -->
-            <div class="chat-container is--hidden" id="chat-container">
-                <div class="messages-box align-self-start" id="chat-messages-container"></div>
-                <div class="input-group align-self-end control-box">
-                    <input id="chat-input-box" class="form-control" type="text" />
-                    <div class="input-group-append">
-                        <button id="chat-send-button" class="btn btn-secondary">Senden</button>
-                    </div>
-                </div>
+            <div class="board is--hidden" id="board">
             </div>
         </div>
         <div class="d-flex p-2 justify-content-center">
