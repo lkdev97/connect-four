@@ -14,7 +14,7 @@ mitchatten.
 #### Spielfeld
 ![Screenshot](documentation/Screenshot_Game.png)
 
-Keywords: WebSockets, Bootstrap, Responsive Design, Server-Sent Events (SSE), JSON Mapper, Static Files, 
+Keywords: WebSockets, Bootstrap, Responsive Design, Server-Sent Events (SSE), JSON Mapper, Static Files, JSON Mapper
 
 Projektbeteiligte:
 
@@ -33,7 +33,7 @@ Projektbeteiligte:
 		- [Hauptseite](#hauptseite)
 		- [Spielseite](#spielseite)
 - [Aufbau der Anwendung](#aufbau-der-anwendung)
-	- [Die Logik in Java](#die-logik-in-java)
+	- [Spiel-Logik (Java)](#spiel-logik-java)
 
 
 ## Die Idee
@@ -97,16 +97,16 @@ Am Ende befindet sich der `Zurück-Button`, welcher die Verbindung mit dem Spiel
 
 
 ## Aufbau der Anwendung
-Die Anwendung besteht aus vier Teilen:
-- Front-End (HTML, CSS und JavaScript)
+Die Anwendung besteht aus **vier Teilen**:
+* Front-End (HTML, CSS und JavaScript)
   - **UI** (`index.html`, `main.js`, und `ui.js`)
   - **Kommunikation mit Server** (`connection.js`)
-- Back-End (Java)
-  - **Spiel-Logik** ()
-  - **Kommunikation mit Clients** ()
+* Back-End (Java)
+  - **Spiel-Logik** (befindet sich im Package `de.battleship`)
+  - **Kommunikation mit Clients** (befindet sich im Package `de.battleship.server` einschließlich Unterpackages)
 
 
-### Die Logik in Java
+### Spiel-Logik (Java)
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
 
