@@ -84,7 +84,7 @@ function showBoard(gameId) {
 
     document.getElementById("game-url").innerHTML = `
                                                     Viel Erfolg, ${playerName}!<br />
-                                                    Spiel-ID: ${gameId}<br />
+                                                    Spiel-Code: ${gameId}<br />
                                                     Link zum Spiel: <i>${location.href}</i>
                                                     `;
 }
