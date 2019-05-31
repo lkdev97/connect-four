@@ -24,12 +24,12 @@ Projektbeteiligte:
 
 ### Inhalt
 - [Projekt: Vier Gewinnt!](#Einleitung)
-  - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
   - [Die Idee](#die-idee)
+  - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
   - [Die Logik in Java](#die-logik-in-java)
-  - [Umsetzung der Anwendungsidee](#umsetzung-der-anwendungsidee)
-  - [Lorem ipsum](#lorem-ipsum)
 
+
+## Die Idee
 
 ## Die Darstellung des Spielbretts
 
@@ -40,9 +40,6 @@ Nostrud officia ipsum sint qui adipisicing elit deserunt ullamco labore labore. 
 Consectetur qui id ea enim mollit ut in anim sunt exercitation sit qui. Velit est cupidatat culpa ipsum dolor consequat ea excepteur do id non nostrud consectetur enim. Voluptate nostrud laboris aute qui eiusmod. Lorem tempor aliquip nostrud Lorem. Anim ipsum Lorem velit do magna nulla commodo velit deserunt veniam in tempor.
 
 Aliquip dolor occaecat do ad qui amet. Reprehenderit sit est non anim anim proident sint velit ea. Irure minim quis ut quis. Ipsum non amet adipisicing veniam pariatur anim non et nostrud eu. Ex consectetur fugiat deserunt qui est irure adipisicing ipsum magna irure. Consequat cillum id esse sunt fugiat aliquip veniam enim commodo irure elit.
-
-## Die Idee
-
 
 ## Die Logik in Java
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
@@ -184,9 +181,6 @@ public class HTMLGenerator {
     }
 }
 ~~~
-## Umsetzung der Anwendungsidee
 
-
-## Lorem ipsum
 
 
