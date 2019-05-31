@@ -1,4 +1,4 @@
-# Projekt: Vier Gewinnt! (Fr/2, Kr)
+# Projekt: Vier Gewinnt! (Fr/2, Kr) <!-- omit in toc -->
 
 > Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein Spiel für zwei Personen, bei dem die Spieler im Wechsel 
 rote und gelbe Steine in ein (in unserem Fall) 8x8-Spielfeld legen. Wer es zuerst schafft, vier Steine seiner Farbe in eine Reihe (horizontal, vertikal oder diagonal) zu bringen,
@@ -24,20 +24,16 @@ Projektbeteiligte:
 * Felix Schopen
 
 #### Inhalt
-- [Projekt: Vier Gewinnt! (Fr/2, Kr)](#projekt-vier-gewinnt-fr2-kr)
-			- [Startseite](#startseite)
-			- [Spielfeld](#spielfeld)
-			- [Inhalt](#inhalt)
-	- [Die Idee](#die-idee)
-	- [Der Einstieg](#der-einstieg)
-		- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
-		- [UI im Browser aufrufen](#ui-im-browser-aufrufen)
-		- [Erklärung des UI](#erkl%C3%A4rung-des-ui)
-			- [Spielername](#spielername)
-			- [Hauptseite](#hauptseite)
-			- [Spielseite](#spielseite)
-	- [Aufbau der Anwendung](#aufbau-der-anwendung)
-		- [Die Logik in Java](#die-logik-in-java)
+- [Die Idee](#die-idee)
+- [Der Einstieg](#der-einstieg)
+	- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
+	- [UI im Browser aufrufen](#ui-im-browser-aufrufen)
+	- [Erklärung des UI](#erklärung-des-ui)
+		- [Spielername](#spielername)
+		- [Hauptseite](#hauptseite)
+		- [Spielseite](#spielseite)
+- [Aufbau der Anwendung](#aufbau-der-anwendung)
+	- [Die Logik in Java](#die-logik-in-java)
 
 
 ## Die Idee
