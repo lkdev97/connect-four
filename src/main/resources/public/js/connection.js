@@ -72,6 +72,10 @@ function joinGame(lobbyId) {
                         setBoardContent(message.data.gameField);
                         break;
 
+                    case Packet.In.CHAT_MESSAGE:
+                        addChatMessage(message.data);
+                        break;
+
                     default:
                         console.log(message);
                         break;
@@ -88,6 +92,7 @@ function disconnectFromGame() {
     }
     hideBoard();
     clearBoardContent();
+    clearChat();
     location.hash = '';
 }
 
@@ -136,6 +141,11 @@ function isConnectedToGame() {
 // Der Spielzug besteht aus der Spaltennummer, in die der Spieler seinen Stein legt.
 function sendMove(column) {
     sendToGame(Packet.Out.PLAYER_MOVE, { column });
+}
+
+// Sendet eine Chat-Nachricht an den Server.
+function sendChatMessage(content) {
+    sendToGame(Packet.Out.CHAT_MESSSAGE, { content });
 }
 
 

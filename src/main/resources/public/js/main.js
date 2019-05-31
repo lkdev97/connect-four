@@ -22,6 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     joinGame(joinGameId.value);
             }
         });
+        chatSendButton.addEventListener('click', () => {
+            sendChatMessage(chatInputBox.value);
+            clearChatInput();
+        });
+        chatInputBox.addEventListener('keydown', (ev) => {
+            if (ev.keyCode == 13) { // Enter Taste gedrückt
+                ev.preventDefault();
+                chatSendButton.click();
+            }
+        });
         console.log('Alle UI Elemente gefunden und registriert.');
 
         fetchGameList();

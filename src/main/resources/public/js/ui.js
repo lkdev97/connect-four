@@ -12,6 +12,9 @@ let leaveGameButton;
 let lobbyBrowser;
 let lobbyCounter;
 let board;
+let chatMessagesContainer;
+let chatInputBox;
+let chatSendButton;
 let txtUserName;
 
 
@@ -115,8 +118,11 @@ function updateUIReferences() {
     lobbyBrowser = document.getElementById('lobby-browser').querySelector('tbody');
     lobbyCounter = document.getElementById('lobby-counter');
     board = document.getElementById('board');
+    chatMessagesContainer = document.getElementById('chat-messages-container');
+    chatInputBox = document.getElementById('chat-input-box');
+    chatSendButton = document.getElementById('chat-send-button');
 
-    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board;
+    return createGameButton && createGameIsPublicBox && joinGameButton && joinGameId && leaveGameButton && lobbyBrowser && lobbyCounter && board && chatMessagesContainer && chatInputBox && chatSendButton;
 }
 
 // Fügt eine Lobby mit den angegebenen Daten zur Lobbyliste hinzu.
@@ -173,4 +179,42 @@ function clearLobbyBrowser() {
         lobbyBrowser.firstChild.remove();
 
     lobbyCounter.innerText = lobbyBrowser.children.length;
+}
+
+// Fügt eine Chat-Nachricht hinzu.
+function addChatMessage(message) {
+    let messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+
+    if (message.type)
+        messageElement.classList.add(`message-${message.type}`);
+
+    if (message.sender) {
+        let senderText = document.createElement('span');
+        senderText.classList.add('sender');
+        senderText.textContent = message.sender;
+
+        if (message.content)
+            senderText.textContent += ':';
+
+        messageElement.appendChild(senderText);
+    }
+
+    if (message.content) {
+        let contentText = document.createElement('span');
+        contentText.classList.add('content');
+        contentText.textContent = message.content;
+        messageElement.appendChild(contentText);
+    }
+
+    chatMessagesContainer.appendChild(messageElement);
+}
+// Löscht alle Nachrichten aus dem Chat.
+function clearChat() {
+    while (chatMessagesContainer.firstChild)
+        chatMessagesContainer.firstChild.remove();
+}
+// Löscht den Inhalt des Chat-Eingabefeldes.
+function clearChatInput() {
+    chatInputBox.value = '';
 }
