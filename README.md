@@ -152,35 +152,9 @@ Nach einem abgeschlossenen Spiel könnte das Spielfeld-Array `field` beispielswe
 0   0   0   0   0   0   0   0
 0   0   0   0   0   0   0   0
 ~~~
-Man sieht, das Spielfeld ist intern um 90° gedreht. Bei der abbildung wird jedoch dafür gesorgt, dass es im Frontend korrekt angezeigt wird. Dafür werden die Methoden in der 
-Klasse `HTMLGenerator` verwendet:
-~~~
-public class HTMLGenerator {
-    public static String generateBoard(int[][] content) {
-        StringBuilder boardString = new StringBuilder();
+Man sieht, das Spielfeld ist intern um 90° gedreht. Bei der Abbildung wird jedoch dafür gesorgt, dass es im Frontend korrekt angezeigt wird. Dafür werden die Methoden in der 
+Klasse `HTMLGenerator` verwendet.
 
-        for (int y = 0; y < content.length; y++) {
-            boardString.append("<div class=\"board-row\">\n");
-            for (int x = 0; x < content[y].length; x++)
-                boardString.append(generateCellElement(x, content[x][y]));
-            boardString.append("</div>\n");
-        }
-
-        return boardString.toString();
-    }
-
-    private static String generateCellElement(int column, int playerId) {
-        return "\t<div class=\"box\">"
-                +   "<button class=\"btn btn-light"
-                +   (playerId == 1 ? " yellow-ball"
-                            : playerId == 2 ? " red-ball"
-                                    : playerId == 3 ? " yellow-ball winner" 
-                                        : playerId == 4 ? " red-ball winner" : "")
-                +   "\" type=\"button\" onclick=\"sendMove(" + column + ")\"></button>" 
-                + "</div>\n";
-    }
-}
-~~~
 
 
 
