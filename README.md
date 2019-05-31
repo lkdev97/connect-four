@@ -516,4 +516,37 @@ Man sieht hier auch eine Unterscheidung zwischen `InPackets` und `OutPackets`. `
 
 
 ### Lobby Verbindung mit WebSockets
-Mit POST-Requests kann man eine bestimmte Ressource abrufen. Zum Beispiel liefert eine Anfrage auf `/lobbylist` ein JSON-Objekt mit allen Lobbies. Der Server weiß genau, was der Client haben möchte, indem er den Namen der Ressource ausliest.
+Am Anfang stellte sich die Frage, wie man denn die Lobbies mit WebSockets realisieren könnte. Wenn man zum Beispiel einen WebSocket-Listener öffnet mit:
+
+<details>
+<summary>WebSocket-Listener</summary>
+
+~~~java
+this.server.ws("/test", ws -> {
+	ws.onConnect(this::handleNewClient);
+	ws.onMessage(this::handleClientMessage);
+	ws.onClose(this::handleClientDisconnect);
+});
+~~~
+</details>
+
+Dann ist dieser Listener dauerhaft aktiv auf `/test`. Wir haben uns aber überlegt, dass wir statt `/test` lieber die Lobby-ID haben möchten, um die Lobby zu identifizieren, die der Spieler versucht zu erreichen. Da die Lobbies aber auch geschlossen werden können, sollten wir auch den WebSocket-Listener schließen. Wir haben leider keine Möglichkeit gefunden, das zu realisieren. Stattdessen haben wir Folgendes gemacht:
+<details>
+<summary>WebSocket-Listener mit LobbyID</summary>
+
+~~~java
+this.server.ws("/:lobby-id", ws -> {
+	ws.onConnect(this::handleNewClient);
+	ws.onMessage(this::handleClientMessage);
+	ws.onClose(this::handleClientDisconnect);
+});
+
+private void handleNewClient(WsSession session) {
+	Lobby lobby = App.getLobbyManager().getLobbyById(session.pathParam("lobby-id"));
+
+	// [...]
+}
+~~~
+</details>
+
+Hier benutzen wir `/:lobby-id` als Platzhalter. Den Wert des Platzhalters erhalten wir durch `session.pathParam("lobby-id")`. Wenn wir uns also zum Beispiel per WebSocket auf `ws://localhost/ABC123` verbinden, dann erhalten wir durch `session.pathParam("lobby-id")` den Wert `ABC123`. Somit können wir die Lobby identifizieren und z.B. den erhaltenen Spielerzug an die Lobby weitergeben.
