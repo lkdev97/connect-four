@@ -97,6 +97,15 @@ Am Ende befindet sich der `Zurück-Button`, welcher die Verbindung mit dem Spiel
 
 
 ## Aufbau der Anwendung
+Die Anwendung besteht aus vier Teilen:
+- Front-End (HTML, CSS und JavaScript)
+  - **UI** (`index.html`, `main.js`, und `ui.js`)
+  - **Kommunikation mit Server** (`connection.js`)
+- Back-End (Java)
+  - **Spiel-Logik** ()
+  - **Kommunikation mit Clients** ()
+
+
 ### Die Logik in Java
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
