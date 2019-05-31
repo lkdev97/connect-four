@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         createGameButton.addEventListener('click', createNewGame);
         txtUserName.addEventListener('click', changeUserName);
         joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
+        joinGameId.addEventListener('keydown', (ev) => {
+            if (ev.keyCode == 13) { // Enter Taste gedrückt
+                ev.preventDefault();
+                joinGameButton.click();
+            }
+        });
         leaveGameButton.addEventListener('click', disconnectFromGame);
         window.addEventListener('hashchange', () => {
             if (window.location.hash.length > 1) {
