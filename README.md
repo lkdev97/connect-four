@@ -37,8 +37,8 @@ Projektbeteiligte:
 		- [UI](#ui)
 		- [Kommunikation](#kommunikation)
 	- [Das Back-End](#das-back-end)
-		- [Spiel-Logik](#spiel-logik)
-		- [Server-Logik](#server-logik)
+		- [Spiellogik](#spiellogik)
+		- [Serverlogik](#serverlogik)
 - [Umsetzung der Spiellogik](#umsetzung-der-spiellogik)
 - [Der Netzcode](#der-netzcode)
 
@@ -109,8 +109,8 @@ Die Anwendung besteht aus zwei Teilen, die wiederum aus zwei weiteren Teilen bes
   - *UI*
   - *Kommunikation mit Server*
 * [**Das Back-End**](#das-back-end) (Java)
-  - *Spiel-Logik*
-  - *Server-Logik + Kommunikation mit Clients*
+  - *Spiellogik*
+  - *Serverlogik + Kommunikation mit Clients*
 
 Der Code der Anwendung wurde kommentiert und sollte beim Lesen verständlich sein.
 
@@ -159,13 +159,13 @@ Für die Kommunikation mit dem Server ist die Datei `connection.js` zuständig. 
 
 
 ### Das Back-End
-Hierzu gehören alle Dateien des [src/main/java](src/main/java)-Ordners. Die Dateien lassen sich einteilen in `Spiel-Logik` und `Server-Logik`. Der Einstiegspunkt für das Back-End befindet sich in `App.java`.
+Hierzu gehören alle Dateien des [src/main/java](src/main/java)-Ordners. Die Dateien lassen sich einteilen in `Spiellogik` und `Serverlogik`. Der Einstiegspunkt für das Back-End befindet sich in `App.java`.
 
-#### Spiel-Logik
-Alle Klassen, die zur Spiel-Logik gehören, befinden sich im Package `de.battleship`. Diese stellen das eigentliche Spiel dar, ohne die Interaktion zwischen den Webbrowser mit dem Server.
+#### Spiellogik
+Alle Klassen, die zur Spiellogik gehören, befinden sich im Package `de.battleship`. Diese stellen das eigentliche Spiel dar, ohne die Interaktion zwischen dem Webbrowser und dem Server.
 
-#### Server-Logik
-Alle Klassen, die zur Server-Logik gehören, befinden sich im Package `de.battleship.server`. Diese ermöglichen die Interaktion zwischen dem Webbrowser und der Spiel-Logik. Hier befinden sich die verschiedenen Packets, über welche der Server mit dem Client kommuniziert und Packet-Handler, welche die verschiedenen Packets vom Client verarbeiten. Außerdem werden hier Lobbies definiert, welche es erlauben, dass sich mehrere Spieler zu einem Spiel verbinden können.
+#### Serverlogik
+Alle Klassen, die zur Serverlogik gehören, befinden sich im Package `de.battleship.server`. Diese ermöglichen die Interaktion zwischen dem Webbrowser und der Spiellogik. Hier befinden sich die verschiedenen Packets, über welche der Server mit dem Client kommuniziert und Packet-Handler, welche die verschiedenen Packets vom Client verarbeiten. Außerdem werden hier Lobbies definiert, welche es erlauben, dass sich mehrere Spieler zu einem Spiel verbinden können.
 > Näheres zur Funktionsweise der Übertragung zwischen Server und Client siehe [Der Netzcode](#der-netzcode)
 
 
