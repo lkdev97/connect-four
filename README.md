@@ -9,10 +9,10 @@ können. Öffentliche Lobbies können über den Spiel-Browser auf der Startseite
 Lobby erhält. Diese gibt man in das vorgesehene Feld auf der Startseite ein und betritt so das Spiel. Sobald eine Lobby voll ist, kann man ihr auch als Zuschauer beitreten und
 mitchatten.
 
-Startseite
+#### Startseite
 ![Screenshot](documentation/Screenshot&#32;1.png)
 
-Spielfeld
+#### Spielfeld
 ![Screenshot](documentation/Screenshot&#32;2.png)
 
 Keywords: WebSockets, Bootstrap, Responsive Design, Server-Sent Events (SSE), JSON Mapper, Static Files, 
@@ -26,6 +26,8 @@ Projektbeteiligte:
 
 #### Inhalt
 - [Projekt: Vier Gewinnt! (Fr/2, Kr)](#projekt-vier-gewinnt-fr2-kr)
+			- [Startseite](#startseite)
+			- [Spielfeld](#spielfeld)
 			- [Inhalt](#inhalt)
 	- [Die Idee](#die-idee)
 	- [Der Einstieg](#der-einstieg)
