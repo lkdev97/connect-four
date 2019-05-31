@@ -1,9 +1,12 @@
-package de.battleship;
+package de.battleship.server;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.battleship.App;
+import de.battleship.Game;
+import de.battleship.Player;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutChatMessage;
 import de.battleship.server.packets.game.OutGameState;

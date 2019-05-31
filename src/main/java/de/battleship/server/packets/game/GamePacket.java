@@ -13,9 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import de.battleship.Lobby;
-import de.battleship.OnlinePlayer;
 import de.battleship.server.GameHandler;
+import de.battleship.server.Lobby;
+import de.battleship.server.OnlinePlayer;
 import io.javalin.websocket.WsSession;
 
 public abstract class GamePacket {

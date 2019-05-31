@@ -14,7 +14,7 @@ public class Game {
     private boolean gameOver;
     private Player winner = null;
 
-    Game(Player player1, Player player2) {
+    public Game(Player player1, Player player2) {
         players = new Player[2];
         players[0] = player1;
         players[1] = player2;

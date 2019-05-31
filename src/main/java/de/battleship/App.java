@@ -1,6 +1,8 @@
 package de.battleship;
 
 import de.battleship.server.GameHandler;
+import de.battleship.server.Lobby;
+import de.battleship.server.LobbyManager;
 import de.battleship.server.WebHandler;
 import io.javalin.Javalin;
 

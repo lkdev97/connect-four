@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.battleship.App;
-import de.battleship.Lobby;
 import de.battleship.server.packets.web.InCreateLobby;
 import de.battleship.server.packets.web.OutCreateLobby;
 import de.battleship.server.packets.web.OutError;

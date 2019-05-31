@@ -1,8 +1,8 @@
 package de.battleship.server.packets.game;
 
-import de.battleship.Lobby;
-import de.battleship.OnlinePlayer;
 import de.battleship.server.GameHandler;
+import de.battleship.server.Lobby;
+import de.battleship.server.OnlinePlayer;
 import de.battleship.server.packets.game.OutChatMessage;
 import io.javalin.websocket.WsSession;
 

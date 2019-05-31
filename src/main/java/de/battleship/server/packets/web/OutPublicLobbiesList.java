@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import de.battleship.Lobby;
+import de.battleship.server.Lobby;
 
 public class OutPublicLobbiesList extends WebPacket {
     public List<Lobby.Data> lobbies;

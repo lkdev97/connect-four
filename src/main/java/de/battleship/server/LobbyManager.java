@@ -1,6 +1,9 @@
-package de.battleship;
+package de.battleship.server;
 
 import java.util.HashMap;
+
+import de.battleship.App;
+
 import java.util.Collection;
 
 /**

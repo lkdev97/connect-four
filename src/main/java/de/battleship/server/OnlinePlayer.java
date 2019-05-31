@@ -1,7 +1,8 @@
-package de.battleship;
+package de.battleship.server;
 
 import java.util.Objects;
 
+import de.battleship.Player;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
 import io.javalin.websocket.WsSession;

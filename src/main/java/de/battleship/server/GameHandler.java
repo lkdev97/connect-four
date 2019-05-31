@@ -3,8 +3,6 @@ package de.battleship.server;
 import java.util.HashMap;
 
 import de.battleship.App;
-import de.battleship.Lobby;
-import de.battleship.OnlinePlayer;
 import de.battleship.server.packets.game.GamePacket;
 import de.battleship.server.packets.game.OutError;
 import io.javalin.Javalin;

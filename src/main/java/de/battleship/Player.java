@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Player {
 
-    String name;
-    int wins;
+    protected String name;
+    protected int wins;
 
     public Player(String name) {
         this.name = name;
