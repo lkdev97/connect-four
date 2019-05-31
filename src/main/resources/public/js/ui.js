@@ -208,6 +208,8 @@ function addChatMessage(message) {
     }
 
     chatMessagesContainer.appendChild(messageElement);
+    // nach unten scrollen
+    chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight - chatMessagesContainer.clientHeight;
 }
 // Löscht alle Nachrichten aus dem Chat.
 function clearChat() {
