@@ -3,16 +3,20 @@ package de.battleship.server.packets.game;
 public class OutChatMessage extends GamePacket {
     public String sender;
     public String content;
-    public OutChatMessage.Type type;
+    public String type;
 
 
     public OutChatMessage(String sender, String content) {
         this(sender, content, OutChatMessage.Type.NORMAL);
     }
+
+    public OutChatMessage(String content, OutChatMessage.Type type) {
+        this(null, content, type);
+    }
     public OutChatMessage(String sender, String content, OutChatMessage.Type type) {
         this.sender = sender;
         this.content = content;
-        this.type = type;
+        this.type = type.toString();
     }
 
 

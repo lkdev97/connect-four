@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.battleship.server.packets.game.GamePacket;
+import de.battleship.server.packets.game.OutChatMessage;
 import de.battleship.server.packets.game.OutGameField;
 
 public class Lobby {
@@ -41,6 +42,7 @@ public class Lobby {
                 App.getWebHandler().broadcastUpdatePublicLobby(this);
 
             this.sendGameFieldUpdate();
+            this.sendPacket(new OutChatMessage(">> " + player.getName() + " ist dem Spiel beigetreten", OutChatMessage.Type.JOIN_GAME));
             return true;
         }
 
@@ -56,6 +58,8 @@ public class Lobby {
 
         if (this.players.size() <= 0)
             App.getLobbyManager().removeLobby(this);
+
+        this.sendPacket(new OutChatMessage("<< " + player.getName() + " hat das Spiel verlassen", OutChatMessage.Type.LEAVE_GAME));
     }
     
 
@@ -78,7 +82,6 @@ public class Lobby {
             if (this.spectators.get(i) instanceof OnlinePlayer)
                 ((OnlinePlayer) this.spectators.get(i)).sendPacket(packet);
     }
-
     public void sendGameFieldUpdate() {
         if (this.hasGame())
             this.sendPacket(new OutGameField(this.game.toString()));
