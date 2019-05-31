@@ -98,6 +98,7 @@ function disconnectFromGame() {
     hideBoard();
     clearBoardContent();
     clearChat();
+    setGameStatus('');
     location.hash = '';
 }
 

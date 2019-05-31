@@ -59,8 +59,10 @@ public class Lobby {
                 this.game.setP2(null);
         }
 
-        this.players.remove(player);
-        this.spectators.remove(player);
+        if (this.players.remove(player) || this.spectators.remove(player))
+            this.sendPacket(new OutChatMessage("<< " + player.getName() + " hat das Spiel verlassen",
+                    OutChatMessage.Type.WARNING));
+        
         this.checkGamePlayers();
 
         if (this.isPublic())
@@ -69,7 +71,7 @@ public class Lobby {
         if (this.players.size() <= 0)
             App.getLobbyManager().removeLobby(this);
 
-        this.sendPacket(new OutChatMessage("<< " + player.getName() + " hat das Spiel verlassen", OutChatMessage.Type.WARNING));
+        this.sendGameState();
     }
     
 
@@ -97,8 +99,10 @@ public class Lobby {
             String status = "";
             if (this.game.getWinner() != null)
                 status = this.game.getWinner().getName() + " hat gewonnen!";
-            else
+            else if (this.game.getCurrentPlayer() != null)
                 status = this.game.getCurrentPlayer().getName() + " ist am Zug";
+            else
+                status = "Warte auf mehr Spieler...";
 
             this.sendPacket(new OutGameState(status, this.game.toString()));
         }
