@@ -106,7 +106,44 @@ function hideBoard() {
 }
 
 
+// Lädt alle UI-Referenzen und registriert UI-Events.
+// Gibt true zurück, falls alle UI-Elemente gefunden wurden.
+function initUI() {
+    if (updateUIReferences()) {
+        createGameButton.addEventListener('click', createNewGame);
+        txtUserName.addEventListener('click', changeUserName);
+        joinGameButton.addEventListener('click', () => joinGame(joinGameId.value));
+        joinGameId.addEventListener('keydown', (ev) => {
+            if (ev.keyCode == 13) { // Enter Taste gedrückt
+                ev.preventDefault();
+                joinGameButton.click();
+            }
+        });
+        leaveGameButton.addEventListener('click', disconnectFromGame);
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash.length > 1) {
+                joinGameId.value = window.location.hash.substr(1);
 
+                if (!isConnectedToGame())
+                    joinGame(joinGameId.value);
+            }
+        });
+        chatSendButton.addEventListener('click', () => {
+            sendChatMessage(chatInputBox.value);
+            clearChatInput();
+        });
+        chatInputBox.addEventListener('keydown', (ev) => {
+            if (ev.keyCode == 13) { // Enter Taste gedrückt
+                ev.preventDefault();
+                chatSendButton.click();
+            }
+        });
+
+        return true;
+    }
+
+    return false;
+}
 // Lädt Referenzen auf UI Elemente neu.
 function updateUIReferences() {
     createGameButton = document.getElementById('create-game-button');
