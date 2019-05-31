@@ -44,6 +44,30 @@ function changeUserName() {
     setUserName(prompt("Spielname ändern", playerName) || playerName);
 }
 
+/*
+* die Funktion erstellt über eine for-Schleife das Spielfeld "board"
+* erst wird das Element über die id geholt und in der for-Schleife wird das Feld dupliziert bis das Feld 64 Felder hat
+* jedem Feld wird gesagt in welcher Spalte es liegt. Die Spalte wird in dem id von dem box-Element gespeichert
+* 
+*       <div id="box" class="box">
+*            <button id=2 type="button" onclick="sendRow(this)" class="btn btn-light"></button>
+*        </div>
+*/
+// Diese Funktion wird nicht mehr benötigt, da der Server dem Client den Inhalt des Feldes sendet.
+/*function loadBoardContent() {
+    var box = document.getElementById("box");
+    var html = "";
+    var row_counter = 1;
+    for (var i = 1; i < 65; i++) {
+        if (row_counter > 8) row_counter = 1;
+        box.firstElementChild.id = row_counter;
+        html += box.parentElement.innerHTML;
+        row_counter++;
+    }
+    board.innerHTML = html;
+}*/
+
+
 /**
  * Sobald man einem bestehenden Spiel beitritt oder eins erstellt wird das Spielfeld angezeigt
  * 
@@ -56,6 +80,7 @@ function showBoard(gameId) {
     document.getElementById('chat-container').classList.remove('is--hidden');
     document.getElementById('join-game-wrapper').classList.add('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.add('is--hidden');
+    //document.getElementById("new-game").classList.remove('is--hidden');
     document.getElementById("leave-lobby").classList.remove('is--hidden');
     document.getElementById("url-box").classList.remove('is--hidden');
     document.getElementById("username").classList.add('is--hidden');
@@ -78,6 +103,7 @@ function hideBoard() {
     document.getElementById('chat-container').classList.add('is--hidden');
     document.getElementById('join-game-wrapper').classList.remove('is--hidden');
     document.getElementById('browse-lobbies-wrapper').classList.remove('is--hidden');
+    //document.getElementById("new-game").classList.add('is--hidden');
     document.getElementById("leave-lobby").classList.add('is--hidden');
     document.getElementById("url-box").classList.add('is--hidden');
     document.getElementById("username").classList.remove('is--hidden');
