@@ -68,15 +68,12 @@ html, body, .main-wrapper {
 }
 
 .header--box {
-   /* background: #6ed3cf; */
     min-height: 60px;
     text-align: center;
     border-radius: 25px;
 }
 .main-wrapper {
     background: #eee;
-    /*border-left: 1px solid;
-    border-right: 1px solid; */
     box-shadow: 24px 10px 19px 14px rgba(0,0,0,0.75);
     border-radius:5px;
 }
@@ -130,8 +127,6 @@ html, body, .main-wrapper {
 }
 
 .main-header {
-    /*border: 1px solid black;
-    background: black; */
     color: white;
     display: inline-block;
     border-radius: 5px;
