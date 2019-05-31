@@ -3,18 +3,19 @@
 
 > Bestimmt kennen Sie alle [Vier Gewinnt](https://de.wikipedia.org/wiki/Vier_gewinnt). Hierbei handelt es sich um ein Spiel für zwei Personen, bei dem die Spieler im Wechsel 
 rote und gelbe Steine in ein (in unserem Fall) 8x8-Spielfeld legen. Wer es zuerst schafft, vier Steine seiner Farbe in eine Reihe (horizontal, vertikal oder diagonal) zu bringen,
-gewinnt. Unsere Anwendung ist darauf ausgelegt, das Spiel auf zwei verschiedenen Rechnern gegeneinander zu spielen. Jeder kann sich beim betreten der Seite einen Nutzernamen 
+gewinnt. Unsere Anwendung ist darauf ausgelegt, das Spiel auf zwei verschiedenen Rechnern gegeneinander zu spielen. Jeder kann sich beim Betreten der Seite einen Nutzernamen 
 aussuchen. Dabei können auch mehrere Spiele gleichzeitig laufen. Das funktioniert, weil die Spiele in einzelnen Lobbies stattfinden, welche entweder öffentlich oder privat sein
-können. Öffentliche Lobbies können über den Spiel-Browser auf der Startseite betreten werden, während man für private Lobbies eine Spiel-ID benötigt, die man vom ersteller der 
+können. Öffentliche Lobbies können über den Spiel-Browser auf der Startseite betreten werden, während man für private Lobbies eine Spiel-ID benötigt, die man vom Ersteller der 
 Lobby erhält. Diese gibt man in das vorgesehene Feld auf der Startseite ein und betritt so das Spiel. Sobald eine Lobby voll ist, kann man ihr auch als Zuschauer beitreten und
 mitchatten.
 
-### Startseite
-![Screenshot](Screenshot 1.png)
-### Spielfeld
-![Screenshot](Screenshot 2.png)
+Startseite
+![Screenshot](documentation/Screenshot&#32;1.png)
 
-Keywords: Websockets, Bootstrap, responsive Design, Server-Sent Events (SSE), MongoDB
+Spielfeld
+![Screenshot](documentation/Screenshot&#32;2.png)
+
+Keywords: WebSockets, Bootstrap, Responsive Design, Server-Sent Events (SSE), JSON Mapper, Static Files, 
 
 Projektbeteiligte:
 
@@ -23,12 +24,17 @@ Projektbeteiligte:
 * Alexander Pantelkin
 * Felix Schopen
 
-### Inhalt
-- [Projekt: Vier Gewinnt!](#Einleitung)
-  - [Die Idee](#die-idee)
-  - [Die Darstellung des Spielbretts](#die-darstellung-des-spielbretts)
-  - [Die Logik in Java](#die-logik-in-java)
-  - [Anleitung](#anleitung)
+#### Inhalt
+- [Projekt: Vier Gewinnt! (Fr/2, Kr)](#projekt-vier-gewinnt-fr2-kr)
+			- [Inhalt](#inhalt)
+	- [Die Idee](#die-idee)
+	- [Der Einstieg](#der-einstieg)
+		- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
+		- [UI im Browser aufrufen](#ui-im-browser-aufrufen)
+		- [Erklärung der UI](#erkl%C3%A4rung-der-ui)
+	- [Aufbau der Anwendung](#aufbau-der-anwendung)
+		- [Die Logik in Java](#die-logik-in-java)
+	- [Anleitung](#anleitung)
 
 
 ## Die Idee
@@ -40,19 +46,26 @@ Unser Ziel war es zunächst, eine Vier-Gewinnt-Anwendung zu schreiben. Diese wol
     * Private Spiele können über einen Code betreten werden
     * Öffentliche Spiele können in einem Browser eingesehen werden
 * Es gibt eine Chatfunktion in jeder Lobby
+* Man kann eine Lobby (sowohl öffentlich als auch privat) mit einer eigenen Lobby-Url betreten
 * Man kann eine Lobby auch als Zuschauer betreten
 
-## Die Darstellung des Spielbretts
 
-Officia aliquip elit eu dolor anim. Ut ullamco labore pariatur proident. Duis enim officia nostrud eu culpa. Consequat laborum amet deserunt eiusmod. Ea cupidatat est labore culpa. Nisi voluptate duis consectetur ut eiusmod deserunt. Anim elit excepteur aliquip adipisicing eiusmod ex officia elit velit dolor ipsum enim nostrud consequat.
+## Der Einstieg
+### Setup und Starten der Anwendung
+Um die Anwendung zu starten, benötigt man das Tool [Gradle](https://gradle.org) und selbstverständlich Java. In der Konsole navigiert man in den Ordner, der 
+die `build.gradle` Datei enthält. Hier führt man den Befehl `gradle run` aus. Nachdem alles Nötige heruntergeladen und kompiliert wurde, sollte nun automatisch der Javalin Server starten und das UI sollte unter `http://localhost/` erreichbar sein. 
 
-Nostrud officia ipsum sint qui adipisicing elit deserunt ullamco labore labore. Quis ex enim cupidatat Lorem. Pariatur incididunt excepteur aliqua enim dolore. Incididunt consectetur reprehenderit occaecat fugiat fugiat aliqua adipisicing aute tempor proident. Cillum ut dolore aute officia.
+### UI im Browser aufrufen
+Als Host erreicht man die Seite im Internetbrowser
+unter dem link `http://localhost/`. Andere Spieler müssen sich über die lokale [IP-Adresse]() des Hosts verbinden. Dazu müssen sie sich aber im selben 
+Netzwerk wie der Host befinden. Man kann die Serveranwendung auch auf einem dedizierten Server starten, welcher dann von überall aus verfügbar ist.
 
-Consectetur qui id ea enim mollit ut in anim sunt exercitation sit qui. Velit est cupidatat culpa ipsum dolor consequat ea excepteur do id non nostrud consectetur enim. Voluptate nostrud laboris aute qui eiusmod. Lorem tempor aliquip nostrud Lorem. Anim ipsum Lorem velit do magna nulla commodo velit deserunt veniam in tempor.
+### Erklärung der UI
+Sobald die Seite geladen wurde, sieht man ein Fenster, in das man seinen Namen eingibt.
 
-Aliquip dolor occaecat do ad qui amet. Reprehenderit sit est non anim anim proident sint velit ea. Irure minim quis ut quis. Ipsum non amet adipisicing veniam pariatur anim non et nostrud eu. Ex consectetur fugiat deserunt qui est irure adipisicing ipsum magna irure. Consequat cillum id esse sunt fugiat aliquip veniam enim commodo irure elit.
 
-## Die Logik in Java
+## Aufbau der Anwendung
+### Die Logik in Java
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
 
@@ -274,6 +287,7 @@ Die beiden Methoden generieren einen HTML-Code, der dem aktuellen Spielfeld ents
 </details>
 <br>
 
+<<<<<<< Updated upstream
 ## Anleitung
 (Für den Fall, dass jemand nicht weiß, wie das Starten der Anwendung funktioniert)
 Um die Anwendung zu starten benötigt man das Tool [Gradle](https://gradle.org) und selbstverständlich Java. In der Konsole navigiert man in den Ordner, der 
@@ -281,3 +295,5 @@ die `build.gradle` Datei enthält. Hier führt man den Befehl `gradle run` aus. 
 unter dem link `http://localhost:80/`. Andere Spieler müssen sich über die lokale [IPv4-Adresse]() des Hosts verbinden. Dazu müssen sie sich aber im selben 
 Netzwerk wie der Host befinden.
 
+=======
+>>>>>>> Stashed changes
