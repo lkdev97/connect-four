@@ -44,7 +44,7 @@ Aliquip dolor occaecat do ad qui amet. Reprehenderit sit est non anim anim proid
 ## Die Logik in Java
 Intern besteht das Spielfeld aus einem zweidimensionalen Array namens `field`. Ist es leer, steht an jeder Stelle eine **0**. Bei der durchführung eines Spielzuges wird an der
 richtigen Stelle eine **1** für **Spieler 1** oder eine **2** für **Spieler 2** eingefügt. Dazu wird die Methode `makeTurn()` verwendet:
-~~~
+~~~java
 public boolean makeTurn(int column) {
     if (!checkWin()) {
         for (int i = field[column].length - 1; i >= 0; i--) {
@@ -70,7 +70,7 @@ Solange noch niemand gewonnen hat, wird in der gewünschten Spalte(column) der l
 `turn` jeden gültigen Spielzug zwischen den zwei Spielern (0/1).
 
 Um zu ermitteln, ob einer der Spieler gewonnen hat, verwenden wir die Methode `checkWin()`:
-~~~
+~~~java
 boolean checkWin() {
 
     if (gameOver) {
