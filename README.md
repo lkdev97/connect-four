@@ -273,7 +273,7 @@ Die beiden Methoden generieren einen HTML-Code, der dem aktuellen Spielfeld ents
 </details>
 <br>
 
-##Anleitung
+## Anleitung
 Um die Anwendung zu starten benötigt man das Tool [Gradle](https://gradle.org) und selbstverständlich Java. In der Konsole navigiert man in den Ordner, der 
 die `build.gradle` Datei enthält. Hier führt man den Befehl `gradle run` aus. Das Programm sollte jetzt starten. Als Host erreicht man die Seite im Internetbrowser
 unter dem link `http://localhost:80/`. Andere Spieler müssen sich über die lokale [IPv4-Adresse]() des Hosts verbinden. Dazu müssen sie sich aber im selben 
