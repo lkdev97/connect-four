@@ -213,7 +213,7 @@ html, body, .main-wrapper {
     border-bottom: none;
 }
 
-.chat-container * .message>.user {
+.chat-container * .message>.sender {
     font-weight: bold;
 }
 
