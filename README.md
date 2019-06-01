@@ -28,7 +28,7 @@ Projektbeteiligte:
 - [Der Einstieg](#der-einstieg)
 	- [Setup und Starten der Anwendung](#setup-und-starten-der-anwendung)
 	- [UI im Browser aufrufen](#ui-im-browser-aufrufen)
-	- [Erklärung des UI](#erklärung-des-ui)
+	- [Erklärung des UI](#erkl%C3%A4rung-des-ui)
 		- [Spielername](#spielername)
 		- [Hauptseite](#hauptseite)
 		- [Spielseite](#spielseite)
@@ -403,7 +403,7 @@ Eine große Herausforderung war es, den Netzcode zu entwickeln. Es wurden hohe A
 5. Lobbies unterstützen, damit nur bestimmte Spieler eine Nachricht oder Spielfelddaten erhalten
 
 Das alles musste der Netzcode ohne große Verzögerungen bewältigen können. Uns ist aufgefallen, dass man diese Anforderungen in zwei Teile aufteilen kann:
-* Die Punkte 1 und 2 steuern nur die Elemente auf der [Hauptseite](#hauptseite) (`Lobby-Browser` und der `Spiel erstellen` Button). Außerdem darf die Verzögerung zwar nicht groß sein, jedoch ist es in Ordnung, falls eine neu erstellte Lobby zum Beispiel erst nach eine Sekunde bei den anderen Clients angezeigt wird.
+* Die Punkte 1 und 2 steuern nur die Elemente auf der [Hauptseite](#hauptseite) (`Lobby-Browser` und der `Spiel erstellen` Button). Außerdem darf die Verzögerung zwar nicht groß sein, jedoch ist es in Ordnung, falls eine neu erstellte Lobby zum Beispiel erst nach einer Sekunde bei den anderen Clients angezeigt wird.
 * Die anderen Punkte haben nur etwas mit der [Spielseite](#spielseite) zu tun und erfordern die Übertragung in Echtzeit (ohne Verzögerungen)
 
 Deshalb haben wir uns dazu entschieden, für die Punkte 1 und 2 mit SSE und POST-Requests zu arbeiten. Die Lobbydaten werden dann per Event übertragen und das Erstellen einer Lobby wird mit einem POST-Request realisiert. Für die restlichen Punkte möchten wir WebSockets benutzen, da sie schnell sind und man eine einzige dauerhafte Verbindung zwischen dem Server und dem Client hat (mit SSE hätte man zwar auch eine dauerhafte Verbindung, diese ist jedoch nur einseitig, d.h., man kann keine Daten vom Client zum Server senden). Dadurch kann man das Client-Objekt (in Javalin ein Objekt von `WsSession`) in einer Liste speichern, die sich in einem Lobby-Objekt befindet. Somit könnte man auch die Lobbies realisieren.
@@ -412,7 +412,7 @@ Dadurch gibt es im Server-Code auch die Unterscheidung zwischen `web` (SSE und P
 
 
 ### SSE
-Die Implementierung von WebSockets ist dank Javalin nicht schwer. Diese vier Zeilen aus `WebHandler.java` fügen neue SSE Clients, die sich mit `/lobbylist` verbinden, in eine Liste ein (und entfernt diese wieder, wenn die Verbindung getrennt wird):
+Die Implementierung von SSE ist dank Javalin nicht schwer. Diese vier Zeilen aus `WebHandler.java` fügen neue SSE Clients, die sich mit `/lobbylist` verbinden, in eine Liste ein (und entfernt diese wieder, wenn die Verbindung getrennt wird):
 <details>
 <summary>SSE connect handler aus WebHandler.java</summary>
 
@@ -512,7 +512,7 @@ let Packet = {
 
 Wenn zum Beispiel ein Packet mit der ID 17 ankommt, dann weiß der Handler, dass es sich hierbei um eine Chat-Nachricht handelt.
 
-Man sieht hier auch eine Unterscheidung zwischen `InPackets` und `OutPackets`. `InPackets` sind lediglich `ausgehende Packets` (die Packets, die versendet werden). `OutPackets` sind `eingehende Packets` (die Packets, die von der Gegenseite gesendet werden).
+Man sieht hier auch eine Unterscheidung zwischen `InPackets` und `OutPackets`. `InPackets` sind lediglich `eingehende Packets` (die Packets, die von der Gegenseite gesendet werden). `OutPackets` sind `ausgehende Packets` (die Packets, die versendet werden).
 
 
 ### Lobby Verbindung mit WebSockets
@@ -530,7 +530,7 @@ this.server.ws("/test", ws -> {
 ~~~
 </details>
 
-Dann ist dieser Listener dauerhaft aktiv auf `/test`. Wir haben uns aber überlegt, dass wir statt `/test` lieber die Lobby-ID haben möchten, um die Lobby zu identifizieren, die der Spieler versucht zu erreichen. Da die Lobbies aber auch geschlossen werden können, sollten wir auch den WebSocket-Listener schließen. Wir haben leider keine Möglichkeit gefunden, das zu realisieren. Stattdessen haben wir Folgendes gemacht:
+Dann ist dieser Listener dauerhaft aktiv auf `/test`. Wir haben uns aber überlegt, dass wir statt `/test` lieber die Lobby-ID haben möchten, um die Lobby zu identifizieren, die der Spieler versucht zu erreichen. Da die Lobbies aber auch geschlossen werden können, sollten wir auch den WebSocket-Listener schließen, damit sich niemand mehr mit dieser Lobby verbinden kann. Wir haben leider keine Möglichkeit gefunden, das zu realisieren. Stattdessen haben wir Folgendes gemacht:
 <details>
 <summary>WebSocket-Listener mit LobbyID</summary>
 
