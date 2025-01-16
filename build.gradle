@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+    main {
+        java {
+            exclude 'de/battleship/GameTest.java'
+       }
+   }
+}
+
+dependencies {
+    compile 'io.javalin:javalin:2.8.0'
+    compile 'org.slf4j:slf4j-simple:1.7.26'
+    compile "com.fasterxml.jackson.core:jackson-databind:2.9.8"
+}
+
+mainClassName = 'de.battleship.App'

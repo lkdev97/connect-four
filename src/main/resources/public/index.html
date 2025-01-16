@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/connection.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Vier Gewinnt!</title>
+</head>
+
+<body>
+    <header>
+        <div class="container header--box">
+            <div class="main-header-box">
+                <h1 class="main-header">Vier gewinnt!</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container main-wrapper">
+        <div id="username"></div>
+        <div id="join-game-wrapper" class="join-game-wrapper">
+            <div class="create-game-container">
+                <h2>Eigenes Spiel erstellen</h2>
+                Erstelle ein neues Spiel.<br />
+                <br />
+                <br />
+                <input id="create-game-public-box" type="checkbox" /> <label
+                    for="create-game-public-box">&Ouml;ffentliches
+                    Spiel (unten im Spielbrowser
+                    einsehbar)</label><br />
+                <span id="create-game-button" class="link">&gt;&gt; Erstellen</span>
+            </div>
+            <div class="join-game-container">
+                <h2>Einem Spiel beitreten</h2>
+                Falls dein Partner ein Spiel erstellt hat, dann frage ihn nach dem Code und gib ihn unten ein.<br />
+                Alternativ kann er/sie Dir einen Link geben, mit dem du direkt in sein/ihr Spiel kommst.<br />
+                <br />
+                Code: <input id="join-game-code" type="text" placeholder="Hier eingeben" />
+                <br />
+                <br />
+                <span id="join-game-button" class="link">&gt;&gt; Spiel beitreten</span>
+            </div>
+        </div>
+        <div id="browse-lobbies-wrapper" class="browse-lobbies-wrapper">
+            <h2>&Ouml;ffentliche Spiele (<span id="lobby-counter">0</span>)</h2>
+            <table id="lobby-browser" class="lobby-browser-table">
+                <thead>
+                    <tr>
+                        <td>Spiel-Code</td>
+                        <td>Spieler</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <!--<div class="d-flex p-2 justify-content-center">
+            <button type="button" onclick="showBoard(this)" class="btn btn-success">Start Game!</button>
+            <button type="button" class="btn btn-primary">New Game!</button>
+        </div> -->
+        <div id="url-box" class="url-box">
+            <p id="game-url"></p>
+        </div>
+        <div id="game-status-container" class="container-fluid text-center is--hidden">
+            <span id="game-status-text" class="font-weight-bold"></span>
+        </div>
+        <div class="d-flex p-2 justify-content-center">
+            <!-- SPIELBRETT -->
+            <div class="board is--hidden" id="board"></div>
+
+            <!-- CHAT -->
+            <div class="chat-container is--hidden" id="chat-container">
+                <div class="messages-box align-self-start" id="chat-messages-container"></div>
+                <div class="input-group align-self-end control-box">
+                    <input id="chat-input-box" class="form-control" type="text" />
+                    <div class="input-group-append">
+                        <button id="chat-send-button" class="btn btn-secondary">Senden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex p-2 justify-content-center">
+            <button id="leave-lobby" type="button" class="btn btn-warning is--hidden">Zurück</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    background: #ff512f; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ff512f, #f09819, aqua); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ff512f, #f09819, aqua); 
+}
+
+.wrapper {
+    margin: auto;
+    margin-top: 50px;
+
+    width: fit-content;
+    max-width: 800px;
+
+    padding: 20px;
+
+    box-shadow: 0px 0px 3px 3px #AAAAAA;
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.join-game-wrapper {
+    width: 100%;
+
+    display: flex;
+}
+.join-game-container {
+    flex: 1.0;
+    padding-left: 20px;
+    border-left: 1px solid #BBBBBB;
+}
+.create-game-container {
+    flex: 1.0;
+    padding-right: 20px;
+    border-right: 1px solid #AAAAAA;
+}
+
+.lobby-browser-table {
+    width: 100%;
+
+    padding: 5px;
+
+    box-shadow: 0px 0px 2px 1px #AAAAAA;
+    border-radius: 10px;
+}
+.lobby-browser-table>thead {
+    text-align: center;
+    font-weight: bold;
+}
+.lobby-browser-table>tbody {
+    text-align: center;
+}
+
+.link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+header {
+    border-bottom: 1px solid black;
+}
+html, body, .main-wrapper {
+    height:100%;
+}
+
+.header--box {
+   /* background: #6ed3cf; */
+    min-height: 60px;
+    text-align: center;
+    border-radius: 25px;
+}
+.main-wrapper {
+    background: #eee;
+    /*border-left: 1px solid;
+    border-right: 1px solid; */
+    box-shadow: 24px 10px 19px 14px rgba(0,0,0,0.75);
+    border-radius:5px;
+}
+
+.board {
+    width: 432.9px;
+    min-width: 432.9px;
+    height: 401px;
+    border: 1px solid black;
+    background: blue;
+}
+.board button {
+    border: 1px solid;
+    border-radius: 50% !important;
+    background: white;
+}
+.box {
+    width: 50px;
+    height: 48px;
+    border: 4px solid blue;
+    background: blue;
+    display: inline-grid;
+}
+
+.red-ball {
+    background: red !important;
+}
+
+.yellow-ball {
+    background: yellow !important;
+}
+
+.green-ball {
+    background: green !important;
+}
+
+.is--hidden {
+    display: none !important;
+}
+#game-url, .context-box {
+    text-align: center;
+}
+
+.main-header::before, .main-header-box::after {
+    content: "";
+    height: 30px;
+    width: 30px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.main-header {
+    /*border: 1px solid black;
+    background: black; */
+    color: white;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.main-header::after, .main-header-box::before {
+    content: "";
+    height: 30px;
+    width: 30px;
+    background-color: yellow;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.browse-lobbies-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.winner {
+    box-shadow: 0px 0px 1px 6px rgb(112, 255, 112);
+    z-index: 10;
+}
+
+#username {
+    cursor: pointer;
+    text-decoration: underline;
+    max-width: 400px;
+    overflow: auto;
+    font-style: italic;
+}
+
+
+
+
+/* CHAT */
+.chat-container {
+    background-color: #FFFFFF;
+
+    width: 25%;
+    height: 401px;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    border: 1px solid #000000;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    overflow: hidden;
+}
+
+.chat-container>.messages-box {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    padding: 5px;
+}
+
+.chat-container>.control-box {
+    flex: 1;
+    padding: 5px;
+
+    border-top: 1px solid #AAAAAA;
+}
+
+.chat-container * .message {
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    font-size: 0.9em;
+}
+
+.chat-container * .message>.sender {
+    font-weight: bold;
+}
+
+.chat-container * .message>.content {
+    margin-left: 5px;
+}
+
+.message.message-success {
+    font-style: italic;
+
+    color: rgb(86, 192, 86);
+}
+.message.message-warning {
+    font-style: italic;
+
+    color: rgb(192, 173, 89);
+}
